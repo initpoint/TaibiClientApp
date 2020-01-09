@@ -26,6 +26,14 @@ export function tokenGetter() {
     LoginComponent,
     RegisterComponent,
   ],
+  exports: [
+    AppComponent,
+    LayoutComponent,
+    NavbarComponent,
+    SideMenuComponent,
+    LoginComponent,
+    RegisterComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,

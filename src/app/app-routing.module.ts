@@ -16,6 +16,7 @@ const routes: Routes = [
     children: [
       // pages route
       { path: 'dashbord', loadChildren: () => import('./pages/dashbord/dashbord.module').then(m => m.DashbordModule), canActivate: [AuthGuard] },
+      { path: 'universities', loadChildren: () => import('./pages/universities/universities.module').then(m => m.UniversitiesModule), canActivate: [AuthGuard] },
       { path: 'my-profile', loadChildren: () => import('./pages/user-managment/my-profile/my-profile.module').then(m => m.MyProfileModule), canActivate: [AuthGuard] },
       { path: 'super-admins', loadChildren: () => import('./pages/super-admins/super-admins.module').then(m => m.SuperAdminsModule), canActivate: [AuthGuard] },
     ]
