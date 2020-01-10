@@ -1,5 +1,5 @@
 <div class="wrapper">
-		
+
     <div class="search-sec">
         <div class="container">
             <div class="search-box">
@@ -7,9 +7,11 @@
                     <input type="text" name="search" placeholder="Search keywords">
                     <button type="submit">Search</button>
                 </form>
-            </div><!--search-box end-->
+            </div>
+            <!--search-box end-->
         </div>
-    </div><!--search-sec end-->
+    </div>
+    <!--search-sec end-->
 
 
     <main>
@@ -22,20 +24,21 @@
                                 <div class="filter-heading">
                                     <h3>Filters</h3>
                                     <a href="#" title="">Clear all filters</a>
-                                </div><!--filter-heading end-->
+                                </div>
+                                <!--filter-heading end-->
                                 <div class="paddy">
                                     <div class="filter-dd">
                                         <div class="filter-ttl">
-                                            <h3>Skills</h3>
+                                            <h3>Keywords</h3>
                                             <a href="#" title="">Clear</a>
                                         </div>
                                         <form>
-                                            <input type="text" name="search-skills" placeholder="Search skills">
+                                            <input type="text" name="search-skills" placeholder="Search keyword">
                                         </form>
                                     </div>
                                     <div class="filter-dd">
                                         <div class="filter-ttl">
-                                            <h3>Availabilty</h3>
+                                            <h3>Audiance</h3>
                                             <a href="#" title="">Clear</a>
                                         </div>
                                         <ul class="avail-checks">
@@ -44,40 +47,53 @@
                                                 <label for="c1">
                                                     <span></span>
                                                 </label>
-                                                <small>Hourly</small>
+                                                <small>Public</small>
                                             </li>
                                             <li>
                                                 <input type="radio" name="cc" id="c2">
                                                 <label for="c2">
                                                     <span></span>
                                                 </label>
-                                                <small>Part Time</small>
+                                                <small>RSVP only</small>
                                             </li>
                                             <li>
                                                 <input type="radio" name="cc" id="c3">
                                                 <label for="c3">
                                                     <span></span>
                                                 </label>
-                                                <small>Full Time</small>
+                                                <small>Invitations only</small>
+                                            </li>
+                                            <li>
+                                                <input type="radio" name="cc" id="c4">
+                                                <label for="c4">
+                                                    <span></span>
+                                                </label>
+                                                <small>University Affiliates only</small>
                                             </li>
                                         </ul>
                                     </div>
                                     <div class="filter-dd">
                                         <div class="filter-ttl">
-                                            <h3>Job Type</h3>
+                                            <h3>Event Type</h3>
                                             <a href="#" title="">Clear</a>
                                         </div>
                                         <form class="job-tp">
                                             <select>
-                                                <option>Select a job type</option>
-                                                <option>Select a job type</option>
-                                                <option>Select a job type</option>
-                                                <option>Select a job type</option>
+                                                <option>Seminar</option>
+                                                <option>Party</option>
+                                                <option>Exhibition</option>
+                                                <option>Lecture</option>
+                                                <option>Forum</option>
+                                                <option>Open House</option>
+                                                <option>Session</option>
+                                                <option>Play</option>
+                                                <option>Audition</option>
+                                                <option>Conference</option>
                                             </select>
                                             <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                                         </form>
                                     </div>
-                                    <div class="filter-dd">
+                                    <!-- <div class="filter-dd">
                                         <div class="filter-ttl">
                                             <h3>Pay Rate / Hr ($)</h3>
                                             <a href="#" title="">Clear</a>
@@ -88,26 +104,27 @@
                                         <div class="rg-limit">
                                             <h4>1</h4>
                                             <h4>100+</h4>
-                                        </div><!--rg-limit end-->
-                                    </div>
+                                        </div>
+                                    </div> -->
                                     <div class="filter-dd">
                                         <div class="filter-ttl">
-                                            <h3>Experience Level</h3>
+                                            <h3>Date</h3>
                                             <a href="#" title="">Clear</a>
                                         </div>
                                         <form class="job-tp">
-                                            <select>
+                                            <input type="date" name="" id="">
+                                            <!-- <select>
                                                 <option>Select a experience level</option>
                                                 <option>3 years</option>
                                                 <option>4 years</option>
                                                 <option>5 years</option>
                                             </select>
-                                            <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                                            <i class="fa fa-ellipsis-v" aria-hidden="true"></i> -->
                                         </form>
                                     </div>
                                     <div class="filter-dd">
                                         <div class="filter-ttl">
-                                            <h3>Countries</h3>
+                                            <h3>Location</h3>
                                             <a href="#" title="">Clear</a>
                                         </div>
                                         <form class="job-tp">
@@ -121,22 +138,24 @@
                                         </form>
                                     </div>
                                 </div>
-                            </div><!--filter-secs end-->
+                            </div>
+                            <!--filter-secs end-->
                         </div>
                         <div class="col-lg-6">
                             <div class="main-ws-sec">
                                 <div class="posts-section">
-                                    <div class="post-bar">
+                                    <div class="post-bar" *ngFor="let item of [1,2,3,4,5,6]">
                                         <div class="post_topbar">
                                             <div class="usy-dt">
-                                                <img src="http://via.placeholder.com/50x50" alt="">
+                                                <img style="width: 50px;" src="assets/images/1.svg" alt="">
                                                 <div class="usy-name">
-                                                    <h3>John Doe</h3>
-                                                    <span><img src="images/clock.png" alt="">3 min ago</span>
+                                                    <h3>The American University In Cairo (AUC)</h3>
+                                                    <span><img src="assets/images/clock.png" alt="">3 min ago</span>
                                                 </div>
                                             </div>
                                             <div class="ed-opts">
-                                                <a href="#" title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
+                                                <a href="#" title="" class="ed-opts-open"><i
+                                                        class="la la-ellipsis-v"></i></a>
                                                 <ul class="ed-options">
                                                     <li><a href="#" title="">Edit Post</a></li>
                                                     <li><a href="#" title="">Unsaved</a></li>
@@ -148,247 +167,76 @@
                                         </div>
                                         <div class="epi-sec">
                                             <ul class="descp">
-                                                <li><img src="images/icon8.png" alt=""><span>Front End Developer</span></li>
-                                                <li><img src="images/icon9.png" alt=""><span>India</span></li>
+                                                <li><img src="assets/images/icon8.png" alt=""><span>Public</span></li>
+                                                <li><img src="assets/images/icon9.png" alt=""><span>Main Campus</span></li>
                                             </ul>
                                             <ul class="bk-links">
-                                                <li><a href="#" title=""><i class="la la-bookmark"></i></a></li>
-                                                <li><a href="#" title=""><i class="la la-envelope"></i></a></li>
-                                                <li><a href="#" title="" class="bid_now">Bid Now</a></li>
+                                                <!-- <li><a href="#" title=""><i class="la la-bookmark"></i></a></li>
+                                                <li><a href="#" title=""><i class="la la-envelope"></i></a></li> -->
+                                                <li><a href="#" title="" class="bid_now">RSVP</a></li>
                                             </ul>
                                         </div>
                                         <div class="job_descp">
-                                            <h3>Simple Classified Site</h3>
-                                            <ul class="job-dt">
-                                                <li><span>$300 - $350</span></li>
+                                            <!-- <h3>Simple Classified Site</h3> -->                                            <ul class="job-dt">
+                                                <li><span>3PM - 8PM Saturday 25/12/2019</span></li>
                                             </ul>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam luctus hendrerit metus, ut ullamcorper quam finibus at. Etiam id magna sit amet... <a href="#" title="">view more</a></p>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam luctus
+                                                hendrerit metus, ut ullamcorper quam finibus at. Etiam id magna sit
+                                                amet... <a href="#" title="">view more</a></p>
                                             <ul class="skill-tags">
-                                                <li><a href="#" title="">HTML</a></li>
-                                                <li><a href="#" title="">PHP</a></li>
-                                                <li><a href="#" title="">CSS</a></li>
-                                                <li><a href="#" title="">Javascript</a></li>
-                                                <li><a href="#" title="">Wordpress</a></li> 	
+                                                <li><a href="#" title="">Global Warming</a></li>
+                                                <li><a href="#" title="">Graduate Studies</a></li>
+                                                <li><a href="#" title="">Sustainability</a></li>
+                                                <li><a href="#" title="">Environment</a></li>
+                                                <!-- <li><a href="#" title="">Wordpress</a></li> 	
                                                 <li><a href="#" title="">Photoshop</a></li> 	
                                                 <li><a href="#" title="">Illustrator</a></li> 	
-                                                <li><a href="#" title="">Corel Draw</a></li> 	
+                                                <li><a href="#" title="">Corel Draw</a></li> 	 -->
                                             </ul>
                                         </div>
                                         <div class="job-status-bar">
                                             <ul class="like-com">
                                                 <li>
-                                                    <a href="#" title="" class="active"><i class="la la-heart"></i> Like</a>
-                                                    <img src="images/liked-img.png" alt="">
+                                                    <a href="#" title="" class="active"><i class="la la-heart"></i>
+                                                        Like</a>
+                                                    <img src="assets/images/liked-img.png" alt="">
                                                     <span>25</span>
-                                                </li> 
-                                                <li><a href="#" title="" class="com"><img src="images/com.png" alt=""> Comment 15</a></li>
+                                                </li>
+                                                <li><a href="#" title="" class="com"><img src="assets/images/com.png" alt="">
+                                                        Comment 15</a></li>
                                             </ul>
+                                            <a><i class="la la-share" style="margin-left: 20px;"></i>Share 609</a>
                                             <a><i class="la la-eye"></i>Views 50</a>
                                         </div>
-                                    </div><!--post-bar end-->
-                                    <div class="post-bar">
-                                        <div class="post_topbar">
-                                            <div class="usy-dt">
-                                                <img src="http://via.placeholder.com/50x50" alt="">
-                                                <div class="usy-name">
-                                                    <h3>John Doe</h3>
-                                                    <span><img src="images/clock.png" alt="">3 min ago</span>
-                                                </div>
-                                            </div>
-                                            <div class="ed-opts">
-                                                <a href="#" title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
-                                                <ul class="ed-options">
-                                                    <li><a href="#" title="">Edit Post</a></li>
-                                                    <li><a href="#" title="">Unsaved</a></li>
-                                                    <li><a href="#" title="">Unbid</a></li>
-                                                    <li><a href="#" title="">Close</a></li>
-                                                    <li><a href="#" title="">Hide</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="epi-sec">
-                                            <ul class="descp">
-                                                <li><img src="images/icon8.png" alt=""><span>Front End Developer</span></li>
-                                                <li><img src="images/icon9.png" alt=""><span>India</span></li>
-                                            </ul>
-                                            <ul class="bk-links">
-                                                <li><a href="#" title=""><i class="la la-bookmark"></i></a></li>
-                                                <li><a href="#" title=""><i class="la la-envelope"></i></a></li>
-                                                <li><a href="#" title="" class="bid_now">Bid Now</a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="job_descp">
-                                            <h3>Ios Shopping mobile app</h3>
-                                            <ul class="job-dt">
-                                                <li><span>$300 - $350</span></li>
-                                            </ul>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam luctus hendrerit metus, ut ullamcorper quam finibus at. Etiam id magna sit amet... <a href="#" title="">view more</a></p>
-                                            <ul class="skill-tags">
-                                                <li><a href="#" title="">HTML</a></li>
-                                                <li><a href="#" title="">PHP</a></li>
-                                                <li><a href="#" title="">CSS</a></li>
-                                                <li><a href="#" title="">Javascript</a></li>
-                                                <li><a href="#" title="">Wordpress</a></li> 	
-                                                <li><a href="#" title="">Photoshop</a></li> 	
-                                                <li><a href="#" title="">Illustrator</a></li> 	
-                                                <li><a href="#" title="">Corel Draw</a></li> 	
-                                            </ul>
-                                        </div>
-                                        <div class="job-status-bar">
-                                            <ul class="like-com">
-                                                <li>
-                                                    <a href="#" title="" class="active"><i class="la la-heart"></i> Like</a>
-                                                    <img src="images/liked-img.png" alt="">
-                                                    <span>25</span>
-                                                </li> 
-                                                <li><a href="#" title="" class="com"><img src="images/com.png" alt=""> Comment 15</a></li>
-                                            </ul>
-                                            <a><i class="la la-eye"></i>Views 50</a>
-                                        </div>
-                                    </div><!--post-bar end-->
-                                    <div class="post-bar">
-                                        <div class="post_topbar">
-                                            <div class="usy-dt">
-                                                <img src="http://via.placeholder.com/50x50" alt="">
-                                                <div class="usy-name">
-                                                    <h3>John Doe</h3>
-                                                    <span><img src="images/clock.png" alt="">3 min ago</span>
-                                                </div>
-                                            </div>
-                                            <div class="ed-opts">
-                                                <a href="#" title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
-                                                <ul class="ed-options">
-                                                    <li><a href="#" title="">Edit Post</a></li>
-                                                    <li><a href="#" title="">Unsaved</a></li>
-                                                    <li><a href="#" title="">Unbid</a></li>
-                                                    <li><a href="#" title="">Close</a></li>
-                                                    <li><a href="#" title="">Hide</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="epi-sec">
-                                            <ul class="descp">
-                                                <li><img src="images/icon8.png" alt=""><span>Front End Developer</span></li>
-                                                <li><img src="images/icon9.png" alt=""><span>India</span></li>
-                                            </ul>
-                                            <ul class="bk-links">
-                                                <li><a href="#" title=""><i class="la la-bookmark"></i></a></li>
-                                                <li><a href="#" title=""><i class="la la-envelope"></i></a></li>
-                                                <li><a href="#" title="" class="bid_now">Bid Now</a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="job_descp">
-                                            <h3>Simple Classified Site</h3>
-                                            <ul class="job-dt">
-                                                <li><span>$300 - $350</span></li>
-                                            </ul>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam luctus hendrerit metus, ut ullamcorper quam finibus at. Etiam id magna sit amet... <a href="#" title="">view more</a></p>
-                                            <ul class="skill-tags">
-                                                <li><a href="#" title="">HTML</a></li>
-                                                <li><a href="#" title="">PHP</a></li>
-                                                <li><a href="#" title="">CSS</a></li>
-                                                <li><a href="#" title="">Javascript</a></li>
-                                                <li><a href="#" title="">Wordpress</a></li> 	
-                                                <li><a href="#" title="">Photoshop</a></li> 	
-                                                <li><a href="#" title="">Illustrator</a></li> 	
-                                                <li><a href="#" title="">Corel Draw</a></li> 	
-                                            </ul>
-                                        </div>
-                                        <div class="job-status-bar">
-                                            <ul class="like-com">
-                                                <li>
-                                                    <a href="#" title="" class="active"><i class="la la-heart"></i> Like</a>
-                                                    <img src="images/liked-img.png" alt="">
-                                                    <span>25</span>
-                                                </li> 
-                                                <li><a href="#" title="" class="com"><img src="images/com.png" alt=""> Comment 15</a></li>
-                                            </ul>
-                                            <a><i class="la la-eye"></i>Views 50</a>
-                                        </div>
-                                    </div><!--post-bar end-->
-                                    <div class="post-bar">
-                                        <div class="post_topbar">
-                                            <div class="usy-dt">
-                                                <img src="http://via.placeholder.com/50x50" alt="">
-                                                <div class="usy-name">
-                                                    <h3>John Doe</h3>
-                                                    <span><img src="images/clock.png" alt="">3 min ago</span>
-                                                </div>
-                                            </div>
-                                            <div class="ed-opts">
-                                                <a href="#" title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
-                                                <ul class="ed-options">
-                                                    <li><a href="#" title="">Edit Post</a></li>
-                                                    <li><a href="#" title="">Unsaved</a></li>
-                                                    <li><a href="#" title="">Unbid</a></li>
-                                                    <li><a href="#" title="">Close</a></li>
-                                                    <li><a href="#" title="">Hide</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="epi-sec">
-                                            <ul class="descp">
-                                                <li><img src="images/icon8.png" alt=""><span>Front End Developer</span></li>
-                                                <li><img src="images/icon9.png" alt=""><span>India</span></li>
-                                            </ul>
-                                            <ul class="bk-links">
-                                                <li><a href="#" title=""><i class="la la-bookmark"></i></a></li>
-                                                <li><a href="#" title=""><i class="la la-envelope"></i></a></li>
-                                                <li><a href="#" title="" class="bid_now">Bid Now</a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="job_descp">
-                                            <h3>Ios Shopping mobile app</h3>
-                                            <ul class="job-dt">
-                                                <li><span>$300 - $350</span></li>
-                                            </ul>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam luctus hendrerit metus, ut ullamcorper quam finibus at. Etiam id magna sit amet... <a href="#" title="">view more</a></p>
-                                            <ul class="skill-tags">
-                                                <li><a href="#" title="">HTML</a></li>
-                                                <li><a href="#" title="">PHP</a></li>
-                                                <li><a href="#" title="">CSS</a></li>
-                                                <li><a href="#" title="">Javascript</a></li>
-                                                <li><a href="#" title="">Wordpress</a></li> 	
-                                                <li><a href="#" title="">Photoshop</a></li> 	
-                                                <li><a href="#" title="">Illustrator</a></li> 	
-                                                <li><a href="#" title="">Corel Draw</a></li> 	
-                                            </ul>
-                                        </div>
-                                        <div class="job-status-bar">
-                                            <ul class="like-com">
-                                                <li>
-                                                    <a href="#" title="" class="active"><i class="la la-heart"></i> Like</a>
-                                                    <img src="images/liked-img.png" alt="">
-                                                    <span>25</span>
-                                                </li> 
-                                                <li><a href="#" title="" class="com"><img src="images/com.png" alt=""> Comment 15</a></li>
-                                            </ul>
-                                            <a><i class="la la-eye"></i>Views 50</a>
-                                        </div>
-                                    </div><!--post-bar end-->
-                                    <div class="process-comm">
+                                    </div>
+                                    <!--post-bar end-->
+                                    <!-- <div class="process-comm">
                                         <div class="spinner">
                                             <div class="bounce1"></div>
                                             <div class="bounce2"></div>
                                             <div class="bounce3"></div>
                                         </div>
-                                    </div><!--process-comm end-->
-                                </div><!--posts-section end-->
-                            </div><!--main-ws-sec end-->
+                                    </div> -->
+                                    <!--process-comm end-->
+                                </div>
+                                <!--posts-section end-->
+                            </div>
+                            <!--main-ws-sec end-->
                         </div>
                         <div class="col-lg-3">
                             <div class="right-sidebar">
                                 <div class="widget widget-about">
-                                    <img src="images/wd-logo.png" alt="">
-                                    <h3>Track Time on Workwise</h3>
-                                    <span>Pay only for the Hours worked</span>
-                                    <div class="sign_link">
+                                    <img src="assets/images/events.png" style="width: 80px;" alt="">
+                                    <h3>Events</h3>
+                                    <!-- <span>Pay only for the Hours worked</span> -->
+                                    <!-- <div class="sign_link">
                                         <h3><a href="#" title="">Sign up</a></h3>
                                         <a href="#" title="">Learn More</a>
-                                    </div>
-                                </div><!--widget-about end-->
+                                    </div> -->
+                                </div>
+                                <!--widget-about end-->
                                 <div class="widget widget-jobs">
-                                    <div class="sd-title">
+                                    <!-- <div class="sd-title">
                                         <h3>Top Jobs</h3>
                                         <i class="la la-ellipsis-v"></i>
                                     </div>
@@ -401,8 +249,9 @@
                                             <div class="hr-rate">
                                                 <span>$25/hr</span>
                                             </div>
-                                        </div><!--job-info end-->
-                                        <div class="job-info">
+                                        </div> -->
+                                        <!--job-info end-->
+                                        <!-- <div class="job-info">
                                             <div class="job-details">
                                                 <h3>Senior UI / UX Designer</h3>
                                                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
@@ -410,8 +259,9 @@
                                             <div class="hr-rate">
                                                 <span>$25/hr</span>
                                             </div>
-                                        </div><!--job-info end-->
-                                        <div class="job-info">
+                                        </div> -->
+                                        <!--job-info end-->
+                                        <!-- <div class="job-info">
                                             <div class="job-details">
                                                 <h3>Junior Seo Designer</h3>
                                                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
@@ -419,8 +269,9 @@
                                             <div class="hr-rate">
                                                 <span>$25/hr</span>
                                             </div>
-                                        </div><!--job-info end-->
-                                        <div class="job-info">
+                                        </div> -->
+                                        <!--job-info end-->
+                                        <!-- <div class="job-info">
                                             <div class="job-details">
                                                 <h3>Senior PHP Designer</h3>
                                                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
@@ -428,8 +279,9 @@
                                             <div class="hr-rate">
                                                 <span>$25/hr</span>
                                             </div>
-                                        </div><!--job-info end-->
-                                        <div class="job-info">
+                                        </div> -->
+                                        <!--job-info end-->
+                                        <!-- <div class="job-info">
                                             <div class="job-details">
                                                 <h3>Senior Developer Designer</h3>
                                                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
@@ -437,10 +289,13 @@
                                             <div class="hr-rate">
                                                 <span>$25/hr</span>
                                             </div>
-                                        </div><!--job-info end-->
-                                    </div><!--jobs-list end-->
-                                </div><!--widget-jobs end-->
-                                <div class="widget widget-jobs">
+                                        </div> -->
+                                        <!--job-info end-->
+                                    <!-- </div> -->
+                                    <!--jobs-list end-->
+                                </div>
+                                <!--widget-jobs end-->
+                                <!-- <div class="widget widget-jobs">
                                     <div class="sd-title">
                                         <h3>Most Viewed This Week</h3>
                                         <i class="la la-ellipsis-v"></i>
@@ -454,8 +309,9 @@
                                             <div class="hr-rate">
                                                 <span>$25/hr</span>
                                             </div>
-                                        </div><!--job-info end-->
-                                        <div class="job-info">
+                                        </div> -->
+                                        <!--job-info end-->
+                                        <!-- <div class="job-info">
                                             <div class="job-details">
                                                 <h3>Senior UI / UX Designer</h3>
                                                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
@@ -463,23 +319,28 @@
                                             <div class="hr-rate">
                                                 <span>$25/hr</span>
                                             </div>
-                                        </div><!--job-info end-->
-                                        <div class="job-info">
-                                            <div class="job-details">
+                                        </div> -->
+                                        <!--job-info end-->
+                                        <!-- <div class="job-info"> -->
+                                            <!-- <div class="job-details">
                                                 <h3>Junior Seo Designer</h3>
                                                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
                                             </div>
                                             <div class="hr-rate">
                                                 <span>$25/hr</span>
                                             </div>
-                                        </div><!--job-info end-->
-                                    </div><!--jobs-list end-->
-                                </div><!--widget-jobs end-->
-                            </div><!--right-sidebar end-->
+                                        </div> -->
+                                        <!--job-info end-->
+                                    <!-- </div> -->
+                                    <!--jobs-list end-->
+                                <!-- </div> -->
+                                <!--widget-jobs end-->
+                            </div>
+                            <!--right-sidebar end-->
                         </div>
                     </div>
                 </div><!-- main-section-data end-->
-            </div> 
+            </div>
         </div>
     </main>
 
@@ -532,10 +393,13 @@
                         </div>
                     </div>
                 </form>
-            </div><!--post-project-fields end-->
+            </div>
+            <!--post-project-fields end-->
             <a href="#" title=""><i class="la la-times-circle-o"></i></a>
-        </div><!--post-project end-->
-    </div><!--post-project-popup end-->
+        </div>
+        <!--post-project end-->
+    </div>
+    <!--post-project-popup end-->
 
     <div class="post-popup job_post">
         <div class="post-project">
@@ -584,10 +448,13 @@
                         </div>
                     </div>
                 </form>
-            </div><!--post-project-fields end-->
+            </div>
+            <!--post-project-fields end-->
             <a href="#" title=""><i class="la la-times-circle-o"></i></a>
-        </div><!--post-project end-->
-    </div><!--post-project-popup end-->
+        </div>
+        <!--post-project end-->
+    </div>
+    <!--post-project-popup end-->
 
 
 </div>
