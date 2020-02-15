@@ -1,0 +1,94 @@
+<div class="filter-secs">
+    <div class="filter-heading">
+        <h3>Filters</h3>
+        <a [routerLink]="['/vacancies']" title="">Clear all filters</a>
+    </div>
+    <!--filter-heading end-->
+    <div class="paddy">
+        <div class="filter-dd">
+            <div class="filter-ttl">
+                <h3>Keywords</h3>
+                <a [routerLink]="['/vacancies']" title="">Clear</a>
+            </div>
+            <form>
+                <input type="text" name="search-skills" placeholder="Search keyword">
+            </form>
+        </div>
+        <div class="filter-dd">
+            <div class="filter-ttl">
+                <h3>Availabilty</h3>
+                <a [routerLink]="['/vacancies']" title="">Clear</a>
+            </div>
+            <ul class="avail-checks">
+                <li>
+                    <input type="radio" name="cc" id="c1">
+                    <label for="c1">
+                        <span></span>
+                    </label>
+                    <small>Hourly</small>
+                </li>
+                <li>
+                    <input type="radio" name="cc" id="c2">
+                    <label for="c2">
+                        <span></span>
+                    </label>
+                    <small>Part Time</small>
+                </li>
+                <li>
+                    <input type="radio" name="cc" id="c3">
+                    <label for="c3">
+                        <span></span>
+                    </label>
+                    <small>Full Time</small>
+                </li>
+            </ul>
+        </div>
+        <div class="filter-dd">
+            <div class="filter-ttl">
+                <h3>Type</h3>
+                <a [routerLink]="['/vacancies']" title="">Clear</a>
+            </div>
+            <form class="job-tp">
+                <select>
+                    <option>Undergraduate</option>
+                    <option>Graduate</option>
+                    <option>Post-Doctorial</option>
+                    <option>Non-degree</option>
+                </select>
+                <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+            </form>
+        </div>
+        <div class="filter-dd">
+            <div class="filter-ttl">
+                <h3>Duration</h3>
+                <a [routerLink]="['/vacancies']" title="">Clear</a>
+            </div>
+            <div class="rg-slider">
+                <input class="rn-slider slider-input" type="hidden" value="5,50" />
+            </div>
+            <div class="rg-limit">
+                <h4>1</h4>
+                <h4>100+</h4>
+            </div>
+        </div>
+        <div class="filter-dd">
+            <form class="job-tp">
+            </form>
+        </div>
+        <div class="filter-dd">
+            <div class="filter-ttl">
+                <h3>Location</h3>
+                <a [routerLink]="['/vacancies']" title="">Clear</a>
+            </div>
+            <form class="job-tp">
+                <select>
+                    <option>Select a country</option>
+                    <option>United Kingdom</option>
+                    <option>United States</option>
+                    <option>Russia</option>
+                </select>
+                <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+            </form>
+        </div>
+    </div>
+</div>

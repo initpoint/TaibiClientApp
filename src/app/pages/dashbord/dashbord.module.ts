@@ -10,6 +10,8 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { SuggestionsComponent } from './suggestions/suggestions.component';
 import { TagsSecComponent } from './tags-sec/tags-sec.component';
 import { LoaderComponent } from './loader/loader.component';
+import { VacanciesComponent } from './vacancies/vacancies.component';
+import { LiftSideFilterComponent } from './lift-side-filter/lift-side-filter.component';
 
 
 const routes: Routes = [
@@ -24,7 +26,9 @@ const routes: Routes = [
     UserProfileComponent,
     SuggestionsComponent,
     TagsSecComponent,
-    LoaderComponent
+    LoaderComponent,
+    VacanciesComponent,
+    LiftSideFilterComponent
   ],
   imports: [
     CommonModule,
