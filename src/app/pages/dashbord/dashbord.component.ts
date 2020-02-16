@@ -1,23 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ItemsService } from 'src/app/shared/services/Items.service';
+import { Item } from 'src/app/shared/models/items.model';
 
 @Component({
   selector: 'app-dashbord',
   templateUrl: './dashbord.component.html',
-  styleUrls: ['./dashbord.component.scss']
+  styleUrls: ['./dashbord.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class DashbordComponent implements OnInit {
 
-  constructor(private itemsService: ItemsService) { }
+  constructor() { }
 
   ngOnInit() {
-    this.itemsService.getItems().subscribe(x =>  {
-      x.map(e => {
-       console.log(e.payload.doc.data())
-      })
-
-    }
-      );
   }
 
+  
 }

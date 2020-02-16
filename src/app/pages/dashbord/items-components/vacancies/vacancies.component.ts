@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Item } from 'src/app/shared/models/items.model';
 
 @Component({
   selector: 'app-vacancies',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class VacanciesComponent implements OnInit {
 
+  @Input() item: Item = new Item();
+
   constructor() { }
 
   ngOnInit() {
+    console.log('item form vacanies', this.item.tags);
   }
 
 }

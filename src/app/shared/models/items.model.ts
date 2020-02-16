@@ -1,5 +1,6 @@
 export class Item {
     public constructor(
+        public id?: string,
         public commnets?: string[],
         public content?: string,
         public createDate?: Date,

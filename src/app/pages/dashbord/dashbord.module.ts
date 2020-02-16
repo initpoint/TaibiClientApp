@@ -3,37 +3,35 @@ import { CommonModule } from '@angular/common';
 import { DashbordComponent } from './dashbord.component';
 import { Routes, RouterModule } from '@angular/router';
 import { SharedModuleModule } from 'src/app/shared/modules/shared-module.module';
-import { AppModule } from 'src/app/app.module';
-import { UniversitiesPostsComponent } from './universities-posts/universities-posts.component';
+import { UniversitiesPostsComponent } from './items-components/universities-posts/universities-posts.component';
 import { RightSidebarComponent } from './right-sidebar/right-sidebar.component';
-import { UserProfileComponent } from './user-profile/user-profile.component';
-import { SuggestionsComponent } from './suggestions/suggestions.component';
-import { TagsSecComponent } from './tags-sec/tags-sec.component';
 import { LoaderComponent } from './loader/loader.component';
-import { VacanciesComponent } from './vacancies/vacancies.component';
+import { VacanciesComponent } from './items-components/vacancies/vacancies.component';
 import { LiftSideFilterComponent } from './lift-side-filter/lift-side-filter.component';
+import { FacilitiesComponent } from './items-components/facilities/facilities.component';
+import { ItemsComponentsComponent } from './items-components/items-components.component';
 
 
 const routes: Routes = [
-  { path: '', component: DashbordComponent }
+  { path: '', component: DashbordComponent },
+  { path: 'items', component: LoaderComponent }
 ]
 
 @NgModule({
   declarations: [
     DashbordComponent,
     UniversitiesPostsComponent,
+    FacilitiesComponent,
     RightSidebarComponent,
-    UserProfileComponent,
-    SuggestionsComponent,
-    TagsSecComponent,
     LoaderComponent,
     VacanciesComponent,
-    LiftSideFilterComponent
+    LiftSideFilterComponent,
+    ItemsComponentsComponent
   ],
   imports: [
     CommonModule,
     SharedModuleModule,
-		RouterModule.forChild(routes)
+    RouterModule.forChild(routes)
   ]
 })
 export class DashbordModule { }
