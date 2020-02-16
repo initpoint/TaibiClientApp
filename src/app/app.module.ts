@@ -14,6 +14,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FooterModule } from './shared/components/footer/footer.module';
 import { JwtModule } from '@auth0/angular-jwt';
 import { JwtInterceptor } from './shared/services/jwt-interceptor.service';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { environment } from 'src/environments/environment';
+import { AngularFirestore } from '@angular/fire/firestore';
 export function tokenGetter() {
   return localStorage.getItem('token');
 }
@@ -41,6 +45,8 @@ export function tokenGetter() {
     HttpClientModule,
     FormsModule,
     FooterModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule,
     ReactiveFormsModule,
     JwtModule.forRoot({
       config: {
@@ -53,7 +59,8 @@ export function tokenGetter() {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,
       multi: true
-    }
+    },
+    AngularFirestore
   ],
   bootstrap: [AppComponent]
 })

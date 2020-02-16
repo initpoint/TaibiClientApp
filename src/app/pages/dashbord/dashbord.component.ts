@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ItemsService } from 'src/app/shared/services/Items.service';
 
 @Component({
   selector: 'app-dashbord',
@@ -7,10 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashbordComponent implements OnInit {
 
-  constructor() { }
+  constructor(private itemsService: ItemsService) { }
 
   ngOnInit() {
-    console.log(localStorage.getItem('tokenData'))
+    this.itemsService.getItems().subscribe(x =>  {
+      x.map(e => {
+       console.log(e.payload.doc.data())
+      })
+
+    }
+      );
   }
 
 }
