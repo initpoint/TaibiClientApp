@@ -9,16 +9,13 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent implements OnInit {
 
-@Output() toggleMenu:EventEmitter<void> = new EventEmitter<void>();
-  constructor(public coreService: CoreService,private router: Router) { }
-  toggle(){
-   this.toggleMenu.emit()
+  constructor(public coreService: CoreService, private router: Router) { }
+
+  ngOnInit() {
   }
-  ngOnInit() { 
-   
-   }
-   logOut(){
-     localStorage.clear();
-     this.router.navigate(['login']);
-   }
+
+  logout() {
+    localStorage.clear();
+    this.router.navigate(['login']);
+  }
 }
