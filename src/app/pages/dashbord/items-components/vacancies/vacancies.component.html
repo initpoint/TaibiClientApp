@@ -1,13 +1,13 @@
 <div class="post-bar">
     <div class="post_topbar">
         <div class="usy-dt">
-            <img style="width: 50px;" src="assets/images/1.svg" alt="">
+            <img style="width: 50px;" [src]="item.user.photoUrl" alt="">
             <div class="usy-name">
-                <h3>The American University In Cairo (AUC)</h3>
+                <h3>{{item.user.name}}</h3>
                 <span><img src="assets/images/clock.png" alt="">3 min ago</span>
             </div>
         </div>
-        <div class="ed-opts">
+        <!-- <div class="ed-opts">
             <a [routerLink]="['/vacancies']" title="" class="ed-opts-open"><i
                     class="la la-ellipsis-v"></i></a>
             <ul class="ed-options">
@@ -17,7 +17,7 @@
                 <li><a [routerLink]="['/vacancies']" title="">Close</a></li>
                 <li><a [routerLink]="['/vacancies']" title="">Hide</a></li>
             </ul>
-        </div>
+        </div> -->
     </div>
     <div class="epi-sec">
         <ul class="descp">
@@ -34,13 +34,11 @@
         </ul>
     </div>
     <div class="job_descp">
-        <h3>Senior Web Developer</h3>
+        <h3>{{item.vacanciesTitle}}</h3>
         <ul class="job-dt">
             <!-- <li><span>3PM - 8PM Saturday 25/12/2019</span></li> -->
         </ul>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam luctus
-            hendrerit metus, ut ullamcorper quam finibus at. Etiam id magna sit
-            amet... <a [routerLink]="['/vacancies']" title="">view more</a></p>
+        <p>{{item.vacanciesDescirption}} <a [routerLink]="['/vacancies']" title="">view more</a></p>
         <ul class="skill-tags">
             <li><a [routerLink]="['/vacancies']" title="">Research</a></li>
             <li><a [routerLink]="['/vacancies']" title="">Scientific Paper</a></li>

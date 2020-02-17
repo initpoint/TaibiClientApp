@@ -1,10 +1,6 @@
-export class Login {
+export class LoginVM {
   public constructor(
-    public username?: string,
-    public password?: string,
-    public rememberMe?: boolean,
-    public loader?: boolean,
-  ) {
-
-  }
+    public email?: string,
+    public password?: string
+  ) { }
 }

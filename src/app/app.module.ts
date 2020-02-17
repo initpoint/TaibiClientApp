@@ -18,6 +18,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { environment } from 'src/environments/environment';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFireAuth } from '@angular/fire/auth';
 export function tokenGetter() {
   return localStorage.getItem('token');
 }
@@ -60,7 +61,8 @@ export function tokenGetter() {
       useClass: JwtInterceptor,
       multi: true
     },
-    AngularFirestore
+    AngularFirestore,
+    AngularFireAuth
   ],
   bootstrap: [AppComponent]
 })

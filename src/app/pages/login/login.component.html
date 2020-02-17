@@ -9,12 +9,12 @@
             <fieldset>
 
                 <p><label for="email">E-mail address</label></p>
-                <p><input type="email" id="email" placeholder="mail@address.com"></p>
+                <p><input type="email" id="email" name="email" [(ngModel)]="loginVM.email" placeholder="mail@address.com"></p>
 
                 <p><label for="password">Password</label></p>
-                <p><input type="password" id="password" placeholder="password"></p>
+                <p><input type="password" id="password"  name="password" [(ngModel)]="loginVM.password" placeholder="password"></p>
 
-                <p [routerLink]="['/dashbord']"><input type="submit" value="Sign In"></p>
+                <p ><input type="submit" value="Sign In" (click)="login()"></p>
             </fieldset>
 
         </div> <!-- end login -->

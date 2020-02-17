@@ -10,12 +10,11 @@ import { AuthService } from '../services/auth.service';
 export class AuthGuard implements CanActivate {
   public constructor(private router: Router, public jwtHelper: JwtHelperService, public auth: AuthService) { }
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    // const token = localStorage.getItem('token');
-    //   if(this.jwtHelper.isTokenExpired(token))
-    //   {
-    //     this.router.navigate(['login']);
-    //     return false;
-    //   }
-      return true;
+    const token = localStorage.getItem('token');
+    if (this.jwtHelper.isTokenExpired(token)) {
+      this.router.navigate(['login']);
+      return false;
+    }
+    return true;
   }
 } 

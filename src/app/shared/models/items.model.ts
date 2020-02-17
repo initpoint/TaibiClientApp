@@ -2,7 +2,8 @@ export class Item {
     public constructor(
         public id?: string,
         public commnets?: string[],
-        public content?: string,
+        public vacanciesDescirption?: string,
+        public vacanciesTitle?: string,
         public createDate?: Date,
         public usersLikeIds?: string[],
         public usersSharedIds?: string[],
@@ -17,7 +18,7 @@ export class AppUser {
     public constructor(
         public id?: string,
         public name?: string,
-        public photoUrls?: string,
+        public photoUrl?: string,
     ) { }
 }
 
