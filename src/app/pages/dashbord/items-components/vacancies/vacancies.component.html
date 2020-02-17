@@ -7,56 +7,36 @@
                 <span><img src="assets/images/clock.png" alt="">3 min ago</span>
             </div>
         </div>
-        <!-- <div class="ed-opts">
-            <a [routerLink]="['/vacancies']" title="" class="ed-opts-open"><i
-                    class="la la-ellipsis-v"></i></a>
-            <ul class="ed-options">
-                <li><a [routerLink]="['/vacancies']" title="">Edit Post</a></li>
-                <li><a [routerLink]="['/vacancies']" title="">Unsaved</a></li>
-                <li><a [routerLink]="['/vacancies']" title="">Unbid</a></li>
-                <li><a [routerLink]="['/vacancies']" title="">Close</a></li>
-                <li><a [routerLink]="['/vacancies']" title="">Hide</a></li>
-            </ul>
-        </div> -->
     </div>
     <div class="epi-sec">
         <ul class="descp">
-            <li><img src="assets/images/icon8.png"
-                    alt=""><span>Post-Doctorial</span></li>
+            <li><img src="assets/images/icon8.png" alt=""><span>Post-Doctorial</span></li>
             <li><img src="assets/images/icon9.png" alt=""><span>Main Campus</span>
             </li>
         </ul>
         <ul class="bk-links">
-            <!-- <li><a [routerLink]="['/vacancies']" title=""><i class="la la-bookmark"></i></a></li>
-            <li><a [routerLink]="['/vacancies']" title=""><i class="la la-envelope"></i></a></li> -->
-            <li><a [routerLink]="['/vacancies']" title="" class="bid_now"
-                    style="background-color: rgb(91, 204, 91);">Apply</a></li>
+            <li><a title="" class="bid_now" style="background-color: rgb(91, 204, 91);">Apply</a></li>
         </ul>
     </div>
     <div class="job_descp">
         <h3>{{item.vacanciesTitle}}</h3>
         <ul class="job-dt">
-            <!-- <li><span>3PM - 8PM Saturday 25/12/2019</span></li> -->
+            <li><span>{{item.createDate.toDate()| date: 'dd MMM hh:mm'  }}</span></li>
         </ul>
-        <p>{{item.vacanciesDescirption}} <a [routerLink]="['/vacancies']" title="">view more</a></p>
+        <p>{{item.descirption}}</p>
         <ul class="skill-tags">
-            <li><a [routerLink]="['/vacancies']" title="">Research</a></li>
-            <li><a [routerLink]="['/vacancies']" title="">Scientific Paper</a></li>
-            <li><a [routerLink]="['/vacancies']" title="">Microelectronics</a></li>
-            <li><a [routerLink]="['/vacancies']" title="">VLSI</a></li>
-            <li><a [routerLink]="['/vacancies']" title="">Safety</a></li>
+            <li *ngFor="let tag of item.tags"><a title="">{{tag}}</a></li>
         </ul>
     </div>
     <div class="job-status-bar">
         <ul class="like-com">
             <li>
-                <a [routerLink]="['/vacancies']" title="" class="active"><i class="la la-heart"></i>
+                <a title="" class="active"><i class="la la-heart"></i>
                     Like</a>
                 <img src="assets/images/liked-img.png" alt="">
                 <span>25</span>
             </li>
-            <li><a [routerLink]="['/vacancies']" title="" class="com"><img src="assets/images/com.png"
-                        alt="">
+            <li><a title="" class="com"><img src="assets/images/com.png" alt="">
                     Comment 15</a></li>
         </ul>
         <a><i class="la la-share" style="margin-left: 20px;"></i>Share 609</a>
