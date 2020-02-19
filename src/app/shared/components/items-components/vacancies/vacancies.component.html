@@ -1,45 +1,89 @@
 <div class="post-bar">
-    <div class="post_topbar">
-        <div class="usy-dt">
-            <img style="width: 50px;" [src]="item.user.photoUrl" alt="">
-            <div class="usy-name">
-                <h3>{{item.user.name}}</h3>
-                <span><img src="assets/images/clock.png" alt="">3 min ago</span>
+  <div class="post_topbar">
+    <div class="usy-dt">
+      <a [routerLink]="['/my-profile']"><img style="width: 50px;" [src]="item.user.photoUrl" alt=""></a>
+      <div class="usy-name">
+        <a [routerLink]="['/my-profile']"><h3>{{item.user.name}}</h3></a>
+        <span title="22:13 15/1/2020"><img src="assets/images/clock.png" alt="">3 min ago</span>
+      </div>
+    </div>
+  </div>
+  <div class="epi-sec">
+    <ul class="descp">
+      <li><img src="assets/images/icon8.png" alt=""><span>Post-Doctorial</span></li>
+      <li><img src="assets/images/icon9.png" alt=""><span>Main Campus</span>
+      </li>
+    </ul>
+    <button [disabled]="appliedBefore" class="btn btn-success bk-links cat-btn" (click)="apply($event)">
+      {{appliedBefore ? 'Applied' : 'APPLY'}}
+    </button>
+    <button *ngIf="canViewApplicants" data-toggle="modal" data-target="#exampleModalCenter"
+            [disabled]="!item.usersApplyIds.length" class="btn btn-primary bk-links mr-1">
+      {{item.usersApplyIds.length}} Applicants
+    </button>
+
+
+  </div>
+  <div class="job_descp">
+    <h3>{{item.vacanciesTitle}}</h3>
+    <ul class="job-dt">
+      <li><span>{{item.createDate.toDate()| date: 'dd MMM hh:mm'  }}</span></li>
+    </ul>
+    <p>{{item.descirption}}</p>
+    <ul class="skill-tags">
+      <li *ngFor="let tag of item.tags"><a title="">{{tag}}</a></li>
+    </ul>
+  </div>
+  <div class="job-status-bar">
+    <ul class="like-com">
+      <li>
+        <a title="" class="active"><i class="la la-heart"></i>
+          Like</a>
+        <img src="assets/images/liked-img.png" alt="">
+        <span>25</span>
+      </li>
+      <li><a title="" class="com"><img src="assets/images/com.png" alt="">
+        Comment 15</a></li>
+    </ul>
+    <a><i class="la la-share" style="margin-left: 20px;"></i>Share 609</a>
+    <a><i class="la la-eye"></i>Views 50</a>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <div
+        *ngFor="let applicantId of item.usersApplyIds" class="list list-row block">
+
+        <div class="list-item" data-id="19">
+          <div><a href="#" data-abc="true"><span class="w-48 avatar gd-warning">S</span></a></div>
+          <div class="flex"><a href="#" class="item-author text-color" data-abc="true">{{getUserName(applicantId)}}</a>
+            <div class="item-except text-muted text-sm h-1x">{{applicantId}}
             </div>
+          </div>
+          <div class="no-wrap">
+            <div class="item-date text-muted text-sm d-none d-md-block">13/12 18</div>
+          </div>
         </div>
+
+
+      </div>
     </div>
-    <div class="epi-sec">
-        <ul class="descp">
-            <li><img src="assets/images/icon8.png" alt=""><span>Post-Doctorial</span></li>
-            <li><img src="assets/images/icon9.png" alt=""><span>Main Campus</span>
-            </li>
-        </ul>
-        <ul class="bk-links">
-            <li><a title="" class="bid_now" style="background-color: rgb(91, 204, 91);">Apply</a></li>
-        </ul>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      <button type="button" class="btn btn-primary">Save changes</button>
     </div>
-    <div class="job_descp">
-        <h3>{{item.vacanciesTitle}}</h3>
-        <ul class="job-dt">
-            <li><span>{{item.createDate.toDate()| date: 'dd MMM hh:mm'  }}</span></li>
-        </ul>
-        <p>{{item.descirption}}</p>
-        <ul class="skill-tags">
-            <li *ngFor="let tag of item.tags"><a title="">{{tag}}</a></li>
-        </ul>
-    </div>
-    <div class="job-status-bar">
-        <ul class="like-com">
-            <li>
-                <a title="" class="active"><i class="la la-heart"></i>
-                    Like</a>
-                <img src="assets/images/liked-img.png" alt="">
-                <span>25</span>
-            </li>
-            <li><a title="" class="com"><img src="assets/images/com.png" alt="">
-                    Comment 15</a></li>
-        </ul>
-        <a><i class="la la-share" style="margin-left: 20px;"></i>Share 609</a>
-        <a><i class="la la-eye"></i>Views 50</a>
-    </div>
+  </div>
+</div>
 </div>
