@@ -15,8 +15,12 @@ export class ItemsService {
 
     constructor(public db: AngularFirestore) { }
 
-    getItems(type: ItemType) {
+    getItems() {
         return this.db.collection<Item>('items').snapshotChanges();
+    }
+
+    getUserItems(currentUserId: string) {
+        return this.db.collection<Item>('items', ref => ref.where('uid', "==", currentUserId)).snapshotChanges();
     }
 
     createItem(item: Item) {

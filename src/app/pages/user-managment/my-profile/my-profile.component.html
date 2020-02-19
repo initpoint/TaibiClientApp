@@ -83,7 +83,13 @@
 										</ul>
 									</div><!-- tab-feed end-->
 								</div>
-								<!-- <app-vacancies></app-vacancies> -->
+								<div *ngFor="let item of items">
+									<div [ngSwitch]="item.type">
+										<app-vacancies *ngSwitchCase="1" [item]="item"></app-vacancies>
+										<app-facilities *ngSwitchCase="4" [item]="item"></app-facilities>
+									</div>
+								</div>
+								<app-loader *ngIf="isLoading"></app-loader>
 							</div>
 							<!--main-ws-sec end-->
 						</div>
@@ -91,7 +97,7 @@
 							<div class="right-sidebar">
 								<div class="message-btn">
 									<a [routerLink]="['/directories/profile']" title=""><i class="fa fa-envelope"></i>
-										Message</a>
+										New Vacance</a>
 								</div>
 								<div class="widget widget-Projects">
 									<div class="wd-heady">

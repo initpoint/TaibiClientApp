@@ -48,7 +48,7 @@ export class ItemsComponentsComponent implements OnInit {
 
   getItems(type: ItemType = ItemType.All) {
     this.isLoading = true;
-    this.itemsService.getItems(type).subscribe(data => {
+    this.itemsService.getItems().subscribe(data => {
       this.items = data.map(e => {
         return {
           id: e.payload.doc.id,
