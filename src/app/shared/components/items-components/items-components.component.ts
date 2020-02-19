@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
-import { Item, ItemType } from 'src/app/shared/models/items.model';
-import { ItemsService } from 'src/app/shared/services/Items.service';
+import {Component, OnInit, ViewEncapsulation, Input} from '@angular/core';
+import {Item, ItemType} from 'src/app/shared/models/items.model';
+import {ItemsService} from 'src/app/shared/services/Items.service';
 
 @Component({
   selector: 'app-items-components',
@@ -15,7 +15,8 @@ export class ItemsComponentsComponent implements OnInit {
   isLoading = false;
 
 
-  constructor(public itemsService: ItemsService) { }
+  constructor(public itemsService: ItemsService) {
+  }
 
   ngOnInit() {
     this.getItems();
@@ -53,8 +54,8 @@ export class ItemsComponentsComponent implements OnInit {
         return {
           id: e.payload.doc.id,
           ...e.payload.doc.data()
-        }
-      })
+        };
+      });
       this.isLoading = false;
       this.itemsToDisplay = this.items;
     });

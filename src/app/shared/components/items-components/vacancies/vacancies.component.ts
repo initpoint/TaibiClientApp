@@ -1,4 +1,4 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Item} from 'src/app/shared/models/items.model';
 import {ItemsService} from '../../../services/Items.service';
 import {AuthService} from '../../../services/auth.service';
@@ -15,11 +15,13 @@ export class VacanciesComponent implements OnInit {
   appliedBefore = false;
   canViewApplicants = false;
   applicants: AppUser[] = [];
+  canApply = false;
 
   constructor(public itemsService: ItemsService, public authService: AuthService) {
     this.authService.getCurrentUser().subscribe(doc => {
       const user = doc.payload.data() as AppUser;
-      this.canViewApplicants = user.type === UserType.University || true; //todo remove the true when registration is done and check that the userid is the same
+      this.canApply = user.type === UserType.Student;
+      this.canViewApplicants = user.type === UserType.University;
     });
   }
 
@@ -39,6 +41,11 @@ export class VacanciesComponent implements OnInit {
   viewApplicants(e: MouseEvent) {
     this.applicants = [];
     this.item.usersApplyIds.map(userId => this.authService.getUser(userId)
-      .subscribe(userDoc => this.applicants.push(userDoc.payload.data() as AppUser)));
+      .subscribe(userDoc => {
+        const user = userDoc.payload.data() as AppUser;
+        if (!this.applicants.find(u => u.id === user.id)) {
+          this.applicants.push(user);
+        }
+      }));
   }
 }
