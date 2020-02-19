@@ -10,12 +10,12 @@ export class Item {
         public usersViewedIds?: string[],
         public tags?: string[],
         public type?: ItemType,
-        public user?: AppUser,
+        public user?: AppItemUser,
         
     ) { }
 }
 
-export class AppUser {
+export class AppItemUser {
     public constructor(
         public id?: string,
         public name?: string,

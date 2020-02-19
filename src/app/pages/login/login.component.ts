@@ -22,32 +22,16 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-
   }
 
   login() {
     this.auth.login(this.loginVM).subscribe(async x => {
       const token = await x.user.getIdToken();
       localStorage.setItem('token', token);
+      localStorage.setItem('userData', JSON.stringify(this.jwtHelper.decodeToken(token)));
       this.router.navigate(['/dashbord']);
     }, e => {
       this.notifierService.notify('error', 'Incorrect username or password');
     });
   }
-
-  // staticLogin(email: string) {
-  //   this.auth.login({ email: email, password: 'string' }).subscribe(res => {
-  //     localStorage.setItem('token', res.token);
-  //     const token = localStorage.getItem('token');
-  //     if (token) localStorage.setItem('tokenData', JSON.stringify(this.jwtHelper.decodeToken(token)));
-  //     var tokenObj = JSON.parse(localStorage.getItem('tokenData'));
-  //     console.log(tokenObj);
-  //     if (tokenObj.UserType == "Employee") {
-  //       this.router.navigate(['/employees']);
-  //     } else {
-  //       this.router.navigate(['/super-admins']);
-  //     }
-  //   });
-  // }
-
 }

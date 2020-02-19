@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { CoreService } from '../../services/core.service';
 import { Router } from '@angular/router';
+import { ItemsService } from '../../services/Items.service';
 
 @Component({
   selector: 'navbar',
@@ -9,9 +10,13 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(public coreService: CoreService, private router: Router) { }
+  constructor(public itemsService: ItemsService, private router: Router) { }
 
   ngOnInit() {
+  }
+
+  searchInItems(searchKeyWord: string) {
+    this.itemsService.searchInItemsKeyWord.next(searchKeyWord);
   }
 
   logout() {

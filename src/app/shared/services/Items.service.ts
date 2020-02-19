@@ -10,6 +10,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class ItemsService {
     currentItemType = new BehaviorSubject(ItemType.All);
+    searchInItemsKeyWord = new BehaviorSubject("");
 
 
     constructor(public db: AngularFirestore) { }

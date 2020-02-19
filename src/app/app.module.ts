@@ -37,7 +37,7 @@ export function tokenGetter() {
     NavbarComponent,
     SideMenuComponent,
     LoginComponent,
-    RegisterComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

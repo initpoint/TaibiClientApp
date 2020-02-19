@@ -20,6 +20,7 @@ export class ItemsComponentsComponent implements OnInit {
   ngOnInit() {
     this.getItems();
     this.changeCurrentType();
+    this.searchInItems();
   }
 
   changeCurrentType() {
@@ -28,6 +29,19 @@ export class ItemsComponentsComponent implements OnInit {
         this.itemsToDisplay = this.items;
       } else {
         this.itemsToDisplay = this.items.filter(x => x.type == value);
+      }
+    });
+  }
+
+  searchInItems() {
+    this.itemsService.searchInItemsKeyWord.subscribe(value => {
+      if (value.length > 0) {
+        this.itemsToDisplay = this.items.filter(x =>
+          x.descirption.toLocaleLowerCase().includes(value.toLocaleLowerCase()) ||
+          x.user.name.toLocaleLowerCase().includes(value.toLocaleLowerCase())
+        );
+      } else {
+        this.itemsToDisplay = this.items;
       }
     });
   }
