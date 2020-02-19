@@ -21,6 +21,7 @@ export class AppUser {
     public id?: string,
     public name?: string,
     public photoUrl?: string,
+    public type?: UserType,
   ) {
   }
 }
@@ -34,4 +35,10 @@ export enum ItemType {
   Facility,
   Program,
   Post
+}
+
+export enum UserType {
+  Student,
+  University,
+  Faculty,
 }
