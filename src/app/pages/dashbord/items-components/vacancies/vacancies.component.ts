@@ -14,12 +14,12 @@ export class VacanciesComponent implements OnInit {
   @Input() item: Item = new Item();
   appliedBefore = false;
   canViewApplicants = false;
+  applicants: AppUser[] = [];
 
   constructor(public itemsService: ItemsService, public jwtHelper: JwtHelperService, public authService: AuthService) {
-
     this.authService.getCurrentUser().subscribe(doc => {
       const user = doc.payload.data() as AppUser;
-      this.canViewApplicants = user.type === UserType.University || true; //todo remove the true when registration is done
+      this.canViewApplicants = user.type === UserType.University || true; //todo remove the true when registration is done and check that the userid is the same
     });
   }
 
@@ -37,10 +37,9 @@ export class VacanciesComponent implements OnInit {
   }
 
   viewApplicants(e: MouseEvent) {
-    console.log('ViewApplicants', e);
+    this.applicants = [];
+    this.item.usersApplyIds.map(userId => this.authService.getUser(userId)
+      .subscribe(userDoc => this.applicants.push(userDoc.payload.data() as AppUser)));
   }
 
-  getUserName(applicantId: string) {
-    return applicantId;//todo get this user from db by thier id
-  }
 }

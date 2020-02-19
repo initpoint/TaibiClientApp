@@ -16,8 +16,11 @@ export class AuthService {
   }
 
   getCurrentUser() {
-    return this.db.collection<AppUser>('users').doc(this.auth.auth.currentUser.uid)
-      .snapshotChanges();
+    return this.getUser(this.auth.auth.currentUser.uid);
+  }
+
+  getUser(userId) {
+    return this.db.collection<AppUser>('users').doc(userId).snapshotChanges();
   }
 
   login(model: LoginVM) {
