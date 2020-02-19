@@ -18,23 +18,15 @@ export class VacanciesComponent implements OnInit {
   userId;
 
   constructor(public itemsService: ItemsService, public jwtHelper: JwtHelperService) {
-
   }
 
   ngOnInit() {
     const token = localStorage.getItem('token');
     this.userId = this.jwtHelper.decodeToken(token)['user_id'];
-    console.log('item form vacanies', this.item.tags);
-    console.log('constructor');
-    if (this.userId in this.item.usersApplyIds) {
-      console.log('id exists');
-    } else {
-      console.log('id does not exist');
-    }
+    this.appliedBefore = this.item.usersApplyIds && this.item.usersApplyIds.includes(this.userId);
   }
 
   apply(e: MouseEvent) {
-
     if (this.item.usersApplyIds) {
       this.item.usersApplyIds.push(this.userId);
     } else {

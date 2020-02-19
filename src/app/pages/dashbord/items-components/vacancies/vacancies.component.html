@@ -14,10 +14,11 @@
       <li><img src="assets/images/icon9.png" alt=""><span>Main Campus</span>
       </li>
     </ul>
-    <button class="btn btn-light bk-links bid_now cat-btn" style="background-color: rgb(91, 204, 91);color: white" (click)="apply($event)">
-      APPLY
+    <button [disabled]="appliedBefore" class="btn btn-light bk-links bid_now cat-btn"
+            style="background-color: rgb(91, 204, 91);color: white"
+            (click)="apply($event)">
+      {{appliedBefore ? 'Applied' : 'APPLY'}}
     </button>
-
   </div>
   <div class="job_descp">
     <h3>{{item.vacanciesTitle}}</h3>
