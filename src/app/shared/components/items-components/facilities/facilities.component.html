@@ -15,8 +15,12 @@
       <li><img src="assets/images/icon9.png" alt=""><span>Main Campus</span>
       </li>
     </ul>
-    <button data-toggle="modal" data-target="#rsvpModal" class="btn btn-info bk-links cat-btn">
+    <button data-toggle="modal" data-target="#bookModal" class="btn btn-info bk-links cat-btn">
       BOOK
+    </button>
+    <button data-toggle="modal" data-target="#reservationsModal" class="btn btn-primary bk-links cat-btn mr-1"
+            *ngIf="canViewReservations" [disabled]="!item.reservations?.length">
+      {{item.reservations?.length}} Reservation{{item.reservations?.length > 1 ? 's' : ''}}
     </button>
   </div>
   <div class="job_descp">
@@ -46,46 +50,75 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="rsvpModal" tabindex="-1" role="dialog" aria-labelledby="rsvpModalTitle"
+<div class="modal fade" id="bookModal" tabindex="-1" role="dialog" aria-labelledby="bookModalTitle"
      aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="rsvpModalLongTitle">Book Facility</h5>
+        <h5 class="modal-title" id="bookModalLongTitle">Book Facility</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-
         <div
           *ngFor="let slot of item.slots" class="list list-row block">
-
           <div class="list-item">
-            <!--            <div><a href="#" data-abc="true"><span class="w-48 avatar gd-warning">S</span></a></div>-->
             <div class="flex">
               <a class="item-author text-color"
                  data-dismiss="modal" data-abc="true">{{slot.title }}</a>
               <div class="item-except text-muted text-sm h-1x">{{slot.contactPerson}}</div>
             </div>
             <div class="no-wrap">
-              <div
-                class="item-date text-muted text-sm d-none d-md-block">{{slot.date.toDate()| date: 'dd MMM hh:mm' }}</div>
+              <div class="item-date text-muted text-sm d-none d-md-block">
+                {{slot.date.toDate()|date:'dd MMM hh:mm'}}</div>
               <div class="item-date text-muted text-sm d-none d-md-block">{{slot.durationInMinutes}}Minutes</div>
             </div>
-            <button [disabled]="slot.isReserved" class=" btn btn-success "
-                    (click)="book($event,slot)">
+            <input type="text" #comment placeholder="comment">
+            <button [disabled]="slot.isReserved" class="btn btn-success" (click)="book($event,slot,comment)">
               BOOK
             </button>
-
           </div>
-
-
         </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="reservationsModal" tabindex="-1" role="dialog" aria-labelledby="reservationsModalTitle"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="reservationsModalLongTitle">Book Facility</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div
+          *ngFor="let reservation of item.reservations" class="list list-row block">
+          <div class="list-item">
+            <div class="flex">
+              <a class="item-author text-color"
+                 data-dismiss="modal" data-abc="true">{{reservation.title }}</a>
+              <div class="item-except text-muted text-sm h-1x">{{reservation.userId}}</div>
+            </div>
+            <div class="no-wrap">
+              <div class="item-date text-muted text-sm d-none d-md-block">
+                {{reservation.date.toDate()|date:'dd MMM hh:mm'}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-warning">Print</button>
       </div>
     </div>
   </div>

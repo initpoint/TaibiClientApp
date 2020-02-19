@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/shared/services/auth.service';
-import { Router } from '@angular/router';
-import { NotifierService } from 'angular-notifier';
-import { JwtHelperService } from '@auth0/angular-jwt';
-import { LoginVM } from 'src/app/shared/models/login.model';
+import {Component, OnInit} from '@angular/core';
+import {AuthService} from 'src/app/shared/services/auth.service';
+import {Router} from '@angular/router';
+import {NotifierService} from 'angular-notifier';
+import {JwtHelperService} from '@auth0/angular-jwt';
+import {LoginVM} from 'src/app/shared/models/login.model';
 
 @Component({
   selector: 'app-login',
@@ -24,7 +24,12 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
-  login() {
+  login(email?, pass?) {
+
+    if (email && pass) {
+      this.loginVM.email = email;
+      this.loginVM.password = pass;
+    }
     this.auth.login(this.loginVM).subscribe(async x => {
       const token = await x.user.getIdToken();
       localStorage.setItem('token', token);

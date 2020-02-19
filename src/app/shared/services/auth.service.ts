@@ -11,6 +11,7 @@ import {AppUser} from '../models/user.model';
   providedIn: 'root'
 })
 export class AuthService {
+  currentUser: AppUser;
 
   constructor(private http: HttpClient, public auth: AngularFireAuth, public db: AngularFirestore) {
   }
@@ -25,6 +26,11 @@ export class AuthService {
 
   login(model: LoginVM) {
     const userAuthProimse = this.auth.auth.signInWithEmailAndPassword(model.email, model.password);
+    // userAuthProimse.then(res => {
+    //   this.getCurrentUser().subscribe(userDoc => {
+    //     this.currentUser = userDoc.payload.data();
+    //   });
+    // });
     return from(userAuthProimse);
   }
 

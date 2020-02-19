@@ -21,11 +21,11 @@ export class VacanciesComponent implements OnInit {
     this.authService.getCurrentUser().subscribe(doc => {
       const user = doc.payload.data() as AppUser;
       this.canApply = user.type === UserType.Student;
-      this.canViewApplicants = user.type === UserType.University;
     });
   }
 
   ngOnInit() {
+    this.canViewApplicants = this.item.user && this.item.user.id === this.authService.auth.auth.currentUser.uid;
     this.appliedBefore = this.item.usersApplyIds && this.item.usersApplyIds.includes(this.authService.auth.auth.currentUser.uid);
   }
 
@@ -42,10 +42,7 @@ export class VacanciesComponent implements OnInit {
     this.applicants = [];
     this.item.usersApplyIds.map(userId => this.authService.getUser(userId)
       .subscribe(userDoc => {
-        const user = userDoc.payload.data() as AppUser;
-        if (!this.applicants.find(u => u.id === user.id)) {
-          this.applicants.push(user);
-        }
+        this.applicants.push(userDoc.payload.data() as AppUser);
       }));
   }
 }
