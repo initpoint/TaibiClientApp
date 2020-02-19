@@ -1,3 +1,5 @@
+import {AppUser} from './user.model';
+
 export class Item {
   public constructor(
     public id?: string,
@@ -16,17 +18,6 @@ export class Item {
   }
 }
 
-export class AppUser {
-  public constructor(
-    public id?: string,
-    public name?: string,
-    public photoUrl?: string,
-    public type?: UserType,
-  ) {
-  }
-}
-
-
 export enum ItemType {
   All,
   Vacancy,
@@ -35,10 +26,4 @@ export enum ItemType {
   Facility,
   Program,
   Post
-}
-
-export enum UserType {
-  Student,
-  University,
-  Faculty,
 }

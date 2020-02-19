@@ -5,7 +5,7 @@ import {Config} from '../confing/config';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {LoginVM} from '../models/login.model';
 import {AngularFirestore} from '@angular/fire/firestore';
-import {AppUser, Item} from '../models/items.model';
+import {AppUser} from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
