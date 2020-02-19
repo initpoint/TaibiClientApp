@@ -3,7 +3,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import * as firebase from 'firebase';
 import { map } from 'rxjs/operators';
 import { Item, ItemType } from '../models/items.model';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, from } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -24,7 +24,9 @@ export class ItemsService {
     }
 
     createItem(item: Item) {
-        return this.db.collection('items').add(item);
+        console.log(item);
+        
+        return from(this.db.collection<Item>('items').add(Object.assign({}, item)));
     }
 
     updateItem(item: Item) {

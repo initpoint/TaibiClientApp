@@ -10,7 +10,7 @@ export class Item {
     public usersViewedIds?: string[],
     public tags?: string[],
     public type?: ItemType,
-    public user?: AppUser,
+    public user: AppUser = new AppUser(),
     public usersApplyIds?: string[],
   ) {
   }
