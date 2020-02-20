@@ -14,7 +14,7 @@ jobs:
       - name: Install Dependencies
         run: npm install
       - name: TypeScript Version
-        run: npm install typescript@">=3.4.5 <3.4.7"
+        run: npm install typescript@">=3.6.0 <3.8.0"
       - name: Build
         run: npm run build --prod
       - name: Archive Production Artifact
