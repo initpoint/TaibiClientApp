@@ -30,6 +30,7 @@
               "src/styles/css/style.css",
               "src/styles/css/animate.css",
               "src/styles/css/bootstrap.min.css",
+              "src/styles/css/flatpickr.min.css",
               "src/styles/css/font-awesome.min.css",
               "src/styles/css/jquery.mCustomScrollbar.min.css",
               "src/styles/css/jquery.range.css",
