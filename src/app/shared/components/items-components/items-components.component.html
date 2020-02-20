@@ -11,6 +11,7 @@
                     <div [ngSwitch]="item.type">
                         <app-vacancies *ngSwitchCase="1" [item]="item"></app-vacancies>
                         <app-facilities *ngSwitchCase="4" [item]="item"></app-facilities>
+
                     </div>
                 </div>
                 <app-loader *ngIf="isLoading"></app-loader>

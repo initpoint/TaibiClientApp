@@ -3,6 +3,7 @@ import {FacilityReservation, FacilitySlot, Item} from 'src/app/shared/models/ite
 import {AuthService} from '../../../services/auth.service';
 import {ItemsService} from '../../../services/Items.service';
 import {AppUser, UserType} from '../../../models/user.model';
+import {StatService} from '../../../services/stat.service';
 
 @Component({
   selector: 'app-facilities',
@@ -15,7 +16,7 @@ export class FacilitiesComponent implements OnInit {
 
   canViewReservations = false;
 
-  constructor(public authService: AuthService, public itemsService: ItemsService) {
+  constructor(public authService: AuthService, public itemsService: ItemsService, public statService: StatService) {
   }
 
   ngOnInit() {
@@ -25,7 +26,7 @@ export class FacilitiesComponent implements OnInit {
   book(e: MouseEvent, slot: FacilitySlot, comment) {
     this.item.slots.find(s => s.id === slot.id).isReserved = true;
     const reservation: FacilityReservation = {
-      userId: this.authService.currentUserId,
+      user: this.authService.currentUser,
       slotId: slot.id,
       date: slot.date,
       title: slot.title,
@@ -46,5 +47,13 @@ export class FacilitiesComponent implements OnInit {
       return innerSlot.id === slot.id;
     }), 1);
     this.itemsService.updateItem(this.item);
+  }
+
+  print() {
+    this.statService.missingFeature('print-facilityReservations');
+  }
+
+  addSlot() {
+    this.statService.missingFeature('add-facilitySlot');
   }
 }

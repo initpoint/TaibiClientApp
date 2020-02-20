@@ -22,6 +22,8 @@ import {environment} from '../environments/environment';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
 
 import {ProfileComponent} from './pages/directories/profile/profile.component';
+import {ToastrModule} from 'ngx-toastr';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -52,6 +54,8 @@ export function tokenGetter() {
     HttpClientModule,
     FormsModule,
     FooterModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
     ReactiveFormsModule,
     JwtModule.forRoot({
       config: {

@@ -3,6 +3,7 @@ import {Item} from 'src/app/shared/models/items.model';
 import {ItemsService} from '../../../services/Items.service';
 import {AuthService} from '../../../services/auth.service';
 import {AppUser, UserType} from '../../../models/user.model';
+import {StatService} from '../../../services/stat.service';
 
 @Component({
   selector: 'app-vacancies',
@@ -17,7 +18,7 @@ export class VacanciesComponent implements OnInit {
   applicants: AppUser[] = [];
   canApply = false;
 
-  constructor(public itemsService: ItemsService, public authService: AuthService) {
+  constructor(public itemsService: ItemsService, public authService: AuthService, public statService: StatService) {
   }
 
   ngOnInit() {
@@ -41,5 +42,9 @@ export class VacanciesComponent implements OnInit {
       .subscribe(userDoc => {
         this.applicants.push(userDoc.payload.data() as AppUser);
       }));
+  }
+
+  print() {
+    this.statService.missingFeature('print-vacancy');
   }
 }

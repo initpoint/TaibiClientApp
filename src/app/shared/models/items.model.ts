@@ -35,7 +35,7 @@ export class FacilitySlot {
 
 export class FacilityReservation {
   public constructor(
-    public userId: string,
+    public user: AppUser,
     public slotId?: string,
     public date?: any,
     public title?: string,

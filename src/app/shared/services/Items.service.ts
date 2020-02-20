@@ -1,7 +1,5 @@
 import {Injectable, OnInit} from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
-import * as firebase from 'firebase';
-import {map} from 'rxjs/operators';
 import {Item, ItemType} from '../models/items.model';
 import {BehaviorSubject} from 'rxjs';
 

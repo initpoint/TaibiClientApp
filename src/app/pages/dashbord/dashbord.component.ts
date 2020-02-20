@@ -1,6 +1,7 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {ItemsService} from 'src/app/shared/services/Items.service';
 import {Item, ItemType} from 'src/app/shared/models/items.model';
+import {StatService} from '../../shared/services/stat.service';
 
 @Component({
   selector: 'app-dashbord',
@@ -10,7 +11,7 @@ import {Item, ItemType} from 'src/app/shared/models/items.model';
 })
 export class DashbordComponent implements OnInit {
 
-  constructor(public itemsService: ItemsService) {
+  constructor(public itemsService: ItemsService, public statService: StatService) {
   }
 
   ngOnInit() {
@@ -18,5 +19,9 @@ export class DashbordComponent implements OnInit {
 
   changeCurrentType(type: ItemType) {
     this.itemsService.currentItemType.next(type);
+  }
+
+  notAvailable(tag: string) {
+    this.statService.missingFeature(`filter-${tag}`);
   }
 }
