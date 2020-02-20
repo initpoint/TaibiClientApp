@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "LMS": {
+    "uniconnects": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -22,7 +22,7 @@
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
-            "aot": false,
+            "aot": true,
             "assets": [
               "src/favicon.ico",
               "src/assets",
@@ -30,6 +30,7 @@
               "src/styles/css/style.css",
               "src/styles/css/animate.css",
               "src/styles/css/bootstrap.min.css",
+              "src/styles/css/flatpickr.min.css",
               "src/styles/css/font-awesome.min.css",
               "src/styles/css/jquery.mCustomScrollbar.min.css",
               "src/styles/css/jquery.range.css",
@@ -79,18 +80,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "LMS:build"
+            "browserTarget": "uniconnects:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "LMS:build:production"
+              "browserTarget": "uniconnects:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "LMS:build"
+            "browserTarget": "uniconnects:build"
           }
         },
         "test": {
@@ -127,15 +128,19 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "LMS:serve"
+            "devServerTarget": "uniconnects:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "LMS:serve:production"
+              "devServerTarget": "uniconnects:serve:production"
             }
           }
         }
       }
-    }},
-  "defaultProject": "LMS"
+    }
+  },
+  "defaultProject": "uniconnects",
+  "cli": {
+    "analytics": "26212f4e-1e81-4653-a015-c1f9183bef1e"
+  }
 }

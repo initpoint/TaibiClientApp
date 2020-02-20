@@ -14,6 +14,32 @@ export class Item {
     public type?: ItemType,
     public user: AppUser = new AppUser(),
     public usersApplyIds?: string[],
+    public slots?: FacilitySlot[],
+    public reservations?: FacilityReservation[],
+  ) {
+  }
+}
+
+export class FacilitySlot {
+  public constructor(
+    public isReserved?: boolean,
+    public date?: any,
+    public durationInMinutes?: number,
+    public fullDay?: boolean,
+    public contactPerson?: string,
+    public title?: string,
+    public id?: string,
+  ) {
+  }
+}
+
+export class FacilityReservation {
+  public constructor(
+    public userId: string,
+    public slotId?: string,
+    public date?: any,
+    public title?: string,
+    public comment?: string,
   ) {
   }
 }

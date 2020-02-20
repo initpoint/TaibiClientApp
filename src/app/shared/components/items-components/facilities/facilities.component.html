@@ -1,45 +1,133 @@
 <div class="post-bar">
-    <div class="post_topbar">
-        <div class="usy-dt">
-            <img style="width: 50px;" [src]="item.user.photoUrl" alt="">
-            <div class="usy-name">
-                <h3>{{item.user.name}}</h3>
-                <span><img src="assets/images/clock.png" alt="">3 min ago</span>
-            </div>
-        </div>
+  <div class="post_topbar">
+    <div class="usy-dt">
+      <a [routerLink]="['/user', item.user?.id]"><img style="width: 50px;" [src]="item.user.photoUrl" alt=""></a>
+      <div class="usy-name">
+        <a [routerLink]="['/my-profile']"><h3>{{item.user.name}}</h3></a>
+        <span title="22:13 15/1/2020"><img src="assets/images/clock.png" alt="">3 min ago</span>
+      </div>
+    </div>
 
+  </div>
+  <div class="epi-sec">
+    <ul class="descp">
+      <li><img src="assets/images/icon8.png" alt=""><span>Public</span></li>
+      <li><img src="assets/images/icon9.png" alt=""><span>Main Campus</span>
+      </li>
+    </ul>
+    <button data-toggle="modal" data-target="#bookModal" class="btn btn-info bk-links cat-btn">
+      BOOK
+    </button>
+    <button data-toggle="modal" data-target="#reservationsModal" class="btn btn-primary bk-links cat-btn mr-1"
+            *ngIf="canViewReservations" [disabled]="!item.reservations?.length">
+      {{item.reservations?.length}} Reservation{{item.reservations?.length > 1 ? 's' : ''}}
+    </button>
+  </div>
+  <div class="job_descp">
+    <ul class="job-dt">
+      <li><span>{{item.createDate.toDate()| date: 'dd MMM hh:mm'  }}</span></li>
+    </ul>
+    <p>{{item.descirption}}</p>
+    <ul class="skill-tags">
+      <li *ngFor="let tag of item.tags"><a title="">{{tag}}</a></li>
+    </ul>
+  </div>
+  <div class="job-status-bar">
+    <ul class="like-com">
+      <li>
+        <a title="" class="active"><i class="la la-heart"></i>
+          Like</a>
+        <img src="assets/images/liked-img.png" alt="">
+        <span>25</span>
+      </li>
+      <li><a title="" class="com"><img src="assets/images/com.png" alt="">
+        Comment 15</a></li>
+    </ul>
+    <a><i class="la la-share" style="margin-left: 20px;"></i>Share 609</a>
+    <a><i class="la la-eye"></i>Views 50</a>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="bookModal" tabindex="-1" role="dialog" aria-labelledby="bookModalTitle"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="bookModalLongTitle">Book Facility</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div
+          *ngFor="let slot of item.slots" class="list list-row block">
+          <div class="list-item">
+            <div class="flex">
+              <a class="item-author text-color"
+                 data-dismiss="modal" data-abc="true">{{slot.title }}</a>
+              <div class="item-except text-muted text-sm h-1x">{{slot.contactPerson}}</div>
+            </div>
+            <div class="no-wrap">
+              <div class="item-date text-muted text-sm d-none d-md-block">
+                {{slot.date.toDate()|date:'dd MMM hh:mm'}}</div>
+              <div class="item-date text-muted text-sm d-none d-md-block">{{slot.durationInMinutes}}Minutes</div>
+            </div>
+            <input type="text" #comment placeholder="comment">
+            <button *ngIf="!canViewReservations" [disabled]="slot.isReserved" class="btn btn-success"
+                    (click)="book($event,slot,comment)">
+              BOOK
+            </button>
+            <button *ngIf="canViewReservations" class="btn btn-danger" (click)="removeSlot($event,slot)">
+              Remove Slot
+            </button>
+          </div>
+
+          <button *ngIf="canViewReservations" class="btn btn-success" (click)="removeSlot($event,slot)">
+            Add Slot
+          </button>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
     </div>
-    <div class="epi-sec">
-        <ul class="descp">
-            <li><img src="assets/images/icon8.png" alt=""><span>Public</span></li>
-            <li><img src="assets/images/icon9.png" alt=""><span>Main Campus</span>
-            </li>
-        </ul>
-        <ul class="bk-links">
-            <li><a  title="" class="bid_now">RSVP</a></li>
-        </ul>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="reservationsModal" tabindex="-1" role="dialog" aria-labelledby="reservationsModalTitle"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="reservationsModalLongTitle">Book Facility</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div
+          *ngFor="let reservation of item.reservations" class="list list-row block">
+          <div class="list-item">
+            <div class="flex">
+              <a class="item-author text-color"
+                 data-dismiss="modal" data-abc="true">{{reservation.title }}</a>
+              <div class="item-except text-muted text-sm h-1x">{{reservation.userId}}</div>
+            </div>
+            <div class="no-wrap">
+              <div class="item-date text-muted text-sm d-none d-md-block">
+                {{reservation.date.toDate()|date:'dd MMM hh:mm'}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-warning">Print</button>
+      </div>
     </div>
-    <div class="job_descp">
-        <ul class="job-dt">
-            <li><span>{{item.createDate.toDate()| date: 'dd MMM hh:mm'  }}</span></li>
-        </ul>
-        <p>{{item.descirption}}</p>
-        <ul class="skill-tags">
-            <li *ngFor="let tag of item.tags"><a title="">{{tag}}</a></li>
-        </ul>
-    </div>
-    <div class="job-status-bar">
-        <ul class="like-com">
-            <li>
-                <a  title="" class="active"><i class="la la-heart"></i>
-                    Like</a>
-                <img src="assets/images/liked-img.png" alt="">
-                <span>25</span>
-            </li>
-            <li><a  title="" class="com"><img src="assets/images/com.png" alt="">
-                    Comment 15</a></li>
-        </ul>
-        <a><i class="la la-share" style="margin-left: 20px;"></i>Share 609</a>
-        <a><i class="la la-eye"></i>Views 50</a>
-    </div>
+  </div>
 </div>
