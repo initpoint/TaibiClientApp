@@ -5,14 +5,14 @@
 export const environment = {
   production: false,
   firebase: {
-    apiKey: 'AIzaSyCI5PSWEk0QImvlCP6wIm2-Hd9BIJcfirU',
-    authDomain: 'alsenedy-455c6.firebaseapp.com',
-    databaseURL: 'https://alsenedy-455c6.firebaseio.com',
-    projectId: 'alsenedy-455c6',
-    storageBucket: 'alsenedy-455c6.appspot.com',
-    messagingSenderId: '896400692930',
-    appId: '1:896400692930:web:69bb6dcabe6909a21d4d5b',
-    measurementId: 'G-1CXQL5FQMH'
+    apiKey: "AIzaSyAcN9c0xwZ4SGE9sthByQGlX6fO_62FXSU",
+    authDomain: "uniconnects.firebaseapp.com",
+    databaseURL: "https://uniconnects.firebaseio.com",
+    projectId: "uniconnects",
+    storageBucket: "uniconnects.appspot.com",
+    messagingSenderId: "448272970809",
+    appId: "1:448272970809:web:bcb316b41c871be8c589e8",
+    measurementId: "G-3T6D7X6CL6"
   }
 };
 
