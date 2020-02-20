@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { UsersService } from 'src/app/shared/services/users.service';
-import { AppUser } from 'src/app/shared/models/user.model';
-import { ItemsService } from 'src/app/shared/services/Items.service';
-import { ItemType, Item } from 'src/app/shared/models/items.model';
+import {Component, OnInit} from '@angular/core';
+import {UsersService} from 'src/app/shared/services/users.service';
+import {AppUser} from 'src/app/shared/models/user.model';
+import {ItemsService} from 'src/app/shared/services/Items.service';
+import {ItemType, Item} from 'src/app/shared/models/items.model';
 
 @Component({
   selector: 'app-my-profile',
@@ -14,11 +14,12 @@ export class MyProfileComponent implements OnInit {
   items = [];
   isLoading = false;
   appUser: AppUser = new AppUser();
-  currentUserId = "";
+  currentUserId = '';
   vacanciesToAdd = new Item();
-  tags = "";
+  tags = '';
 
-  constructor(private usersService: UsersService, private itemsService: ItemsService) { }
+  constructor(private usersService: UsersService, private itemsService: ItemsService) {
+  }
 
   ngOnInit() {
 
@@ -27,12 +28,12 @@ export class MyProfileComponent implements OnInit {
       this.appUser.id = data.payload.id;
       this.appUser = data.payload.data();
       this.vacanciesToAdd.type = ItemType.Vacancy;
-      console.log(this.appUser, 'aaaaaaaaaaaaaaaaaaaaaaa')
+      console.log(this.appUser, 'aaaaaaaaaaaaaaaaaaaaaaa');
       this.vacanciesToAdd.user.name = this.appUser.name;
       this.vacanciesToAdd.user.photoUrl = this.appUser.photoUrl;
 
       this.getItems();
-    })
+    });
   }
 
   getItems() {
@@ -43,8 +44,8 @@ export class MyProfileComponent implements OnInit {
         return {
           id: e.payload.doc.id,
           ...e.payload.doc.data()
-        }
-      })
+        };
+      });
       this.isLoading = false;
     });
   }
@@ -52,10 +53,10 @@ export class MyProfileComponent implements OnInit {
   addVacances() {
     this.vacanciesToAdd.tags = this.tags.split(',');
     // this.vacanciesToAdd.createDate = new Date();
-    this.vacanciesToAdd.id = "wuiwuero";
+    this.vacanciesToAdd.id = 'wuiwuero';
     Object.keys(this.vacanciesToAdd).forEach(key => this.vacanciesToAdd[key] === undefined ? delete this.vacanciesToAdd[key] : {});
 
-    this.itemsService.createItem(this.vacanciesToAdd).subscribe(x => {
+    this.itemsService.createItem(this.vacanciesToAdd).then(x => {
       console.log('success');
     });
   }
