@@ -6,18 +6,25 @@ import {AngularFireAuth} from '@angular/fire/auth';
 import {LoginVM} from '../models/login.model';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {AppUser} from '../models/user.model';
+import {JwtHelperService} from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  currentUser: AppUser;
+  currentUser: AppUser = {};
+  currentUserId: string;
 
-  constructor(private http: HttpClient, public auth: AngularFireAuth, public db: AngularFirestore) {
+  constructor(private http: HttpClient, public auth: AngularFireAuth, public db: AngularFirestore, public jwtHelper: JwtHelperService) {
+    this.updateCurrentUser();
   }
 
-  getCurrentUser() {
-    return this.getUser(this.auth.auth.currentUser.uid);
+  updateCurrentUser() {
+    const token = localStorage.getItem('token');
+    this.currentUserId = this.jwtHelper.decodeToken(token)['user_id'];
+    this.getUser(this.currentUserId).subscribe(userDoc => {
+      this.currentUser = userDoc.payload.data();
+    });
   }
 
   getUser(userId) {
@@ -26,11 +33,6 @@ export class AuthService {
 
   login(model: LoginVM) {
     const userAuthProimse = this.auth.auth.signInWithEmailAndPassword(model.email, model.password);
-    // userAuthProimse.then(res => {
-    //   this.getCurrentUser().subscribe(userDoc => {
-    //     this.currentUser = userDoc.payload.data();
-    //   });
-    // });
     return from(userAuthProimse);
   }
 

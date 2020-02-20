@@ -34,6 +34,8 @@ export class LoginComponent implements OnInit {
       const token = await x.user.getIdToken();
       localStorage.setItem('token', token);
       localStorage.setItem('userData', JSON.stringify(this.jwtHelper.decodeToken(token)));
+
+      this.auth.updateCurrentUser();
       this.router.navigate(['/dashbord']);
     }, e => {
       this.notifierService.notify('error', 'Incorrect username or password');

@@ -1,4 +1,4 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit, Input, OnChanges} from '@angular/core';
 import {FacilityReservation, FacilitySlot, Item} from 'src/app/shared/models/items.model';
 import {AuthService} from '../../../services/auth.service';
 import {ItemsService} from '../../../services/Items.service';
@@ -19,13 +19,13 @@ export class FacilitiesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.canViewReservations = this.item.user.id === this.authService.auth.auth.currentUser.uid;
+    this.canViewReservations = this.item.user.id === this.authService.currentUserId;
   }
 
   book(e: MouseEvent, slot: FacilitySlot, comment) {
     this.item.slots.find(s => s.id === slot.id).isReserved = true;
     const reservation: FacilityReservation = {
-      userId: this.authService.auth.auth.currentUser.uid,
+      userId: this.authService.currentUserId,
       slotId: slot.id,
       date: slot.date,
       title: slot.title,
