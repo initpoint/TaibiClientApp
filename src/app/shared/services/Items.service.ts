@@ -2,6 +2,7 @@ import {Injectable, OnInit} from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {Item, ItemType} from '../models/items.model';
 import {BehaviorSubject} from 'rxjs';
+import {ToastrService} from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class ItemsService {
   searchInItemsKeyWord = new BehaviorSubject('');
 
 
-  constructor(public db: AngularFirestore) {
+  constructor(public db: AngularFirestore, public toastrService: ToastrService) {
   }
 
   getItems() {
@@ -23,7 +24,17 @@ export class ItemsService {
   }
 
   createItem(item: Item) {
-    return this.db.collection('items').add(item);
+    const o = {user: {}};
+    Object.keys(item).map(key => {
+      if (key === 'user') {
+        o['user'] = {...item.user};
+      } else {
+        o[key] = item[key];
+      }
+    });
+    this.db.collection<Item>('items').add(o).then(res => {
+      this.toastrService.success('Item Added.');
+    });
   }
 
   updateItem(item: Item) {

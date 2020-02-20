@@ -1,346 +1,396 @@
 <div class="wrapper">
-	<section class="cover-sec">
-		<img [src]="appUser.coverPhotoUrl" alt="" style="height: 300px;">
-	</section>
-	<main>
-		<div class="main-section">
-			<div class="container">
-				<div class="main-section-data">
-					<div class="row">
-						<div class="col-lg-3">
-							<div class="main-left-sidebar">
-								<div class="user_profile">
-									<div class="user-pro-img">
-										<img [src]="appUser.photoUrl" style="width: 170px; height: 170px;" alt="">
-										<!-- <a title=""><i class="fa fa-camera"></i></a> -->
-									</div>
-									<!--user-pro-img end-->
-									<div class="user_pro_status">
-										<ul class="flw-hr">
-										</ul>
-										<ul class="flw-status">
-											<li>
-												<span>Following</span>
-												<b>{{appUser.numberOfFollowing}}</b>
-											</li>
-											<li>
-												<span>Followers</span>
-												<b>{{appUser.numberOfFollowers}}</b>
-											</li>
-										</ul>
-									</div>
-									<!--user_pro_status end-->
-									<ul class="social_links">
-										<li><a title=""><i
-													class="la la-globe"></i> www.example.com</a></li>
-										<li><a title=""><i
-													class="fa fa-facebook-square"></i>
-												Http://www.facebook.com/john...</a></li>
-										<li><a title=""><i
-													class="fa fa-twitter"></i> Http://www.Twitter.com/john...</a></li>
-										<li><a title=""><i
-													class="fa fa-google-plus-square"></i>
-												Http://www.googleplus.com/john...</a></li>
-										<li><a title=""><i
-													class="fa fa-behance-square"></i> Http://www.behance.com/john...</a>
-										</li>
-										<li><a title=""><i
-													class="fa fa-pinterest"></i> Http://www.pinterest.com/john...</a>
-										</li>
-										<li><a title=""><i
-													class="fa fa-instagram"></i> Http://www.instagram.com/john...</a>
-										</li>
-										<li><a title=""><i
-													class="fa fa-youtube"></i> Http://www.youtube.com/john...</a></li>
-									</ul>
-								</div>
-								<!--user_profile end-->
-							</div>
-							<!--main-left-sidebar end-->
-						</div>
-						<div class="col-lg-6">
-							<div class="main-ws-sec">
-								<div class="user-tab-sec">
-									<h3>{{appUser.name}}</h3>
-									<div class="star-descp">
-										<span>Student at AUC</span>
-									</div>
-									<!--star-descp end-->
-									<div class="tab-feed st2">
-										<ul>
-											<li data-tab="info-dd" class="active">
-												<a title="">
-													<img src="assets/images/ic2.png" alt="">
-													<span>Info</span>
-												</a>
-											</li>
-											<li data-tab="Projects-dd">
-												<a title="">
-													<img src="assets/images/ic3.png" alt="">
-													<span>Projects</span>
-												</a>
-											</li>
-										</ul>
-									</div><!-- tab-feed end-->
-								</div>
-								<div *ngFor="let item of items">
-									<div [ngSwitch]="item.type">
-										<app-vacancies *ngSwitchCase="1" [item]="item"></app-vacancies>
-										<app-facilities *ngSwitchCase="4" [item]="item"></app-facilities>
-									</div>
-								</div>
-								<app-loader *ngIf="isLoading"></app-loader>
-							</div>
-							<!--main-ws-sec end-->
-						</div>
-						<div class="col-lg-3">
-							<div class="right-sidebar">
-								<div class="message-btn">
-									<a data-toggle="modal" data-target="#exampleModal"  style="background-color: greenyellow;" title=""><i class="fa fa-envelope"></i>
-										New Vacance</a>
-								</div>
-								<div class="widget widget-Projects">
-									<div class="wd-heady">
-										<h3>Projects</h3>
-										<!-- <img src="assets/images/photo-icon.png" alt=""> -->
-									</div>
-									<div class="pf-gallery">
-										<ul>
-											<li><a title=""><img
-														src="http://via.placeholder.com/70x70" alt=""></a></li>
-											<li><a title=""><img
-														src="http://via.placeholder.com/70x70" alt=""></a></li>
-											<li><a title=""><img
-														src="http://via.placeholder.com/70x70" alt=""></a></li>
-											<li><a title=""><img
-														src="http://via.placeholder.com/70x70" alt=""></a></li>
-											<li><a title=""><img
-														src="http://via.placeholder.com/70x70" alt=""></a></li>
-											<li><a title=""><img
-														src="http://via.placeholder.com/70x70" alt=""></a></li>
-											<li><a title=""><img
-														src="http://via.placeholder.com/70x70" alt=""></a></li>
-											<li><a title=""><img
-														src="http://via.placeholder.com/70x70" alt=""></a></li>
-											<li><a title=""><img
-														src="http://via.placeholder.com/70x70" alt=""></a></li>
-											<li><a title=""><img
-														src="http://via.placeholder.com/70x70" alt=""></a></li>
-											<li><a title=""><img
-														src="http://via.placeholder.com/70x70" alt=""></a></li>
-											<li><a title=""><img
-														src="http://via.placeholder.com/70x70" alt=""></a></li>
-										</ul>
-									</div>
-									<!--pf-gallery end-->
-								</div>
-								<!--widget-Projects end-->
-							</div>
-							<!--right-sidebar end-->
-						</div>
-					</div>
-				</div><!-- main-section-data end-->
-			</div>
-		</div>
-	</main>
+  <section class="cover-sec">
+    <img [src]="authService.currentUser.coverPhotoUrl" alt="" style="height: 300px;">
+  </section>
+  <main>
+    <div class="main-section">
+      <div class="container">
+        <div class="main-section-data">
+          <div class="row">
+            <div class="col-lg-3">
+              <div class="main-left-sidebar">
+                <div class="user_profile">
+                  <div class="user-pro-img">
+                    <img [src]="authService.currentUser.photoUrl" style="width: 170px; height: 170px;" alt="">
+                    <!-- <a title=""><i class="fa fa-camera"></i></a> -->
+                  </div>
+                  <!--user-pro-img end-->
+                  <div class="user_pro_status">
+                    <ul class="flw-hr">
+                    </ul>
+                    <ul class="flw-status">
+                      <li>
+                        <span>Following</span>
+                        <b>{{authService.currentUser.numberOfFollowing}}</b>
+                      </li>
+                      <li>
+                        <span>Followers</span>
+                        <b>{{authService.currentUser.numberOfFollowers}}</b>
+                      </li>
+                    </ul>
+                  </div>
+                  <!--user_pro_status end-->
+                  <ul class="social_links">
+                    <li><a title=""><i
+                      class="la la-globe"></i> www.example.com</a></li>
+                    <li><a title=""><i
+                      class="fa fa-facebook-square"></i>
+                      Http://www.facebook.com/john...</a></li>
+                    <li><a title=""><i
+                      class="fa fa-twitter"></i> Http://www.Twitter.com/john...</a></li>
+                    <li><a title=""><i
+                      class="fa fa-google-plus-square"></i>
+                      Http://www.googleplus.com/john...</a></li>
+                    <li><a title=""><i
+                      class="fa fa-behance-square"></i> Http://www.behance.com/john...</a>
+                    </li>
+                    <li><a title=""><i
+                      class="fa fa-pinterest"></i> Http://www.pinterest.com/john...</a>
+                    </li>
+                    <li><a title=""><i
+                      class="fa fa-instagram"></i> Http://www.instagram.com/john...</a>
+                    </li>
+                    <li><a title=""><i
+                      class="fa fa-youtube"></i> Http://www.youtube.com/john...</a></li>
+                  </ul>
+                </div>
+                <!--user_profile end-->
+              </div>
+              <!--main-left-sidebar end-->
+            </div>
+            <div class="col-lg-6">
+              <div class="main-ws-sec">
+                <div class="user-tab-sec">
+                  <h3>{{authService.currentUser.name}}</h3>
+                  <div class="star-descp">
+                    <span>Student at AUC</span>
+                  </div>
+                  <!--star-descp end-->
+                  <div class="tab-feed st2">
+                    <ul>
+                      <li data-tab="info-dd" class="active">
+                        <a title="">
+                          <img src="assets/images/ic2.png" alt="">
+                          <span>Info</span>
+                        </a>
+                      </li>
+                      <li data-tab="Projects-dd">
+                        <a title="">
+                          <img src="assets/images/ic3.png" alt="">
+                          <span>Projects</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </div><!-- tab-feed end-->
+                </div>
+                <div *ngFor="let item of items">
+                  <div [ngSwitch]="item.type">
+                    <app-vacancies *ngSwitchCase="1" [item]="item"></app-vacancies>
+                    <app-facilities *ngSwitchCase="4" [item]="item"></app-facilities>
+                  </div>
+                </div>
+                <app-loader *ngIf="isLoading"></app-loader>
+              </div>
+              <!--main-ws-sec end-->
+            </div>
+            <div class="col-lg-3">
+              <div class="right-sidebar">
 
-	<footer>
-		<div class="footy-sec mn no-margin">
-			<div class="container">
-				<ul>
-					<li><a title="">Help Center</a></li>
-					<li><a title="">Privacy Policy</a></li>
-					<li><a title="">Community Guidelines</a></li>
-					<li><a title="">Cookies Policy</a></li>
-					<li><a title="">Career</a></li>
-					<li><a title="">Forum</a></li>
-					<li><a title="">Language</a></li>
-					<li><a title="">Copyright Policy</a></li>
-				</ul>
-				<p><img src="assets/images/copy-icon2.png" alt="">Copyright 2018</p>
-				<img class="fl-rgt" src="assets/images/logo2.png" alt="">
-			</div>
-		</div>
-	</footer>
-	<!--footer end-->
-
-	<div class="overview-box" id="overview-box">
-		<div class="overview-edit">
-			<h3>Overview</h3>
-			<span>5000 character left</span>
-			<form>
-				<textarea></textarea>
-				<button type="submit" class="save">Save</button>
-				<button type="submit" class="cancel">Cancel</button>
-			</form>
-			<a title="" class="close-box"><i class="la la-close"></i></a>
-		</div>
-		<!--overview-edit end-->
-	</div>
-	<!--overview-box end-->
+                <div class="message-btn btn-group">
+                  <button data-toggle="modal" data-target="#exampleModal" class="btn btn-info mr-1" title=""><i
+                    class="fa fa-briefcase"></i>
+                    New Vacancy
+                  </button>
+                  <button data-toggle="modal" data-target="#facilityModal" class="btn btn-primary" title=""><i
+                    class="fa fa-cogs"></i>
+                    Add Facility
+                  </button>
+                </div>
 
 
-	<div class="overview-box" id="experience-box">
-		<div class="overview-edit">
-			<h3>Experience</h3>
-			<form>
-				<input type="text" name="subject" placeholder="Subject">
-				<textarea></textarea>
-				<button type="submit" class="save">Save</button>
-				<button type="submit" class="save-add">Save & Add More</button>
-				<button type="submit" class="cancel">Cancel</button>
-			</form>
-			<a title="" class="close-box"><i class="la la-close"></i></a>
-		</div>
-		<!--overview-edit end-->
-	</div>
-	<!--overview-box end-->
+                <div class="widget widget-Projects">
+                  <div class="wd-heady">
+                    <h3>Projects</h3>
+                    <!-- <img src="assets/images/photo-icon.png" alt=""> -->
+                  </div>
+                  <div class="pf-gallery">
+                    <ul>
+                      <li><a title=""><img
+                        src="http://via.placeholder.com/70x70" alt=""></a></li>
+                      <li><a title=""><img
+                        src="http://via.placeholder.com/70x70" alt=""></a></li>
+                      <li><a title=""><img
+                        src="http://via.placeholder.com/70x70" alt=""></a></li>
+                      <li><a title=""><img
+                        src="http://via.placeholder.com/70x70" alt=""></a></li>
+                      <li><a title=""><img
+                        src="http://via.placeholder.com/70x70" alt=""></a></li>
+                      <li><a title=""><img
+                        src="http://via.placeholder.com/70x70" alt=""></a></li>
+                      <li><a title=""><img
+                        src="http://via.placeholder.com/70x70" alt=""></a></li>
+                      <li><a title=""><img
+                        src="http://via.placeholder.com/70x70" alt=""></a></li>
+                      <li><a title=""><img
+                        src="http://via.placeholder.com/70x70" alt=""></a></li>
+                      <li><a title=""><img
+                        src="http://via.placeholder.com/70x70" alt=""></a></li>
+                      <li><a title=""><img
+                        src="http://via.placeholder.com/70x70" alt=""></a></li>
+                      <li><a title=""><img
+                        src="http://via.placeholder.com/70x70" alt=""></a></li>
+                    </ul>
+                  </div>
+                  <!--pf-gallery end-->
+                </div>
+                <!--widget-Projects end-->
+              </div>
+              <!--right-sidebar end-->
+            </div>
+          </div>
+        </div><!-- main-section-data end-->
+      </div>
+    </div>
+  </main>
 
-	<div class="overview-box" id="education-box">
-		<div class="overview-edit">
-			<h3>Education</h3>
-			<form>
-				<input type="text" name="school" placeholder="School / University">
-				<div class="datepicky">
-					<div class="row">
-						<div class="col-lg-6 no-left-pd">
-							<div class="datefm">
-								<input type="text" name="from" placeholder="From" class="datepicker">
-								<i class="fa fa-calendar"></i>
-							</div>
-						</div>
-						<div class="col-lg-6 no-righ-pd">
-							<div class="datefm">
-								<input type="text" name="to" placeholder="To" class="datepicker">
-								<i class="fa fa-calendar"></i>
-							</div>
-						</div>
-					</div>
-				</div>
-				<input type="text" name="degree" placeholder="Degree">
-				<textarea placeholder="Description"></textarea>
-				<button type="submit" class="save">Save</button>
-				<button type="submit" class="save-add">Save & Add More</button>
-				<button type="submit" class="cancel">Cancel</button>
-			</form>
-			<a title="" class="close-box"><i class="la la-close"></i></a>
-		</div>
-		<!--overview-edit end-->
-	</div>
-	<!--overview-box end-->
+  <footer>
+    <div class="footy-sec mn no-margin">
+      <div class="container">
+        <ul>
+          <li><a title="">Help Center</a></li>
+          <li><a title="">Privacy Policy</a></li>
+          <li><a title="">Community Guidelines</a></li>
+          <li><a title="">Cookies Policy</a></li>
+          <li><a title="">Career</a></li>
+          <li><a title="">Forum</a></li>
+          <li><a title="">Language</a></li>
+          <li><a title="">Copyright Policy</a></li>
+        </ul>
+        <p><img src="assets/images/copy-icon2.png" alt="">Copyright 2018</p>
+        <img class="fl-rgt" src="assets/images/logo2.png" alt="">
+      </div>
+    </div>
+  </footer>
+  <!--footer end-->
 
-	<div class="overview-box" id="location-box">
-		<div class="overview-edit">
-			<h3>Location</h3>
-			<form>
-				<div class="datefm">
-					<select>
-						<option>Country</option>
-						<option value="pakistan">Pakistan</option>
-						<option value="england">England</option>
-						<option value="india">India</option>
-						<option value="usa">United Sates</option>
-					</select>
-					<i class="fa fa-globe"></i>
-				</div>
-				<div class="datefm">
-					<select>
-						<option>City</option>
-						<option value="london">London</option>
-						<option value="new-york">New York</option>
-						<option value="sydney">Sydney</option>
-						<option value="chicago">Chicago</option>
-					</select>
-					<i class="fa fa-map-marker"></i>
-				</div>
-				<button type="submit" class="save">Save</button>
-				<button type="submit" class="cancel">Cancel</button>
-			</form>
-			<a title="" class="close-box"><i class="la la-close"></i></a>
-		</div>
-		<!--overview-edit end-->
-	</div>
-	<!--overview-box end-->
+  <div class="overview-box" id="overview-box">
+    <div class="overview-edit">
+      <h3>Overview</h3>
+      <span>5000 character left</span>
+      <form>
+        <textarea></textarea>
+        <button type="submit" class="save">Save</button>
+        <button type="submit" class="cancel">Cancel</button>
+      </form>
+      <a title="" class="close-box"><i class="la la-close"></i></a>
+    </div>
+    <!--overview-edit end-->
+  </div>
+  <!--overview-box end-->
 
-	<div class="overview-box" id="skills-box">
-		<div class="overview-edit">
-			<h3>Skills</h3>
-			<ul>
-				<li><a title="" class="skl-name">HTML</a><a
-					 title="" class="close-skl"><i
-							class="la la-close"></i></a></li>
-				<li><a title="" class="skl-name">php</a><a
-					 title="" class="close-skl"><i
-							class="la la-close"></i></a></li>
-				<li><a title="" class="skl-name">css</a><a
-					 title="" class="close-skl"><i
-							class="la la-close"></i></a></li>
-			</ul>
-			<form>
-				<input type="text" name="skills" placeholder="Skills">
-				<button type="submit" class="save">Save</button>
-				<button type="submit" class="save-add">Save & Add More</button>
-				<button type="submit" class="cancel">Cancel</button>
-			</form>
-			<a title="" class="close-box"><i class="la la-close"></i></a>
-		</div>
-		<!--overview-edit end-->
-	</div>
-	<!--overview-box end-->
 
-	<div class="overview-box" id="create-Projects">
-		<div class="overview-edit">
-			<h3>Create Projects</h3>
-			<form>
-				<input type="text" name="pf-name" placeholder="Projects Name">
-				<div class="file-submit">
-					<input type="file" name="file">
-				</div>
-				<div class="pf-img">
-					<img src="http://via.placeholder.com/60x60" alt="">
-				</div>
-				<input type="text" name="website-url" placeholder="htp://www.example.com">
-				<button type="submit" class="save">Save</button>
-				<button type="submit" class="cancel">Cancel</button>
-			</form>
-			<a title="" class="close-box"><i class="la la-close"></i></a>
-		</div>
-		<!--overview-edit end-->
-	</div>
-	<!--overview-box end-->
+  <div class="overview-box" id="experience-box">
+    <div class="overview-edit">
+      <h3>Experience</h3>
+      <form>
+        <input type="text" name="subject" placeholder="Subject">
+        <textarea></textarea>
+        <button type="submit" class="save">Save</button>
+        <button type="submit" class="save-add">Save & Add More</button>
+        <button type="submit" class="cancel">Cancel</button>
+      </form>
+      <a title="" class="close-box"><i class="la la-close"></i></a>
+    </div>
+    <!--overview-edit end-->
+  </div>
+  <!--overview-box end-->
+
+  <div class="overview-box" id="education-box">
+    <div class="overview-edit">
+      <h3>Education</h3>
+      <form>
+        <input type="text" name="school" placeholder="School / University">
+        <div class="datepicky">
+          <div class="row">
+            <div class="col-lg-6 no-left-pd">
+              <div class="datefm">
+                <input type="text" name="from" placeholder="From" class="datepicker">
+                <i class="fa fa-calendar"></i>
+              </div>
+            </div>
+            <div class="col-lg-6 no-righ-pd">
+              <div class="datefm">
+                <input type="text" name="to" placeholder="To" class="datepicker">
+                <i class="fa fa-calendar"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <input type="text" name="degree" placeholder="Degree">
+        <textarea placeholder="Description"></textarea>
+        <button type="submit" class="save">Save</button>
+        <button type="submit" class="save-add">Save & Add More</button>
+        <button type="submit" class="cancel">Cancel</button>
+      </form>
+      <a title="" class="close-box"><i class="la la-close"></i></a>
+    </div>
+    <!--overview-edit end-->
+  </div>
+  <!--overview-box end-->
+
+  <div class="overview-box" id="location-box">
+    <div class="overview-edit">
+      <h3>Location</h3>
+      <form>
+        <div class="datefm">
+          <select>
+            <option>Country</option>
+            <option value="pakistan">Pakistan</option>
+            <option value="england">England</option>
+            <option value="india">India</option>
+            <option value="usa">United Sates</option>
+          </select>
+          <i class="fa fa-globe"></i>
+        </div>
+        <div class="datefm">
+          <select>
+            <option>City</option>
+            <option value="london">London</option>
+            <option value="new-york">New York</option>
+            <option value="sydney">Sydney</option>
+            <option value="chicago">Chicago</option>
+          </select>
+          <i class="fa fa-map-marker"></i>
+        </div>
+        <button type="submit" class="save">Save</button>
+        <button type="submit" class="cancel">Cancel</button>
+      </form>
+      <a title="" class="close-box"><i class="la la-close"></i></a>
+    </div>
+    <!--overview-edit end-->
+  </div>
+  <!--overview-box end-->
+
+  <div class="overview-box" id="skills-box">
+    <div class="overview-edit">
+      <h3>Skills</h3>
+      <ul>
+        <li><a title="" class="skl-name">HTML</a><a
+          title="" class="close-skl"><i
+          class="la la-close"></i></a></li>
+        <li><a title="" class="skl-name">php</a><a
+          title="" class="close-skl"><i
+          class="la la-close"></i></a></li>
+        <li><a title="" class="skl-name">css</a><a
+          title="" class="close-skl"><i
+          class="la la-close"></i></a></li>
+      </ul>
+      <form>
+        <input type="text" name="skills" placeholder="Skills">
+        <button type="submit" class="save">Save</button>
+        <button type="submit" class="save-add">Save & Add More</button>
+        <button type="submit" class="cancel">Cancel</button>
+      </form>
+      <a title="" class="close-box"><i class="la la-close"></i></a>
+    </div>
+    <!--overview-edit end-->
+  </div>
+  <!--overview-box end-->
+
+  <div class="overview-box" id="create-Projects">
+    <div class="overview-edit">
+      <h3>Create Projects</h3>
+      <form>
+        <input type="text" name="pf-name" placeholder="Projects Name">
+        <div class="file-submit">
+          <input type="file" name="file">
+        </div>
+        <div class="pf-img">
+          <img src="http://via.placeholder.com/60x60" alt="">
+        </div>
+        <input type="text" name="website-url" placeholder="htp://www.example.com">
+        <button type="submit" class="save">Save</button>
+        <button type="submit" class="cancel">Cancel</button>
+      </form>
+      <a title="" class="close-box"><i class="la la-close"></i></a>
+    </div>
+    <!--overview-edit end-->
+  </div>
+  <!--overview-box end-->
 
 </div>
 <!--theme-layout end-->
 
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-	  <div class="modal-content">
-		<div class="modal-header">
-		  <h5 class="modal-title" id="exampleModalLabel">New Vacancies</h5>
-		  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-			<span aria-hidden="true">&times;</span>
-		  </button>
-		</div>
-		<div class="modal-body">
-		  <form>
-			<div class="form-group">
-			  <label for="recipient-name" class="col-form-label">Vacancies Title:</label>
-			  <input type="text"  [(ngModel)]="vacanciesToAdd.vacanciesTitle" name="vacanciesTitle" class="form-control" id="recipient-name">
-			</div>
-			<div class="form-group">
-			  <label for="message-text" class="col-form-label">Vacancies Description:</label>
-			  <textarea  [(ngModel)]="vacanciesToAdd.descirption" name="descirption" class="form-control" id="message-text"></textarea>
-			</div>
-			<div class="form-group">
-				<label for="message-text" class="col-form-label">Vacancies Tags:</label>
-				<textarea class="form-control" id="message-text" [(ngModel)]="tags" name="tags"></textarea>
-			  </div>
-		  </form>
-		</div>
-		<div class="modal-footer">
-		  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-		  <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="addVacances()">Save</button>
-		</div>
-	  </div>
-	</div>
+<!--Vacancy Modal-->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New Vacancies</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="vacancy-title" class="col-form-label">Vacancy Title:</label>
+            <input type="text" [(ngModel)]="vacancyToAdd.vacanciesTitle" name="vacanciesTitle" class="form-control"
+                   id="vacancy-title">
+          </div>
+          <div class="form-group">
+            <label for="vacancy-desc" class="col-form-label">Vacancy Description:</label>
+            <textarea [(ngModel)]="vacancyToAdd.descirption" name="descirption" class="form-control"
+                      id="vacancy-desc"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="vacancy-tags" class="col-form-label">Vacancy Tags:</label>
+            <textarea class="form-control" id="vacancy-tags" [(ngModel)]="tags" name="tags"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="addVacancy()">Save</button>
+      </div>
+    </div>
   </div>
+</div>
+
+<!--Facility Modal-->
+<div class="modal fade" id="facilityModal" tabindex="-1" role="dialog" aria-labelledby="facilityModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="facilityModalLabel">New Vacancies</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Vacancies Title:</label>
+            <input type="text" [(ngModel)]="vacancyToAdd.vacanciesTitle" name="vacanciesTitle" class="form-control"
+                   id="recipient-name">
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Vacancies Description:</label>
+            <textarea [(ngModel)]="vacancyToAdd.descirption" name="descirption" class="form-control"
+                      id="message-text"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="facility-tag" class="col-form-label">Vacancies Tags:</label>
+            <textarea class="form-control" id="facility-tag" [(ngModel)]="tags" name="tags"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="addVacancy()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
