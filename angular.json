@@ -58,6 +58,7 @@
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
+              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
@@ -140,6 +141,6 @@
   },
   "defaultProject": "uniconnects",
   "cli": {
-    "analytics": "0e563e49-2329-447c-8367-7a04c746c596"
+    "analytics": "26212f4e-1e81-4653-a015-c1f9183bef1e"
   }
 }
