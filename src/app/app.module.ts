@@ -14,11 +14,13 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {FooterModule} from './shared/components/footer/footer.module';
 import {JwtModule} from '@auth0/angular-jwt';
 import {JwtInterceptor} from './shared/services/jwt-interceptor.service';
+
+
 import {AngularFireModule} from '@angular/fire';
-import {AngularFireDatabaseModule} from '@angular/fire/database';
-import {environment} from 'src/environments/environment';
-import {AngularFirestore} from '@angular/fire/firestore';
-import {AngularFireAuth} from '@angular/fire/auth';
+import {AngularFireAuthModule} from '@angular/fire/auth';
+import {environment} from '../environments/environment';
+import {AngularFirestoreModule} from '@angular/fire/firestore';
+
 import {ProfileComponent} from './pages/directories/profile/profile.component';
 
 export function tokenGetter() {
@@ -50,14 +52,15 @@ export function tokenGetter() {
     HttpClientModule,
     FormsModule,
     FooterModule,
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFireDatabaseModule,
     ReactiveFormsModule,
     JwtModule.forRoot({
       config: {
-        tokenGetter: tokenGetter,
+        tokenGetter,
       }
     }),
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule,
+    AngularFirestoreModule.enablePersistence()
   ],
   providers: [
     {
@@ -65,8 +68,6 @@ export function tokenGetter() {
       useClass: JwtInterceptor,
       multi: true
     },
-    AngularFirestore,
-    AngularFireAuth
   ],
   bootstrap: [AppComponent]
 })
