@@ -7,7 +7,7 @@ import {ProfileComponent} from './profile/profile.component';
 
 
 @NgModule({
-  declarations: [DirectoriesComponent, ProfileComponent],
+  declarations: [DirectoriesComponent],
   imports: [
     CommonModule,
     DirectoriesRoutingModule,

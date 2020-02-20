@@ -40,7 +40,11 @@ export class FacilitiesComponent implements OnInit {
   }
 
   removeSlot(e: MouseEvent, slot: FacilitySlot) {
-    this.item.slots.splice(this.item.slots.indexOf(s => s.id === slot.id), 1);
+    // @ts-ignore
+    this.item.slots.splice(this.item.slots.indexOf((s: FacilitySlot) => {
+      const innerSlot = s as FacilitySlot;
+      return innerSlot.id === slot.id;
+    }), 1);
     this.itemsService.updateItem(this.item);
   }
 }

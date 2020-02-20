@@ -74,8 +74,9 @@
                 {{slot.date.toDate()|date:'dd MMM hh:mm'}}</div>
               <div class="item-date text-muted text-sm d-none d-md-block">{{slot.durationInMinutes}}Minutes</div>
             </div>
-            <input *ngIf="!canViewReservations" type="text" #comment placeholder="comment">
-            <button *ngIf="!canViewReservations" [disabled]="slot.isReserved" class="btn btn-success" (click)="book($event,slot,comment)">
+            <input type="text" #comment placeholder="comment">
+            <button *ngIf="!canViewReservations" [disabled]="slot.isReserved" class="btn btn-success"
+                    (click)="book($event,slot,comment)">
               BOOK
             </button>
             <button *ngIf="canViewReservations" class="btn btn-danger" (click)="removeSlot($event,slot)">

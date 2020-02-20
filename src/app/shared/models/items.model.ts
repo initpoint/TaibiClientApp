@@ -22,7 +22,7 @@ export class Item {
 
 export class FacilitySlot {
   public constructor(
-    public isReserved: boolean,
+    public isReserved?: boolean,
     public date?: any,
     public durationInMinutes?: number,
     public fullDay?: boolean,
