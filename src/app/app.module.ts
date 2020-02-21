@@ -7,7 +7,6 @@ import {LayoutComponent} from './shared/components/layout/layout.component';
 import {NavbarComponent} from './shared/components/navbar/navbar.component';
 import {SideMenuComponent} from './shared/components/side-menu/side-menu.component';
 import {LoginComponent} from './pages/login/login.component';
-import {RegisterComponent} from './shared/components/register/register.component';
 import {NotifierModule} from 'angular-notifier';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -24,6 +23,8 @@ import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {ProfileComponent} from './pages/directories/profile/profile.component';
 import {ToastrModule} from 'ngx-toastr';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { RouterModule } from '@angular/router';
+import { RegisterComponent } from './pages/register/register.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -54,6 +55,7 @@ export function tokenGetter() {
     HttpClientModule,
     FormsModule,
     FooterModule,
+    RouterModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
     ReactiveFormsModule,
