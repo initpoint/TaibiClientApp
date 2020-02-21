@@ -30,23 +30,9 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.params.subscribe(x => {
       this.userId = x['id'];
-      if (this.userId === 'currentUser' || this.authService.currentUserId === this.userId) {
-        this.user = this.authService.currentUser;
-        if (this.user.type === UserType.Student) {
-          this.profileType = ProfileType.CurrentStudent;
-        } else {
-          this.profileType = ProfileType.CurrentUniversity;
-        }
-      } else {
-        this.authService.getUser(this.userId).subscribe(userDoc => {
-          this.user = userDoc.payload.data() as AppUser;
-          if (this.user.type === UserType.Student) {
-            this.profileType = ProfileType.Student;
-          } else {
-            this.profileType = ProfileType.University;
-          }
-        });
-      }
+      this.authService.getUser(this.userId).subscribe(x => {
+        this.user = x.payload.data();
+      })
     });
     this.getItems();
   }
