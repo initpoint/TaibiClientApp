@@ -82,7 +82,6 @@
                        placeholder="Add Comment">
               </form>
             </div>
-            <!--            <input type="text" #comment placeholder="comment" class="mr-2">-->
             <button *ngIf="!canViewReservations" [disabled]="slot.isReserved" class="btn btn-success"
                     (click)="book($event,slot,comment)">
               BOOK
@@ -93,9 +92,29 @@
           </div>
 
         </div>
-        <button *ngIf="canViewReservations" class="btn btn-success" (click)="addSlot()">
-          Add Slot
-        </button>
+
+        <form *ngIf="canViewReservations">
+          <div class="form-group">
+            <label for="vacancy-title" class="col-form-label">Title:</label>
+            <input type="text" [(ngModel)]="slotToAdd.title" name="vacanciesTitle" class="form-control"
+                   id="vacancy-title">
+          </div>
+          <div class="form-group">
+            <label for="vacancy-desc" class="col-form-label">Contact:</label>
+            <textarea [(ngModel)]="slotToAdd.contactPerson" name="descirption" class="form-control"
+                      id="vacancy-desc"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="vacancy-desc" class="col-form-label">Date:</label>
+            <input data-provide="datepicker" [(ngModel)]="slotToAdd.date" name="date" class="form-control"
+                   id="slot-date">
+          </div>
+          <button *ngIf="canViewReservations" class="btn btn-success" (click)="addSlot()">
+            Add Slot
+          </button>
+        </form>
+
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -111,7 +130,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="reservationsModalLongTitle">Book Facility</h5>
+        <h5 class="modal-title" id="reservationsModalLongTitle">Reservations</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -123,7 +142,8 @@
             <div class="flex">
               <a class="item-author text-color"
                  data-dismiss="modal" data-abc="true">{{reservation.title }}</a>
-              <div class="item-except text-muted text-sm h-1x">{{reservation.user.name}}</div>
+              <div class="item-except text-muted text-sm h-1x"
+                   [routerLink]="['/profile',reservation.user.uid]">{{reservation.user.name}}</div>
             </div>
             <div class="no-wrap">
               <div class="item-date text-muted text-sm d-none d-md-block">

@@ -40,7 +40,9 @@ export class ItemsService {
   }
 
   updateItem(item: Item) {
-    this.db.doc('items/' + item.id).update(item);
+    this.db.doc('items/' + item.id).update(item).then(res => {
+      this.toastrService.success('Item Updated.');
+    });
   }
 
   deleteItem(itemId: string) {

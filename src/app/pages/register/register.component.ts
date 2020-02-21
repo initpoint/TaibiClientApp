@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { RegisterVM } from 'src/app/shared/models/register.model';
-import { AuthService } from 'src/app/shared/services/auth.service';
-import { Router } from '@angular/router';
-import { NotifierService } from 'angular-notifier';
-import { JwtHelperService } from '@auth0/angular-jwt';
-import { UsersService } from 'src/app/shared/services/users.service';
-import { AppUser, UserType } from 'src/app/shared/models/user.model';
-import { from } from 'rxjs';
-import { CoreService } from 'src/app/shared/services/core.service';
-import { ToastrService } from 'ngx-toastr';
+import {Component, OnInit} from '@angular/core';
+import {RegisterVM} from 'src/app/shared/models/register.model';
+import {AuthService} from 'src/app/shared/services/auth.service';
+import {Router} from '@angular/router';
+import {NotifierService} from 'angular-notifier';
+import {JwtHelperService} from '@auth0/angular-jwt';
+import {UsersService} from 'src/app/shared/services/users.service';
+import {AppUser, UserType} from 'src/app/shared/models/user.model';
+import {from} from 'rxjs';
+import {CoreService} from 'src/app/shared/services/core.service';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-register',
@@ -53,7 +53,7 @@ export class RegisterComponent implements OnInit {
     user.email = register.email;
     user.type = register.userType;
 
-    Object.keys(user).forEach(key => user[key] === undefined && delete user[key])
+    Object.keys(user).forEach(key => user[key] === undefined && delete user[key]);
     const o = {};
     Object.keys(user).map(key => o[key] = user[key]);
     return from(this.usersService.createUser(o));

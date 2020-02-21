@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
-import {AppUser, ProfileType, UserType} from '../../shared/models/user.model';
+import {AppUser, UserType} from '../../shared/models/user.model';
 import {ActivatedRoute} from '@angular/router';
 import {AuthService} from '../../shared/services/auth.service';
 import {Item, ItemType} from '../../shared/models/items.model';
@@ -20,26 +20,33 @@ export class ProfileComponent implements OnInit {
   isLoading = false;
   vacancyToAdd = new Item();
   facilityToAdd = new Item();
-  vacancyToAddtags = '';
-  facilityToAddtags = '';
+  vacancyToAddTags = '';
+  facilityToAddTags = '';
+  canAddVacancy = false;
+  canAddFacility = false;
+  canAddPost = false;
 
   constructor(public authService: AuthService, private itemsService: ItemsService,
               private statService: StatService, private activatedRoute: ActivatedRoute) {
   }
 
   ngOnInit() {
+    this.isLoading = true;
     this.activatedRoute.params.subscribe(x => {
       this.userId = x['id'];
       this.authService.getUser(this.userId).subscribe(x => {
         this.user = x.payload.data();
+        this.canAddVacancy = this.user.uid === this.authService.currentUserId && this.user.type === UserType.University;
+        this.canAddFacility = this.user.uid === this.authService.currentUserId && this.user.type === UserType.University;
+        this.canAddPost = this.user.uid === this.authService.currentUserId && this.user.type === UserType.Student;
+        console.log(this.user.type);
+        this.getItems();
       });
     });
-    this.getItems();
   }
 
   getItems() {
-    this.isLoading = true;
-    this.itemsService.getUserItems(this.authService.currentUserId).subscribe(data => {
+    this.itemsService.getUserItems(this.user.uid).subscribe(data => {
       this.items = data.map(e => {
         return {
           id: e.payload.doc.id,
@@ -53,7 +60,7 @@ export class ProfileComponent implements OnInit {
   addVacancy() {
     this.vacancyToAdd.type = ItemType.Vacancy;
     this.vacancyToAdd.user = this.authService.currentUser;
-    this.vacancyToAdd.tags = this.vacancyToAddtags.split(',');
+    this.vacancyToAdd.tags = this.vacancyToAddTags.split(',');
     this.vacancyToAdd.createDate = Date.now();
     this.itemsService.createItem(this.vacancyToAdd);
   }
@@ -61,7 +68,7 @@ export class ProfileComponent implements OnInit {
   addFacility() {
     this.facilityToAdd.type = ItemType.Facility;
     this.facilityToAdd.user = this.authService.currentUser;
-    this.facilityToAdd.tags = this.facilityToAddtags.split(',');
+    this.facilityToAdd.tags = this.facilityToAddTags.split(',');
     this.facilityToAdd.createDate = Date.now();
     this.itemsService.createItem(this.facilityToAdd);
   }

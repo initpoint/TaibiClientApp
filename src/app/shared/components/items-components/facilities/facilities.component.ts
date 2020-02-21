@@ -1,5 +1,5 @@
 import {Component, OnInit, Input, OnChanges} from '@angular/core';
-import {FacilityReservation, FacilitySlot, Item} from 'src/app/shared/models/items.model';
+import {FacilityReservation, FacilitySlot, Item, ItemType} from 'src/app/shared/models/items.model';
 import {AuthService} from '../../../services/auth.service';
 import {ItemsService} from '../../../services/Items.service';
 import {AppUser, UserType} from '../../../models/user.model';
@@ -15,6 +15,7 @@ export class FacilitiesComponent implements OnInit {
   @Input() item: Item;
 
   canViewReservations = false;
+  slotToAdd: FacilitySlot = new FacilitySlot();
 
   constructor(public authService: AuthService, public itemsService: ItemsService, public statService: StatService) {
   }
@@ -53,7 +54,15 @@ export class FacilitiesComponent implements OnInit {
     this.statService.missingFeature('print-facilityReservations');
   }
 
+
   addSlot() {
-    this.statService.missingFeature('add-facilitySlot');
+    if (this.item.slots) {
+      this.item.slots.push(this.slotToAdd);
+    } else {
+      this.item.slots = [this.slotToAdd];
+    }
+    this.itemsService.updateItem(this.item);
+    this.slotToAdd = new FacilitySlot();
   }
+
 }

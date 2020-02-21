@@ -98,11 +98,18 @@
               <div class="right-sidebar">
 
                 <div class="message-btn btn-group">
-                  <button data-toggle="modal" data-target="#exampleModal" class="btn btn-info mr-1" title=""><i
+                  <button *ngIf="canAddPost" data-toggle="modal" data-target="#postModal"
+                          class="btn btn-info mr-1" title=""><i
+                    class="fa fa-envelope"></i>
+                    Add Post
+                  </button>
+                  <button *ngIf="canAddVacancy" data-toggle="modal" data-target="#exampleModal"
+                          class="btn btn-info mr-1" title=""><i
                     class="fa fa-briefcase"></i>
                     New Vacancy
                   </button>
-                  <button data-toggle="modal" data-target="#facilityModal" class="btn btn-primary" title=""><i
+                  <button *ngIf="canAddFacility" data-toggle="modal" data-target="#facilityModal"
+                          class="btn btn-primary" title=""><i
                     class="fa fa-cogs"></i>
                     Add Facility
                   </button>
@@ -347,7 +354,7 @@
           </div>
           <div class="form-group">
             <label for="vacancy-tags" class="col-form-label">Vacancy Tags (Comma Separated):</label>
-            <textarea class="form-control" id="vacancy-tags" [(ngModel)]="vacancyToAddtags" name="tags"></textarea>
+            <textarea class="form-control" id="vacancy-tags" [(ngModel)]="vacancyToAddTags" name="tags"></textarea>
           </div>
         </form>
       </div>
@@ -384,7 +391,7 @@
           </div>
           <div class="form-group">
             <label for="facility-tag" class="col-form-label">Tags (Comma Separated):</label>
-            <textarea class="form-control" id="facility-tag" [(ngModel)]="facilityToAddtags" name="tags"></textarea>
+            <textarea class="form-control" id="facility-tag" [(ngModel)]="facilityToAddTags" name="tags"></textarea>
           </div>
         </form>
       </div>
