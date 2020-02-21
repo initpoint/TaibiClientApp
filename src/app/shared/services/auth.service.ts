@@ -7,12 +7,13 @@ import {LoginVM} from '../models/login.model';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {AppUser} from '../models/user.model';
 import {JwtHelperService} from '@auth0/angular-jwt';
+import App = firebase.app.App;
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  currentUser: AppUser = {};
+  currentUser: AppUser;
   currentUserId: string;
 
   constructor(private http: HttpClient, public auth: AngularFireAuth, public db: AngularFirestore, public jwtHelper: JwtHelperService) {
@@ -24,7 +25,7 @@ export class AuthService {
     if (userData && userData['user_id']) {
       this.currentUserId = userData['user_id'];
       this.getUser(this.currentUserId).subscribe(userDoc => {
-        this.currentUser = userDoc.payload.data();
+        this.currentUser = userDoc.payload.data() as AppUser;
       });
     }
   }

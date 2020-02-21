@@ -32,7 +32,7 @@ export class ItemsService {
         o[key] = item[key];
       }
     });
-    this.db.collection<Item>('items').add(o).then(res => {
+    this.db.collection('items').add(o).then(res => {
       this.toastrService.success('Item Added.');
     });
   }

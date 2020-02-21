@@ -4,7 +4,6 @@ import {AuthGuard} from './shared/guards/auth.guard';
 import {RegisterComponent} from './shared/components/register/register.component';
 import {LayoutComponent} from './shared/components/layout/layout.component';
 import {LoginComponent} from './pages/login/login.component';
-import {ProfileComponent} from './pages/directories/profile/profile.component';
 
 
 const routes: Routes = [
@@ -12,7 +11,6 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path: '', redirectTo: '/dashbord', pathMatch: 'full'},
-  {path: 'user/:id', component: ProfileComponent, pathMatch: 'full'},
   {
     path: '', component: LayoutComponent,
     children: [
@@ -34,8 +32,8 @@ const routes: Routes = [
       },
       {path: 'events', loadChildren: () => import('./pages/events/events.module').then(m => m.EventsModule), canActivate: [AuthGuard]},
       {
-        path: 'my-profile',
-        loadChildren: () => import('./pages/user-managment/my-profile/my-profile.module').then(m => m.MyProfileModule),
+        path: 'profile/:id',
+        loadChildren: () => import('./pages/profile/profile.module').then(m => m.ProfileModule),
         canActivate: [AuthGuard]
       },
       {

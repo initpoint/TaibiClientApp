@@ -2,6 +2,7 @@ import {AppUser} from './user.model';
 
 export class Item {
   public constructor(
+    public user?: AppUser,
     public id?: string,
     public commnets?: string[],
     public descirption?: string,
@@ -12,7 +13,6 @@ export class Item {
     public usersViewedIds?: string[],
     public tags?: string[],
     public type?: ItemType,
-    public user: AppUser = new AppUser(),
     public usersApplyIds?: string[],
     public slots?: FacilitySlot[],
     public reservations?: FacilityReservation[],
