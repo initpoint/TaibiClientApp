@@ -12,7 +12,7 @@ import {StatService} from '../../../services/stat.service';
 })
 export class FacilitiesComponent implements OnInit {
 
-  @Input() item: Item = new Item();
+  @Input() item: Item;
 
   canViewReservations = false;
 
@@ -20,7 +20,7 @@ export class FacilitiesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.canViewReservations = this.item.user.id === this.authService.currentUserId;
+    this.canViewReservations = this.item.user.uid === this.authService.currentUserId;
   }
 
   book(e: MouseEvent, slot: FacilitySlot, comment) {

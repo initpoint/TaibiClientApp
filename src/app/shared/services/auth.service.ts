@@ -11,7 +11,7 @@ import { RegisterVM } from '../models/register.model';
   providedIn: 'root'
 })
 export class AuthService {
-  currentUser: AppUser = {};
+  currentUser: AppUser;
   currentUserId: string;
 
   constructor(private http: HttpClient, public auth: AngularFireAuth, public db: AngularFirestore) {
@@ -23,7 +23,7 @@ export class AuthService {
     if (userData && userData['user_id']) {
       this.currentUserId = userData['user_id'];
       this.getUser(this.currentUserId).subscribe(userDoc => {
-        this.currentUser = userDoc.payload.data();
+        this.currentUser = userDoc.payload.data() as AppUser;
       });
     }
   }

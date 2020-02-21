@@ -1,9 +1,9 @@
 <div class="post-bar">
   <div class="post_topbar">
     <div class="usy-dt">
-      <a [routerLink]="['/user', item.user?.id]"><img style="width: 50px;" [src]="item.user.photoUrl" alt=""></a>
+      <a [routerLink]="['/profile', item.user?.uid]"><img style="width: 50px;" [src]="item.user.photoUrl" alt=""></a>
       <div class="usy-name">
-        <a [routerLink]="['/my-profile']"><h3>{{item.user.name}}</h3></a>
+        <a [routerLink]="['/profile', item.user?.uid]"><h3>{{item.user.name}}</h3></a>
         <span title="22:13 15/1/2020"><img src="assets/images/clock.png" alt="">3 min ago</span>
       </div>
     </div>

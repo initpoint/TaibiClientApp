@@ -48,7 +48,6 @@ export class RegisterComponent implements OnInit {
 
   createNewUser(register: RegisterVM, userId: string) {
     const user = new AppUser();
-    user.id = userId;
     user.uid = userId;
     user.email = register.email;
     Object.keys(user).forEach(key => user[key] === undefined && delete user[key])
