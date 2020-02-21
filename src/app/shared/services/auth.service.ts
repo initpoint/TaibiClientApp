@@ -20,11 +20,13 @@ export class AuthService {
   }
 
   updateCurrentUser() {
-    const token = localStorage.getItem('token');
-    this.currentUserId = this.jwtHelper.decodeToken(token)['user_id'];
-    this.getUser(this.currentUserId).subscribe(userDoc => {
-      this.currentUser = userDoc.payload.data();
-    });
+    const userData = JSON.parse(localStorage.getItem('userData'));
+    if (userData && userData['user_id']) {
+      this.currentUserId = userData['user_id'];
+      this.getUser(this.currentUserId).subscribe(userDoc => {
+        this.currentUser = userDoc.payload.data();
+      });
+    }
   }
 
   getUser(userId) {

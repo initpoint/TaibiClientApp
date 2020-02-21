@@ -17,7 +17,7 @@ export class MyProfileComponent implements OnInit {
   vacancyToAdd = new Item();
   tags = '';
 
-  constructor(private authService: AuthService, private itemsService: ItemsService) {
+  constructor(public authService: AuthService, private itemsService: ItemsService) {
   }
 
   ngOnInit() {
