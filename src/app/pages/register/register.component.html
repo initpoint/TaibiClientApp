@@ -1,21 +1,28 @@
 <div class="align body" style="height: 100vh;">
 
+  <img src="assets/images/logo.png" width="170" height="70" style="margin: 10px;">
   <div class="grid">
 
     <div id="login">
-
-      <h2><span class="fontawesome-lock"></span>Sign Up</h2>
+      <h2>
+        Sign Up</h2>
 
       <fieldset>
 
         <p><label for="email">E-mail address</label></p>
-        <p><input type="email" id="email" name="email" [(ngModel)]="registerVM.email" placeholder="mail@address.com"></p>
-
-        <p><label for="password">Password</label></p>
-        <p><input type="password" id="password" name="password" [(ngModel)]="registerVM.password" placeholder="password">
+        <p><input type="email" id="email" name="email" [(ngModel)]="registerVM.email" placeholder="mail@address.com">
         </p>
 
+        <p><label for="password">Password</label></p>
+        <p><input type="password" id="password" name="password" [(ngModel)]="registerVM.password"
+            placeholder="password">
+        </p>
+
+
         <p><input type="submit" value="Sign Up" (click)="register()"></p>
+
+        <p><input type="submit" class="back-to-sign-in" value="Back To Sign In" [routerLink]="['/login']"></p>
+
       </fieldset>
 
     </div> <!-- end login -->

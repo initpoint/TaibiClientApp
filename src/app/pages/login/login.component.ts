@@ -5,6 +5,7 @@ import {NotifierService} from 'angular-notifier';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {LoginVM} from 'src/app/shared/models/login.model';
 import { UsersService } from 'src/app/shared/services/users.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -18,6 +19,7 @@ export class LoginComponent implements OnInit {
     public auth: AuthService,
     private router: Router,
     private jwtHelper: JwtHelperService,
+    private toastrService: ToastrService,
     private usersService: UsersService,
     private notifierService: NotifierService) {
   }
@@ -35,11 +37,10 @@ export class LoginComponent implements OnInit {
       const token = await x.user.getIdToken();
       localStorage.setItem('token', token);
       localStorage.setItem('userData', JSON.stringify(this.jwtHelper.decodeToken(token)));
-
       this.auth.updateCurrentUser();
       this.router.navigate(['/dashbord']);
     }, e => {
-      this.notifierService.notify('error', 'Incorrect username or password');
+      this.toastrService.error(e.message);
     });
   }
 }

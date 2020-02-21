@@ -8,6 +8,7 @@ import { UsersService } from 'src/app/shared/services/users.service';
 import { AppUser } from 'src/app/shared/models/user.model';
 import { from } from 'rxjs';
 import { CoreService } from 'src/app/shared/services/core.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-register',
@@ -24,6 +25,7 @@ export class RegisterComponent implements OnInit {
     private usersService: UsersService,
     private coreService: CoreService,
     private jwtHelper: JwtHelperService,
+    private toastrService: ToastrService,
     private notifierService: NotifierService) {
 
   }
@@ -39,7 +41,7 @@ export class RegisterComponent implements OnInit {
       this.createNewUser(this.registerVM, JSON.parse(localStorage.getItem('userData')).user_id);
       this.router.navigate(['/dashbord']);
     }, e => {
-      this.notifierService.notify('error', 'Incorrect username or password');
+      this.toastrService.error(e.message);
     });
 
   }
