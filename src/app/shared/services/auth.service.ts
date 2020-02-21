@@ -29,8 +29,9 @@ export class AuthService {
   }
 
   getUser(userId) {
-    return this.db.collection<AppUser>('users').doc(userId).snapshotChanges();
+    return this.db.collection<AppUser>('users', ref => ref.where('uid', '==', userId)).doc<AppUser>(userId).snapshotChanges();
   }
+
 
   login(model: LoginVM) {
     const userAuthProimse = this.auth.auth.signInWithEmailAndPassword(model.email, model.password);

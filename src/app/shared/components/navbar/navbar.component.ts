@@ -9,7 +9,7 @@ import {ItemsService} from '../../services/Items.service';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-
+  currentUserId = JSON.parse(localStorage.getItem('userData')).user_id;
   constructor(public itemsService: ItemsService, private router: Router) {
   }
 
