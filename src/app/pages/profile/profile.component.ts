@@ -16,7 +16,6 @@ export class ProfileComponent implements OnInit {
 
   user: AppUser;
   userId: string;
-  profileType: ProfileType = ProfileType.Nothing;
   items = [];
   isLoading = false;
   vacancyToAdd = new Item();
@@ -32,7 +31,7 @@ export class ProfileComponent implements OnInit {
       this.userId = x['id'];
       this.authService.getUser(this.userId).subscribe(x => {
         this.user = x.payload.data();
-      })
+      });
     });
     this.getItems();
   }
@@ -58,6 +57,7 @@ export class ProfileComponent implements OnInit {
     console.log(this.vacancyToAdd);
     this.itemsService.createItem(this.vacancyToAdd);
   }
+
   addFacility() {
     this.vacancyToAdd.type = ItemType.Vacancy;
     this.vacancyToAdd.user = this.authService.currentUser;
