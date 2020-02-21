@@ -4,7 +4,8 @@
       <a [routerLink]="['/profile', item.user?.uid]"><img style="width: 50px;" [src]="item.user.photoUrl" alt=""></a>
       <div class="usy-name">
         <a [routerLink]="['/profile', item.user?.uid]"><h3>{{item.user.name}}</h3></a>
-        <span title="22:13 15/1/2020"><img src="assets/images/clock.png" alt="">3 min ago</span>
+        <span title="{{item.createDate| date: 'dd MMM hh:mm'  }}"><img src="assets/images/clock.png"
+                                                                       alt="">3 min ago</span>
       </div>
     </div>
 
@@ -25,7 +26,7 @@
   </div>
   <div class="job_descp">
     <ul class="job-dt">
-      <li><span>{{item.createDate.toDate()| date: 'dd MMM hh:mm'  }}</span></li>
+      <li><span>{{item.title}}</span></li>
     </ul>
     <p>{{item.descirption}}</p>
     <ul class="skill-tags">
