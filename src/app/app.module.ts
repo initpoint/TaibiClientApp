@@ -19,7 +19,7 @@ import {AngularFireModule} from '@angular/fire';
 import {AngularFireAuthModule} from '@angular/fire/auth';
 import {environment} from '../environments/environment';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
-import {AngularFireAnalyticsModule, ScreenTrackingService,UserTrackingService} from '@angular/fire/analytics';
+import {AngularFireAnalyticsModule, ScreenTrackingService, UserTrackingService} from '@angular/fire/analytics';
 
 import {ProfileComponent} from './pages/directories/profile/profile.component';
 import {ToastrModule} from 'ngx-toastr';

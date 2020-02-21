@@ -24,6 +24,8 @@ export class ItemsService {
   }
 
   createItem(item: Item) {
+    Object.keys(item).forEach(key => item[key] === undefined ? delete item[key] : {});
+    Object.keys(item.user).forEach(key => item.user[key] === undefined ? delete item.user[key] : {});
     const o = {user: {}};
     Object.keys(item).map(key => {
       if (key === 'user') {

@@ -4,9 +4,9 @@ export class Item {
   public constructor(
     public user?: AppUser,
     public id?: string,
-    public commnets?: string[],
+    public comments?: string[],
     public descirption?: string,
-    public vacanciesTitle?: string,
+    public title?: string,
     public createDate?: any,
     public usersLikeIds?: string[],
     public usersSharedIds?: string[],
