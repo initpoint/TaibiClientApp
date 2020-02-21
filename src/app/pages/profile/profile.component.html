@@ -1345,8 +1345,8 @@
               id="vacancy-desc"></textarea>
           </div>
           <div class="form-group">
-            <label for="vacancy-tags" class="col-form-label">Vacancy Tags:</label>
-            <textarea class="form-control" id="vacancy-tags" [(ngModel)]="tags" name="tags"></textarea>
+            <label for="vacancy-tags" class="col-form-label">Vacancy Tags (Comma Separated):</label>
+            <textarea class="form-control" id="vacancy-tags" [(ngModel)]="vacancyToAddtags" name="tags"></textarea>
           </div>
         </form>
       </div>
@@ -1372,24 +1372,24 @@
       <div class="modal-body">
         <form>
           <div class="form-group">
-            <label for="recipient-name" class="col-form-label">Vacancies Title:</label>
-            <input type="text" [(ngModel)]="facilityToAdd.title" name="vacanciesTitle" class="form-control"
-              id="recipient-name">
+            <label for="recipient-name" class="col-form-label">Facility Name:</label>
+            <input type="text" [(ngModel)]="facilityToAdd.title" name="name" class="form-control"
+                   id="recipient-name">
           </div>
           <div class="form-group">
-            <label for="message-text" class="col-form-label">Vacancies Description:</label>
+            <label for="message-text" class="col-form-label">Facility Description:</label>
             <textarea [(ngModel)]="facilityToAdd.descirption" name="descirption" class="form-control"
               id="message-text"></textarea>
           </div>
           <div class="form-group">
-            <label for="facility-tag" class="col-form-label">Vacancies Tags:</label>
-            <textarea class="form-control" id="facility-tag" [(ngModel)]="tags" name="tags"></textarea>
+            <label for="facility-tag" class="col-form-label">Tags (Comma Separated):</label>
+            <textarea class="form-control" id="facility-tag" [(ngModel)]="facilityToAddtags" name="tags"></textarea>
           </div>
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="addVacancy()">Save</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="addFacility()">Save</button>
       </div>
     </div>
   </div>

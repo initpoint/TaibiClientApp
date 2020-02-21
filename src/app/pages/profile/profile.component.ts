@@ -20,7 +20,8 @@ export class ProfileComponent implements OnInit {
   isLoading = false;
   vacancyToAdd = new Item();
   facilityToAdd = new Item();
-  tags = '';
+  vacancyToAddtags = '';
+  facilityToAddtags = '';
 
   constructor(public authService: AuthService, private itemsService: ItemsService,
               public statService: StatService, private activatedRoute: ActivatedRoute) {
@@ -55,19 +56,17 @@ export class ProfileComponent implements OnInit {
   addVacancy() {
     this.vacancyToAdd.type = ItemType.Vacancy;
     this.vacancyToAdd.user = this.authService.currentUser;
-    this.vacancyToAdd.tags = this.tags.split(',');
+    this.vacancyToAdd.tags = this.vacancyToAddtags.split(',');
     this.vacancyToAdd.createDate = Date.now();
-    console.log(this.vacancyToAdd);
     this.itemsService.createItem(this.vacancyToAdd);
   }
 
   addFacility() {
-    this.vacancyToAdd.type = ItemType.Vacancy;
-    this.vacancyToAdd.user = this.authService.currentUser;
-    this.vacancyToAdd.tags = this.tags.split(',');
-    this.vacancyToAdd.createDate = Date.now();
-    console.log(this.vacancyToAdd);
-    this.itemsService.createItem(this.vacancyToAdd);
+    this.facilityToAdd.type = ItemType.Facility;
+    this.facilityToAdd.user = this.authService.currentUser;
+    this.facilityToAdd.tags = this.facilityToAddtags.split(',');
+    this.facilityToAdd.createDate = Date.now();
+    this.itemsService.createItem(this.facilityToAdd);
   }
 
   changeCover() {
