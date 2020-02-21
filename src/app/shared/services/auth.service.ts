@@ -1,13 +1,11 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable, from} from 'rxjs';
-import {Config} from '../confing/config';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {LoginVM} from '../models/login.model';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {AppUser} from '../models/user.model';
-import {JwtHelperService} from '@auth0/angular-jwt';
-import App = firebase.app.App;
+import { RegisterVM } from '../models/register.model';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +14,7 @@ export class AuthService {
   currentUser: AppUser;
   currentUserId: string;
 
-  constructor(private http: HttpClient, public auth: AngularFireAuth, public db: AngularFirestore, public jwtHelper: JwtHelperService) {
+  constructor(private http: HttpClient, public auth: AngularFireAuth, public db: AngularFirestore) {
     this.updateCurrentUser();
   }
 
@@ -39,8 +37,9 @@ export class AuthService {
     return from(userAuthProimse);
   }
 
-  register(registerModel: any): Observable<any> {
-    return this.http.post<any>(Config.Register, registerModel);
+  register(model: RegisterVM): Observable<any> {
+    const userAuthProimse = this.auth.auth.createUserWithEmailAndPassword(model.email, model.password);
+    return from(userAuthProimse);
   }
 
 }
