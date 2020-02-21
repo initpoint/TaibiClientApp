@@ -1,6 +1,7 @@
 <div class="wrapper">
   <section class="cover-sec">
-    <img [src]="authService.currentUser.coverPhotoUrl" alt="" style="height: 300px;">
+    <img [src]="user.coverPhotoUrl" alt="" style="height: 400px;">
+    <a href="#" title="" (click)="changeCover()"><i class="fa fa-camera"></i> Change Image</a>
   </section>
   <main>
     <div class="main-section">
@@ -83,12 +84,12 @@
                     </ul>
                   </div><!-- tab-feed end-->
                 </div>
-<!--                <div *ngFor="let item of items">-->
-<!--                  <div [ngSwitch]="item.type">-->
-<!--                    <app-vacancies *ngSwitchCase="1" [item]="item"></app-vacancies>-->
-<!--                    <app-facilities *ngSwitchCase="4" [item]="item"></app-facilities>-->
-<!--                  </div>-->
-<!--                </div>-->
+                <!--                <div *ngFor="let item of items">-->
+                <!--                  <div [ngSwitch]="item.type">-->
+                <!--                    <app-vacancies *ngSwitchCase="1" [item]="item"></app-vacancies>-->
+                <!--                    <app-facilities *ngSwitchCase="4" [item]="item"></app-facilities>-->
+                <!--                  </div>-->
+                <!--                </div>-->
                 <app-loader *ngIf="isLoading"></app-loader>
               </div>
               <!--main-ws-sec end-->

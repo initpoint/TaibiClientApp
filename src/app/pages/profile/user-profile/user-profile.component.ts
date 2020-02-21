@@ -4,6 +4,7 @@ import {ItemsService} from 'src/app/shared/services/Items.service';
 import {ItemType, Item} from 'src/app/shared/models/items.model';
 import {AuthService} from '../../../shared/services/auth.service';
 import {ActivatedRoute} from '@angular/router';
+import {StatService} from '../../../shared/services/stat.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -16,16 +17,11 @@ export class UserProfileComponent implements OnInit {
 
   items = [];
   isLoading = false;
-  vacancyToAdd: Item;
-  tags = '';
 
-  constructor(public authService: AuthService, private itemsService: ItemsService, private activatedRoute: ActivatedRoute) {
-
+  constructor(public authService: AuthService, private itemsService: ItemsService, private statService: StatService) {
   }
 
   ngOnInit() {
-    this.vacancyToAdd.type = ItemType.Vacancy;
-    this.vacancyToAdd.user = this.user;
     this.getItems();
   }
 
@@ -42,14 +38,7 @@ export class UserProfileComponent implements OnInit {
     });
   }
 
-  addVacancy() {
-    this.vacancyToAdd.tags = this.tags.split(',');
-    // this.vacanciesToAdd.createDate = new Date();
-    // this.vacancyToAdd.id = 'wuiwuero';
-    Object.keys(this.vacancyToAdd).forEach(key => this.vacancyToAdd[key] === undefined ? delete this.vacancyToAdd[key] : {});
-    Object.keys(this.vacancyToAdd.user).forEach(key => this.vacancyToAdd.user[key] === undefined ? delete this.vacancyToAdd.user[key] : {});
-    console.log(this.vacancyToAdd);
-    this.itemsService.createItem(this.vacancyToAdd);
+  message() {
+    this.statService.missingFeature('user-message');
   }
-
 }

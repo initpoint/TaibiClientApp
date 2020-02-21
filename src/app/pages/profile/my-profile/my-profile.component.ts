@@ -1,9 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {UsersService} from 'src/app/shared/services/users.service';
 import {AppUser} from 'src/app/shared/models/user.model';
 import {ItemsService} from 'src/app/shared/services/Items.service';
 import {ItemType, Item} from 'src/app/shared/models/items.model';
 import {AuthService} from '../../../shared/services/auth.service';
+import {StatService} from '../../../shared/services/stat.service';
 
 @Component({
   selector: 'app-my-profile',
@@ -11,13 +12,14 @@ import {AuthService} from '../../../shared/services/auth.service';
   styleUrls: ['./my-profile.component.scss']
 })
 export class MyProfileComponent implements OnInit {
+  @Input() user: AppUser;
 
   items = [];
   isLoading = false;
   vacancyToAdd = new Item();
   tags = '';
 
-  constructor(public authService: AuthService, private itemsService: ItemsService) {
+  constructor(public authService: AuthService, private itemsService: ItemsService, private statService: StatService) {
   }
 
   ngOnInit() {
@@ -49,4 +51,7 @@ export class MyProfileComponent implements OnInit {
     this.itemsService.createItem(this.vacancyToAdd);
   }
 
+  changeCover() {
+    this.statService.missingFeature('user-changeCover');
+  }
 }

@@ -1,6 +1,6 @@
 <div class="wrapper">
   <section class="cover-sec">
-    <img [src]="user.coverPhotoUrl" alt="" style="height: 300px;">
+    <img [src]="user.coverPhotoUrl" alt="" style="height: 400px;">
   </section>
   <main>
     <div class="main-section">
@@ -97,13 +97,9 @@
               <div class="right-sidebar">
 
                 <div class="message-btn btn-group">
-                  <button data-toggle="modal" data-target="#exampleModal" class="btn btn-info mr-1" title=""><i
-                    class="fa fa-briefcase"></i>
-                    New Vacancy
-                  </button>
-                  <button data-toggle="modal" data-target="#facilityModal" class="btn btn-primary" title=""><i
-                    class="fa fa-cogs"></i>
-                    Add Facility
+                  <button (click)="message()" class="btn btn-info mr-1" title=""><i
+                    class="fa fa-envelope"></i>
+                    Message
                   </button>
                 </div>
 
@@ -320,77 +316,3 @@
 
 </div>
 <!--theme-layout end-->
-
-<!--Vacancy Modal-->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">New Vacancies</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="form-group">
-            <label for="vacancy-title" class="col-form-label">Vacancy Title:</label>
-            <input type="text" [(ngModel)]="vacancyToAdd.vacanciesTitle" name="vacanciesTitle" class="form-control"
-                   id="vacancy-title">
-          </div>
-          <div class="form-group">
-            <label for="vacancy-desc" class="col-form-label">Vacancy Description:</label>
-            <textarea [(ngModel)]="vacancyToAdd.descirption" name="descirption" class="form-control"
-                      id="vacancy-desc"></textarea>
-          </div>
-          <div class="form-group">
-            <label for="vacancy-tags" class="col-form-label">Vacancy Tags:</label>
-            <textarea class="form-control" id="vacancy-tags" [(ngModel)]="tags" name="tags"></textarea>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="addVacancy()">Save</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!--Facility Modal-->
-<div class="modal fade" id="facilityModal" tabindex="-1" role="dialog" aria-labelledby="facilityModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="facilityModalLabel">New Vacancies</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="form-group">
-            <label for="recipient-name" class="col-form-label">Vacancies Title:</label>
-            <input type="text" [(ngModel)]="vacancyToAdd.vacanciesTitle" name="vacanciesTitle" class="form-control"
-                   id="recipient-name">
-          </div>
-          <div class="form-group">
-            <label for="message-text" class="col-form-label">Vacancies Description:</label>
-            <textarea [(ngModel)]="vacancyToAdd.descirption" name="descirption" class="form-control"
-                      id="message-text"></textarea>
-          </div>
-          <div class="form-group">
-            <label for="facility-tag" class="col-form-label">Vacancies Tags:</label>
-            <textarea class="form-control" id="facility-tag" [(ngModel)]="tags" name="tags"></textarea>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="addVacancy()">Save</button>
-      </div>
-    </div>
-  </div>
-</div>

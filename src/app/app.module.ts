@@ -19,12 +19,13 @@ import {AngularFireModule} from '@angular/fire';
 import {AngularFireAuthModule} from '@angular/fire/auth';
 import {environment} from '../environments/environment';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
+import {AngularFireAnalyticsModule, ScreenTrackingService,UserTrackingService} from '@angular/fire/analytics';
 
 import {ProfileComponent} from './pages/directories/profile/profile.component';
 import {ToastrModule} from 'ngx-toastr';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { RouterModule } from '@angular/router';
-import { RegisterComponent } from './pages/register/register.component';
+import {RouterModule} from '@angular/router';
+import {RegisterComponent} from './pages/register/register.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -66,14 +67,17 @@ export function tokenGetter() {
     }),
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
-    AngularFirestoreModule.enablePersistence()
+    AngularFirestoreModule.enablePersistence(),
+    AngularFireAnalyticsModule
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,
-      multi: true
+      multi: true,
     },
+    ScreenTrackingService,
+    UserTrackingService
   ],
   bootstrap: [AppComponent]
 })

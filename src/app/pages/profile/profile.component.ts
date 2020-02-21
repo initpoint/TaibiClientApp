@@ -21,7 +21,7 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.params.subscribe(x => {
       this.userId = x['id'];
-      if (this.authService.currentUserId === this.userId) {
+      if (this.userId === 'currentUser' || this.authService.currentUserId === this.userId) {
         this.user = this.authService.currentUser;
         if (this.user.type === UserType.Student) {
           this.profileType = ProfileType.CurrentStudent;
