@@ -33,6 +33,12 @@ export class AuthService {
   }
 
 
+  updateItem(user: AppUser) {
+    this.db.doc('users/' + user.uid).update(user);
+  }
+
+
+
   login(model: LoginVM) {
     const userAuthProimse = this.auth.auth.signInWithEmailAndPassword(model.email, model.password);
     return from(userAuthProimse);

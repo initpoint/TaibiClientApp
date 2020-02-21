@@ -13,7 +13,7 @@ import {StatService} from '../../shared/services/stat.service';
   encapsulation: ViewEncapsulation.Emulated
 })
 export class ProfileComponent implements OnInit {
-
+  currentTab = 1;
   user: AppUser;
   userId: string;
   items = [];
@@ -23,7 +23,7 @@ export class ProfileComponent implements OnInit {
   tags = '';
 
   constructor(public authService: AuthService, private itemsService: ItemsService,
-              private statService: StatService, private activatedRoute: ActivatedRoute) {
+              public statService: StatService, private activatedRoute: ActivatedRoute) {
   }
 
   ngOnInit() {
@@ -49,6 +49,9 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+  saveUserData() {
+    this.authService.updateItem(this.user);
+  }
   addVacancy() {
     this.vacancyToAdd.type = ItemType.Vacancy;
     this.vacancyToAdd.user = this.authService.currentUser;

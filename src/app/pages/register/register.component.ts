@@ -9,6 +9,7 @@ import { AppUser, UserType } from 'src/app/shared/models/user.model';
 import { from } from 'rxjs';
 import { CoreService } from 'src/app/shared/services/core.service';
 import { ToastrService } from 'ngx-toastr';
+import { StatService } from 'src/app/shared/services/stat.service';
 
 @Component({
   selector: 'app-register',
@@ -25,6 +26,7 @@ export class RegisterComponent implements OnInit {
     private usersService: UsersService,
     private coreService: CoreService,
     private jwtHelper: JwtHelperService,
+    public statService: StatService,
     private toastrService: ToastrService,
     private notifierService: NotifierService) {
 
