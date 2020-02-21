@@ -25,9 +25,9 @@ export class AppUser {
 
 
 export enum UserType {
-  All,
-  University,
-  Student
+  All = "0",
+  University = "1",
+  Student = "2"
 }
 
 export enum ProfileType {

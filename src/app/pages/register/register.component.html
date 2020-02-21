@@ -17,7 +17,26 @@
         <p><input type="password" id="password" name="password" [(ngModel)]="registerVM.password"
             placeholder="password">
         </p>
-
+        <div class="row">
+          <div class="col-6">
+            <div class="form-check">
+              <input class="form-check-input" style="margin-top: 4px;" type="radio" name="userType" [(ngModel)]="registerVM.userType" id="exampleRadios1" value="1"
+                checked>
+              <label class="form-check-label" for="exampleRadios1">
+                University
+              </label>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="userType" [(ngModel)]="registerVM.userType" style="margin-top: 4px;"
+                id="exampleRadios2" value="2" checked>
+              <label class="form-check-label" for="exampleRadios2">
+                Student
+              </label>
+            </div>
+          </div>
+        </div>
 
         <p><input type="submit" value="Sign Up" (click)="register()"></p>
 
