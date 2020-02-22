@@ -20,7 +20,7 @@ import {AngularFireAuthModule} from '@angular/fire/auth';
 import {environment} from '../environments/environment';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {AngularFireAnalyticsModule, ScreenTrackingService, UserTrackingService} from '@angular/fire/analytics';
-
+import { AngularFirePerformanceModule } from '@angular/fire/performance';
 import {ProfileComponent} from './pages/directories/profile/profile.component';
 import {ToastrModule} from 'ngx-toastr';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -68,7 +68,8 @@ export function tokenGetter() {
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AngularFirestoreModule.enablePersistence(),
-    AngularFireAnalyticsModule
+    AngularFireAnalyticsModule,
+    AngularFirePerformanceModule
   ],
   providers: [
     {

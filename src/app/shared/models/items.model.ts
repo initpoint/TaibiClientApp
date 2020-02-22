@@ -4,6 +4,7 @@ export class Item {
   public constructor(
     public descirption: string = '',
     public title: string = '',
+    public tags: string[] = [],
     public user?: AppUser,
     public id?: string,
     public comments?: string[],
@@ -11,7 +12,6 @@ export class Item {
     public usersLikeIds?: string[],
     public usersSharedIds?: string[],
     public usersViewedIds?: string[],
-    public tags?: string[],
     public type?: ItemType,
     public usersApplyIds?: string[],
     public slots?: FacilitySlot[],

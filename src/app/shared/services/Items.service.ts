@@ -10,6 +10,7 @@ import {ToastrService} from 'ngx-toastr';
 export class ItemsService {
   currentItemType = new BehaviorSubject(ItemType.All);
   searchInItemsKeyWord = new BehaviorSubject('');
+  searchByTag = new BehaviorSubject('');
 
 
   constructor(public db: AngularFirestore, public toastrService: ToastrService) {

@@ -35,7 +35,8 @@
     </ul>
     <p>{{item.descirption}}</p>
     <ul class="skill-tags">
-      <li *ngFor="let tag of item.tags"><a title="">{{tag}}</a></li>
+      <li *ngFor="let tag of item.tags">
+        <a title="" (click)="itemsService.searchByTag.next(tag)">{{tag}}</a></li>
     </ul>
   </div>
   <div class="job-status-bar">

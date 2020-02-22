@@ -9,12 +9,13 @@
   </button>
   <div class="collapse navbar-collapse">
     <form class="form-inline my-2 mr-auto ml-auto  my-lg-0">
-      <input class="form-control search-input mr-sm-2" (change)="searchInItems($event.target.value)" type="search"
-             placeholder="Search" aria-label="Search">
+      <input class="form-control search-input mr-sm-2" (keyup)="searchInItems($event.target.value)"
+             type="search"
+             placeholder="Search" aria-label="Search" [value]="theValue">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
   </div>
 
-  <button class="btn ml-3 mr-3" (click)="logout()"><i class="fa fa-sign-out" ></i></button>
+  <button class="btn ml-3 mr-3" (click)="logout()"><i class="fa fa-sign-out"></i></button>
   <button class="btn ml-3" [routerLink]="['/profile', currentUserId]"><i class="fa fa-user-circle"></i></button>
 </nav>

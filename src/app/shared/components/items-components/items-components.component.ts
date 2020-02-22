@@ -36,11 +36,22 @@ export class ItemsComponentsComponent implements OnInit {
 
   searchInItems() {
     this.itemsService.searchInItemsKeyWord.subscribe(value => {
-      console.log(value);
+      value = value.toLocaleLowerCase();
       if (value.length > 0) {
-        this.itemsToDisplay = this.items.filter(x =>
-          x.descirption.toLocaleLowerCase().includes(value.toLocaleLowerCase()) ||
-          x.user.name.toLocaleLowerCase().includes(value.toLocaleLowerCase())
+        this.itemsToDisplay = this.items.filter(item => {
+            if (item.descirption.toLocaleLowerCase().includes(value)) {
+              return true;
+            }
+            if (item.user.name.toLocaleLowerCase().includes(value)) {
+              return true;
+            }
+            if (item.title && item.title.toLocaleLowerCase().includes(value)) {
+              return true;
+            }
+            if (item.tags.map(tag => tag.toLocaleLowerCase().includes(value)).includes(true)) {
+              return true;
+            }
+          }
         );
       } else {
         this.itemsToDisplay = this.items;
