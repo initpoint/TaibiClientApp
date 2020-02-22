@@ -5,7 +5,7 @@ import {AngularFireAuth} from '@angular/fire/auth';
 import {LoginVM} from '../models/login.model';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {AppUser} from '../models/user.model';
-import { RegisterVM } from '../models/register.model';
+import {RegisterVM} from '../models/register.model';
 
 @Injectable({
   providedIn: 'root'
@@ -19,13 +19,20 @@ export class AuthService {
   }
 
   updateCurrentUser() {
-    const userData = JSON.parse(localStorage.getItem('userData'));
-    if (userData && userData['user_id']) {
-      this.currentUserId = userData['user_id'];
-      this.getUser(this.currentUserId).subscribe(userDoc => {
-        this.currentUser = userDoc.payload.data() as AppUser;
-      });
-    }
+    return new Promise(resolve => {
+      if (this.currentUser) {
+        resolve();
+      } else {
+        const userData = JSON.parse(localStorage.getItem('userData'));
+        if (userData && userData['user_id']) {
+          this.currentUserId = userData['user_id'];
+          this.getUser(this.currentUserId).subscribe(userDoc => {
+            this.currentUser = userDoc.payload.data();
+            resolve();
+          });
+        }
+      }
+    });
   }
 
   getUser(userId) {
@@ -36,7 +43,6 @@ export class AuthService {
   updateItem(user: AppUser) {
     this.db.doc('users/' + user.uid).update(user);
   }
-
 
 
   login(model: LoginVM) {

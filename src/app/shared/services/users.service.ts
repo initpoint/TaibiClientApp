@@ -19,7 +19,7 @@ export class UsersService {
   }
 
   createUser(user: AppUser) {
-    return this.db.collection('users').add(user);
+    return this.db.doc('users/' + user.uid).set(user);
   }
 
   updateUser(user: AppUser) {
