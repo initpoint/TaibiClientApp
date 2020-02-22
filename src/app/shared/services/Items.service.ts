@@ -41,7 +41,32 @@ export class ItemsService {
   }
 
   updateItem(item: Item) {
-    this.db.doc('items/' + item.id).update(item).then(res => {
+    Object.keys(item).forEach(key => item[key] === undefined ? delete item[key] : {});
+    Object.keys(item.user).forEach(key => item.user[key] === undefined ? delete item.user[key] : {});
+    item.slots.map(slot => {
+      Object.keys(slot).forEach(key => slot[key] === undefined ? delete slot[key] : {});
+    });
+    item.reservations.map(reservation => {
+      Object.keys(reservation).forEach(key => reservation[key] === undefined ? delete reservation[key] : {});
+    });
+
+    const o = {user: {}, slots: [], reservations: []};
+    Object.keys(item).map(key => {
+      if (key === 'user') {
+        o['user'] = {...item.user};
+      } else if (key === 'slots') {
+        o['slots'] = item.slots.map(slot => {
+          return {...slot};
+        });
+      } else if (key === 'reservations') {
+        o['slots'] = item.reservations.map(reservation => {
+          return {...reservation};
+        });
+      } else {
+        o[key] = item[key];
+      }
+    });
+    return this.db.doc('items/' + item.id).set(o).then((res) => {
       this.toastrService.success('Item Updated.');
     });
   }

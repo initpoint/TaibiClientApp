@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, OnChanges, OnInit, ViewEncapsulation} from '@angular/core';
 import {AppUser, UserType} from '../../shared/models/user.model';
 import {ActivatedRoute} from '@angular/router';
 import {AuthService} from '../../shared/services/auth.service';

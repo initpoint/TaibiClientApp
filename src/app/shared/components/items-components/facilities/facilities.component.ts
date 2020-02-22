@@ -21,6 +21,7 @@ export class FacilitiesComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log('ngOnInit:currentUserId', this.authService.currentUserId);
     this.canViewReservations = this.item.user.uid === this.authService.currentUserId;
   }
 

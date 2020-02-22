@@ -7,15 +7,15 @@ export class Item {
     public tags: string[] = [],
     public user?: AppUser,
     public id?: string,
-    public comments?: string[],
+    public comments: string[] = [],
     public createDate?: any,
     public usersLikeIds?: string[],
     public usersSharedIds?: string[],
     public usersViewedIds?: string[],
     public type?: ItemType,
-    public usersApplyIds?: string[],
-    public slots?: FacilitySlot[],
-    public reservations?: FacilityReservation[],
+    public usersApplyIds: string[] = [],
+    public slots: FacilitySlot[] = [],
+    public reservations: FacilityReservation[] = [],
   ) {
   }
 }

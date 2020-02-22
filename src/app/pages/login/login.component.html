@@ -16,12 +16,12 @@
         <p><input type="password" id="password" name="password" [(ngModel)]="loginVM.password" placeholder="password">
         </p>
 
-       
+
             <p><input type="submit" value="Sign In" (click)="login()"></p>
             <p><input type="submit" class="back-to-sign-in" value="Go To Sign Up" [routerLink]="['/register']"></p>
 
-        <p><input type="button" value="Login as Student" (click)="login('student@mail.com','123456')">
-          <br> <input type="button" value="Login as University" (click)="login('university@mail.com','123456')"></p>
+        <p><input type="button" value="Login as Student" (click)="login('student@mail.com','12345678')">
+          <br> <input type="button" value="Login as University" (click)="login('university@mail.com','12345678')"></p>
       </fieldset>
 
     </div> <!-- end login -->

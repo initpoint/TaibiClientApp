@@ -414,7 +414,7 @@
                   </div>
                   <!--user-profile-ov end-->
                   <div class="user-profile-ov">
-                    <h3><a title="" class="skills-open">Skills</a><a title="" class="skills-open"><i
+                    <h3><a title="" class="skills-open">Tags</a><a title="" class="skills-open"><i
                       data-toggle="modal" data-target="#editSkillsModal" class="fa fa-pencil"></i></a></h3>
                     <ul class="skill-tags">
                       <li *ngFor="let tag of user.tags"><a title="">{{tag}}</a></li>
@@ -1123,8 +1123,8 @@
 
                 <div class="message-btn btn-group">
                   <button *ngIf="canAddPost" data-toggle="modal" data-target="#postModal"
-                          class="btn btn-info mr-1" title=""><i
-                    class="fa fa-envelope" (click)="statService.missingFeature('user-addPost')"></i>
+                          class="btn btn-info mr-1" title="" (click)="statService.missingFeature('user-addPost')">
+                    <i class="fa fa-envelope"></i>
                     Add Post
                   </button>
                   <button *ngIf="canAddVacancy" data-toggle="modal" data-target="#exampleModal"

@@ -4,8 +4,8 @@ import {Router} from '@angular/router';
 import {NotifierService} from 'angular-notifier';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {LoginVM} from 'src/app/shared/models/login.model';
-import { UsersService } from 'src/app/shared/services/users.service';
-import { ToastrService } from 'ngx-toastr';
+import {UsersService} from 'src/app/shared/services/users.service';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -37,8 +37,9 @@ export class LoginComponent implements OnInit {
       const token = await x.user.getIdToken();
       localStorage.setItem('token', token);
       localStorage.setItem('userData', JSON.stringify(this.jwtHelper.decodeToken(token)));
-      this.auth.updateCurrentUser();
-      this.router.navigate(['/dashbord']);
+      this.auth.updateCurrentUser().then(res => {
+        this.router.navigate(['/dashbord']);
+      });
     }, e => {
       this.toastrService.error(e.message);
     });
