@@ -16,6 +16,7 @@ export class Item {
     public usersApplyIds: string[] = [],
     public slots: FacilitySlot[] = [],
     public reservations: FacilityReservation[] = [],
+    public approvedApplicant?: AppUser
   ) {
   }
 }

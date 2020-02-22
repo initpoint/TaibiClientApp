@@ -20,6 +20,10 @@
             (click)="apply($event)">
       {{appliedBefore ? 'Applied' : 'APPLY'}}
     </button>
+    <button *ngIf="approved" class="btn btn-info bk-links cat-btn"
+    >
+      Accepted
+    </button>
     <button *ngIf="canViewApplicants" data-toggle="modal" data-target="#exampleModalCenter"
             [disabled]="!item.usersApplyIds?.length" class="btn btn-primary bk-links mr-1"
             (click)="viewApplicants($event)">
@@ -81,6 +85,15 @@
             <div class="no-wrap">
               <div class="item-date text-muted text-sm d-none d-md-block">13/12 18</div>
             </div>
+
+            <button *ngIf="!item.approvedApplicant || !item.approvedApplicant.uid" class="btn btn-success"
+                    (click)="approveApplicant(applicant)">
+              APPROVE
+            </button>
+            <button disabled *ngIf="item.approvedApplicant && item.approvedApplicant.uid === applicant.uid"
+                    class="btn btn-success" (click)="approveApplicant(applicant)">
+              Approved
+            </button>
           </div>
 
 

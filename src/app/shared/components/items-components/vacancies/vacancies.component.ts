@@ -17,13 +17,15 @@ export class VacanciesComponent implements OnInit {
   canViewApplicants = false;
   applicants: AppUser[] = [];
   canApply = false;
+  approved = false;
 
   constructor(public itemsService: ItemsService, public authService: AuthService, public statService: StatService) {
   }
 
   ngOnInit() {
     // tslint:disable-next-line:triple-equals
-    this.canApply = this.authService.currentUser.type == UserType.Student;
+    this.approved = this.item.approvedApplicant && this.item.approvedApplicant.uid == this.authService.currentUserId;
+    this.canApply = this.authService.currentUser.type == UserType.Student && !this.approved;
     this.canViewApplicants = this.item.user && this.item.user.uid === this.authService.currentUser.uid;
     this.appliedBefore = this.item.usersApplyIds && this.item.usersApplyIds.includes(this.authService.currentUser.uid);
   }
@@ -47,5 +49,10 @@ export class VacanciesComponent implements OnInit {
 
   print() {
     this.statService.missingFeature('print-vacancy');
+  }
+
+  approveApplicant(applicant: AppUser) {
+    this.item.approvedApplicant = applicant;
+    this.itemsService.updateItem(this.item);
   }
 }

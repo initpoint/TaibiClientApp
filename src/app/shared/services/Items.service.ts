@@ -43,6 +43,9 @@ export class ItemsService {
   updateItem(item: Item) {
     Object.keys(item).forEach(key => item[key] === undefined ? delete item[key] : {});
     Object.keys(item.user).forEach(key => item.user[key] === undefined ? delete item.user[key] : {});
+    if (item.approvedApplicant) {
+      Object.keys(item.approvedApplicant).forEach(key => item.approvedApplicant[key] === undefined ? delete item.approvedApplicant[key] : {});
+    }
     item.slots.map(slot => {
       Object.keys(slot).forEach(key => slot[key] === undefined ? delete slot[key] : {});
     });
@@ -51,10 +54,12 @@ export class ItemsService {
       Object.keys(reservation.user).forEach(key => reservation.user[key] === undefined ? delete reservation.user[key] : {});
     });
 
-    const o = {user: {}, slots: [], reservations: []};
+    const o = {user: {}, slots: [], reservations: [], approvedApplicant: {}};
     Object.keys(item).map(key => {
       if (key === 'user') {
         o['user'] = {...item.user};
+      } else if (key === 'approvedApplicant') {
+        o['approvedApplicant'] = {...item.approvedApplicant};
       } else if (key === 'slots') {
         o['slots'] = item.slots.map(slot => {
           return {...slot};
