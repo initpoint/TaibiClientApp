@@ -1,13 +1,14 @@
 import {Injectable, OnInit} from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {AppUser} from '../models/user.model';
+import {ToastrService} from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsersService {
 
-  constructor(public db: AngularFirestore) {
+  constructor(public db: AngularFirestore, public toastrService: ToastrService) {
   }
 
   getUsers() {
@@ -19,7 +20,9 @@ export class UsersService {
   }
 
   createUser(user: AppUser) {
-    return this.db.doc('users/' + user.uid).set(user);
+    return this.db.doc('users/' + user.uid).set(user).then(res => {
+      this.toastrService.success('User Created.');
+    });
   }
 
   updateUser(user: AppUser) {

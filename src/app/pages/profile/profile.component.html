@@ -12,7 +12,8 @@
               <div class="main-left-sidebar">
                 <div class="user_profile">
                   <div class="user-pro-img">
-                    <img [src]="user?.photoUrl" style="width: 170px; height: 170px;" alt="">
+                    <img [src]="user?.photoUrl" style="width: 170px; height: 170px;" alt=""
+                         (click)="statService.missingFeature('user-editPhoto')">
                     <!-- <a title=""><i class="fa fa-camera"></i></a> -->
                   </div>
                   <!--user-pro-img end-->
@@ -31,7 +32,7 @@
                     </ul>
                   </div>
                   <!--user_pro_status end-->
-                  <ul class="social_links">
+                  <ul class="social_links" (click)="statService.missingFeature('user-editSocialLinks')">
                     <li><a title=""><i
                       class="la la-globe"></i> www.example.com</a></li>
                     <li><a title=""><i
@@ -63,7 +64,7 @@
               <div class="main-ws-sec">
                 <div class="user-tab-sec">
                   <h6><span class="h2">{{user?.name}} </span><a title="" class="overview-open"><i
-                    data-toggle="modal" data-target="#editUsername"    class="fa fa-pencil"></i></a></h6>
+                    data-toggle="modal" data-target="#editUsername" class="fa fa-pencil"></i></a></h6>
                   <div class="star-descp">
                     <span>{{user?.jobTitle}}</span>
                   </div>
@@ -363,7 +364,7 @@
                 <div class="product-feed-tab" [ngClass]="{'current': currentTab == 2}">
                   <div class="user-profile-ov">
                     <h3><a title="" class="overview-open">Overview</a> <a title="" class="overview-open"><i
-                      (click)="statService.missingFeature('edit overview in profile')"     class="fa fa-pencil"></i></a></h3>
+                      (click)="statService.missingFeature('user-editOverview')" class="fa fa-pencil"></i></a></h3>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque tempor aliquam felis, nec
                       condimentum ipsum commodo id. Vivamus sit amet augue nec urna efficitur tincidunt. Vivamus
                       consectetur aliquam lectus commodo viverra. Nunc eu augue nec arcu efficitur faucibus. Aliquam
@@ -375,9 +376,11 @@
                   <!--user-profile-ov end-->
                   <div class="user-profile-ov st2">
                     <h3><a title="" class="exp-bx-open">Experience </a><a title="" class="exp-bx-open"><i
-                      (click)="statService.missingFeature('edit Experience')"      class="fa fa-pencil"></i></a> <a title="" class="exp-bx-open"><i
-                        (click)="statService.missingFeature('user info')" class="fa fa-plus-square"></i></a></h3>
-                    <h4>Web designer <a title=""><i class="fa fa-pencil" (click)="statService.missingFeature('user info')"></i></a></h4>
+                      (click)="statService.missingFeature('user-editExperience')" class="fa fa-pencil"></i></a> <a
+                      title="" class="exp-bx-open"><i
+                      (click)="statService.missingFeature('user info')" class="fa fa-plus-square"></i></a></h3>
+                    <h4>Web designer <a title=""><i class="fa fa-pencil"
+                                                    (click)="statService.missingFeature('user info')"></i></a></h4>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque tempor aliquam felis, nec
                       condimentum ipsum commodo id. Vivamus sit amet augue nec urna efficitur tincidunt. Vivamus
                       consectetur aliquam lectus commodo viverra. </p>
@@ -391,8 +394,10 @@
                   </div>
                   <!--user-profile-ov end-->
                   <div class="user-profile-ov">
-                    <h3><a title="" class="ed-box-open">Education</a> <a title="" class="ed-box-open"><i (click)="statService.missingFeature('user info')"
-                          class="fa fa-pencil"></i></a> <a title=""><i (click)="statService.missingFeature('user info')" class="fa fa-plus-square"></i></a></h3>
+                    <h3><a title="" class="ed-box-open">Education</a> <a title="" class="ed-box-open"><i
+                      (click)="statService.missingFeature('user info')"
+                      class="fa fa-pencil"></i></a> <a title=""><i (click)="statService.missingFeature('user info')"
+                                                                   class="fa fa-plus-square"></i></a></h3>
                     <h4>Master of Computer Science</h4>
                     <span>2015 - 2018</span>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque tempor aliquam felis, nec
@@ -402,23 +407,17 @@
                   <!--user-profile-ov end-->
                   <div class="user-profile-ov">
                     <h3><a title="" class="lct-box-open">Location</a> <a title="" class="lct-box-open"><i
-                      (click)="statService.missingFeature('user info')"    class="fa fa-pencil"></i></a> <a title=""><i (click)="statService.missingFeature('user info')" class="fa fa-plus-square"></i></a></h3>
+                      (click)="statService.missingFeature('user info')" class="fa fa-pencil"></i></a> <a title=""><i
+                      (click)="statService.missingFeature('user info')" class="fa fa-plus-square"></i></a></h3>
                     <h4>India</h4>
                     <p>151/4 BT Chownk, Delhi </p>
                   </div>
                   <!--user-profile-ov end-->
                   <div class="user-profile-ov">
-                    <h3><a title="" class="skills-open">Skills</a> <a title="" class="skills-open"><i
-                      (click)="statService.missingFeature('user info')"   class="fa fa-pencil"></i></a> <a href="#"><i (click)="statService.missingFeature('user info')" class="fa fa-plus-square"></i></a></h3>
+                    <h3><a title="" class="skills-open">Skills</a><a title="" class="skills-open"><i
+                      data-toggle="modal" data-target="#editSkillsModal" class="fa fa-pencil"></i></a></h3>
                     <ul>
-                      <li><a title="">HTML</a></li>
-                      <li><a title="">PHP</a></li>
-                      <li><a title="">CSS</a></li>
-                      <li><a title="">Javascript</a></li>
-                      <li><a title="">Wordpress</a></li>
-                      <li><a title="">Photoshop</a></li>
-                      <li><a title="">Illustrator</a></li>
-                      <li><a title="">Corel Draw</a></li>
+                      <li *ngFor="let tag of user.tags"><a title="">{{tag}}</a></li>
                     </ul>
                   </div>
                   <!--user-profile-ov end-->
@@ -1125,7 +1124,7 @@
                 <div class="message-btn btn-group">
                   <button *ngIf="canAddPost" data-toggle="modal" data-target="#postModal"
                           class="btn btn-info mr-1" title=""><i
-                    class="fa fa-envelope"></i>
+                    class="fa fa-envelope" (click)="statService.missingFeature('user-addPost')"></i>
                     Add Post
                   </button>
                   <button *ngIf="canAddVacancy" data-toggle="modal" data-target="#exampleModal"
@@ -1143,10 +1142,11 @@
 
                 <div class="widget widget-Projects">
                   <div class="wd-heady">
-                    <h3>Projects</h3>
+                    <h3>Projects </h3><i
+                    (click)="statService.missingFeature('user-editProjects')" class="fa fa-pencil ml-1"></i>
                     <!-- <img src="assets/images/photo-icon.png" alt=""> -->
                   </div>
-                  <div class="pf-gallery">
+                  <div class="pf-gallery" (click)="statService.missingFeature('user-viewProjects')">
                     <ul>
                       <li><a title=""><img
                         src="http://via.placeholder.com/70x70" alt=""></a></li>
@@ -1428,8 +1428,9 @@
   </div>
 </div>
 
+<!--Name and JobTitle Modal-->
 <div class="modal fade" id="editUsername" tabindex="-1" role="dialog" aria-labelledby="editUsername"
-  aria-hidden="true">
+     aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -1453,6 +1454,34 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="saveUserData()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Skills Modal-->
+<div class="modal fade" id="editSkillsModal" tabindex="-1" role="dialog" aria-labelledby="editSkillsModal"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editSkillsModalLabel">Edit Skills</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Name:</label>
+            <input type="text" [(ngModel)]="userTags" name="tags" class="form-control" id="recipient-name">
+          </div>
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="updateSkills()">Save</button>
       </div>
     </div>
   </div>

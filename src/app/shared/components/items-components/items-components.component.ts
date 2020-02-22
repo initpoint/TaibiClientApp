@@ -36,6 +36,7 @@ export class ItemsComponentsComponent implements OnInit {
 
   searchInItems() {
     this.itemsService.searchInItemsKeyWord.subscribe(value => {
+      console.log(value);
       if (value.length > 0) {
         this.itemsToDisplay = this.items.filter(x =>
           x.descirption.toLocaleLowerCase().includes(value.toLocaleLowerCase()) ||

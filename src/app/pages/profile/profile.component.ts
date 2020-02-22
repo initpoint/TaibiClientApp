@@ -14,7 +14,7 @@ import {StatService} from '../../shared/services/stat.service';
 })
 export class ProfileComponent implements OnInit {
   currentTab = 1;
-  user: AppUser;
+  user: AppUser = new AppUser();
   userId: string;
   items = [];
   isLoading = false;
@@ -25,6 +25,7 @@ export class ProfileComponent implements OnInit {
   canAddVacancy = false;
   canAddFacility = false;
   canAddPost = false;
+  userTags = '';
 
   constructor(public authService: AuthService, private itemsService: ItemsService,
               public statService: StatService, private activatedRoute: ActivatedRoute) {
@@ -39,7 +40,9 @@ export class ProfileComponent implements OnInit {
         this.canAddVacancy = this.user.uid === this.authService.currentUserId && this.user.type === UserType.University;
         this.canAddFacility = this.user.uid === this.authService.currentUserId && this.user.type === UserType.University;
         this.canAddPost = this.user.uid === this.authService.currentUserId && this.user.type === UserType.Student;
-        console.log(this.user.type);
+        if (this.user.tags) {
+          this.userTags = this.user.tags.join();
+        }
         this.getItems();
       });
     });
@@ -60,6 +63,7 @@ export class ProfileComponent implements OnInit {
   saveUserData() {
     this.authService.updateItem(this.user);
   }
+
   addVacancy() {
     this.vacancyToAdd.type = ItemType.Vacancy;
     this.vacancyToAdd.user = this.authService.currentUser;
@@ -78,5 +82,10 @@ export class ProfileComponent implements OnInit {
 
   changeCover() {
     this.statService.missingFeature('user-changeCover');
+  }
+
+  updateSkills() {
+    this.user.tags = this.userTags.split(',');
+    this.saveUserData();
   }
 }
