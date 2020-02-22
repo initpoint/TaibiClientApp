@@ -39,6 +39,7 @@ export class FacilitiesComponent implements OnInit {
     } else {
       this.item.reservations = [reservation];
     }
+    console.log(this.item);
     this.itemsService.updateItem(this.item);
   }
 

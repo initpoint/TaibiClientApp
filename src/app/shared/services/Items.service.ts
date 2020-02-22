@@ -48,6 +48,7 @@ export class ItemsService {
     });
     item.reservations.map(reservation => {
       Object.keys(reservation).forEach(key => reservation[key] === undefined ? delete reservation[key] : {});
+      Object.keys(reservation.user).forEach(key => reservation.user[key] === undefined ? delete reservation.user[key] : {});
     });
 
     const o = {user: {}, slots: [], reservations: []};
@@ -59,8 +60,16 @@ export class ItemsService {
           return {...slot};
         });
       } else if (key === 'reservations') {
-        o['slots'] = item.reservations.map(reservation => {
-          return {...reservation};
+        o['reservations'] = item.reservations.map(reservation => {
+          const resO = {user: {}};
+          Object.keys(reservation).map(resKey => {
+            if (resKey === 'user') {
+              resO['user'] = {...reservation.user};
+            } else {
+              resO[resKey] = reservation[resKey];
+            }
+          });
+          return {...resO};
         });
       } else {
         o[key] = item[key];

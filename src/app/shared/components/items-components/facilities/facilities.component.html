@@ -143,8 +143,8 @@
             <div class="flex">
               <a class="item-author text-color"
                  data-dismiss="modal" data-abc="true">{{reservation.title }}</a>
-              <div class="item-except text-muted text-sm h-1x"
-                   [routerLink]="['/profile',reservation.user.uid]">{{reservation.user.name}}</div>
+              <div class="item-except text-muted text-sm h-1x cursor-pointer"
+                   [routerLink]="['/profile',reservation.user.uid]" data-dismiss="modal">{{reservation.user.name}}</div>
             </div>
             <div class="no-wrap">
               <div class="item-date text-muted text-sm d-none d-md-block">
