@@ -1,24 +1,25 @@
 <div class="row">
-    <div class="col-lg-3 col-md-4 pd-left-none no-pd">
-        <div class="main-left-sidebar no-margin">
-            <app-lift-side-filter></app-lift-side-filter>
-        </div>
+  <div class="col-lg-3 col-md-4 pd-left-none no-pd">
+    <div class="main-left-sidebar no-margin">
+      <app-lift-side-filter></app-lift-side-filter>
     </div>
-    <div class="col-lg-6 col-md-8 no-pd">
-        <div class="main-ws-sec">
-            <div class="posts-section">
-                <div *ngFor="let item of itemsToDisplay">
-                    <div [ngSwitch]="item.type">
-                        <app-vacancies *ngSwitchCase="1" [item]="item"></app-vacancies>
-                        <app-facilities *ngSwitchCase="4" [item]="item"></app-facilities>
+  </div>
+  <div class="col-lg-6 col-md-8 no-pd">
+    <div class="main-ws-sec">
+      <div class="posts-section">
+        <div *ngFor="let item of itemsToDisplay">
+          <div [ngSwitch]="item.type">
+            <app-vacancies *ngSwitchCase="1" [item]="item"></app-vacancies>
+            <app-facilities *ngSwitchCase="4" [item]="item"></app-facilities>
+            <app-posts *ngSwitchCase="6" [item]="item"></app-posts>
 
-                    </div>
-                </div>
-                <app-loader *ngIf="isLoading"></app-loader>
-            </div>
+          </div>
         </div>
+        <app-loader *ngIf="isLoading"></app-loader>
+      </div>
     </div>
-    <div class="col-lg-3 pd-right-none no-pd">
-        <app-right-sidebar></app-right-sidebar>
-    </div>
+  </div>
+  <div class="col-lg-3 pd-right-none no-pd">
+    <app-right-sidebar></app-right-sidebar>
+  </div>
 </div>

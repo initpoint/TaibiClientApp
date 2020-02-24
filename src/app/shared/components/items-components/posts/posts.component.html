@@ -1,0 +1,38 @@
+<div class="post-bar">
+  <div class="post_topbar">
+    <div class="usy-dt">
+      <a [routerLink]="['/profile',item.user.uid]"><img style="width: 50px;" [src]="item.user?.photoUrl"
+                                                        alt=""></a>
+      <div class="usy-name">
+        <a [routerLink]="['/profile',item.user.uid]"><h3>{{item.user?.name}}</h3></a>
+        <span title="{{item.createDate| date: 'dd MMM hh:mm'  }}"><img src="assets/images/clock.png"
+                                                                       alt="">3 min ago</span>
+      </div>
+    </div>
+  </div>
+  <div class="job_descp">
+    <h3>{{item.title}}</h3>
+    <ul class="job-dt">
+      <li><span>{{item.title}}</span></li>
+    </ul>
+    <p>{{item.descirption}}</p>
+    <ul class="skill-tags">
+      <li *ngFor="let tag of item.tags">
+        <a title="" (click)="itemsService.searchByTag.next(tag)">{{tag}}</a></li>
+    </ul>
+  </div>
+  <div class="job-status-bar">
+    <ul class="like-com">
+      <li>
+        <a title="" class="active"><i class="la la-heart"></i>
+          Like</a>
+        <img src="assets/images/liked-img.png" alt="">
+        <span>25</span>
+      </li>
+      <li><a title="" class="com"><img src="assets/images/com.png" alt="">
+        Comment 15</a></li>
+    </ul>
+    <a><i class="la la-share" style="margin-left: 20px;"></i>Share 609</a>
+    <a><i class="la la-eye"></i>Views 50</a>
+  </div>
+</div>

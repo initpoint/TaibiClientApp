@@ -20,6 +20,7 @@ export class ProfileComponent implements OnInit {
   isLoading = false;
   vacancyToAdd = new Item();
   facilityToAdd = new Item();
+  postToAdd = new Item();
   vacancyToAddTags = '';
   facilityToAddTags = '';
   canAddVacancy = false;
@@ -39,7 +40,7 @@ export class ProfileComponent implements OnInit {
         this.user = x.payload.data();
         this.canAddVacancy = this.user.uid === this.authService.currentUserId && this.user.type === UserType.University;
         this.canAddFacility = this.user.uid === this.authService.currentUserId && this.user.type === UserType.University;
-        this.canAddPost = this.user.uid === this.authService.currentUserId && this.user.type === UserType.Student;
+        this.canAddPost = true;
         if (this.user.tags) {
           this.userTags = this.user.tags.join();
         }
@@ -87,5 +88,12 @@ export class ProfileComponent implements OnInit {
   updateSkills() {
     this.user.tags = this.userTags.split(',');
     this.saveUserData();
+  }
+
+  addPost() {
+    this.postToAdd.type = ItemType.Post;
+    this.postToAdd.user = this.authService.currentUser;
+    this.postToAdd.createDate = Date.now();
+    this.itemsService.createItem(this.postToAdd);
   }
 }

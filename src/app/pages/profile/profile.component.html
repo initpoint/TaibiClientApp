@@ -1123,7 +1123,7 @@
 
                 <div class="message-btn btn-group">
                   <button *ngIf="canAddPost" data-toggle="modal" data-target="#postModal"
-                          class="btn btn-info mr-1" title="" (click)="statService.missingFeature('user-addPost')">
+                          class="btn btn-info mr-1" title="">
                     <i class="fa fa-envelope"></i>
                     Add Post
                   </button>
@@ -1473,8 +1473,8 @@
       <div class="modal-body">
         <form>
           <div class="form-group">
-            <label for="recipient-name" class="col-form-label">Name:</label>
-            <input type="text" [(ngModel)]="userTags" name="tags" class="form-control" id="recipient-name">
+            <label for="recipient-name" class="col-form-label">Tags:</label>
+            <textarea type="text" [(ngModel)]="userTags" name="tags" class="form-control" id="skills-box"></textarea>
           </div>
 
         </form>
@@ -1482,6 +1482,36 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="updateSkills()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!--Post Modal-->
+<div class="modal fade" id="postModal" tabindex="-1" role="dialog" aria-labelledby="postModal"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="postModalLabel">New Post</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label"></label>
+            <textarea type="text" [(ngModel)]="postToAdd.descirption" name="tags" class="form-control"
+                      id="post-desc"></textarea>
+          </div>
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="addPost()">Add</button>
       </div>
     </div>
   </div>
