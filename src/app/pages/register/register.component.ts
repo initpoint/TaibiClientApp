@@ -55,12 +55,12 @@ export class RegisterComponent implements OnInit {
     user.email = register.email;
     user.type = register.userType;
     user.createDate = Date.now();
-    if (user.type == UserType.Student) {
+    if (user.type == UserType.Student || user.type == UserType.Professor) {
       user.name = 'Write Your Name Here';
       user.jobTitle = 'Job Title Goes Here';
       user.photoUrl = 'https://www.bitgab.com/uploads/profile/files/default.png';
       user.coverPhotoUrl = 'https://static1.squarespace.com/static/5582e684e4b077043cc7b379/568056f16bb3110e84ed1c39/5ddaa7a6a46d122f382a5a32/1574611754760/How+to+Write+A+Great+Cover+Letter.jpg?format=2500w';
-    } else {
+    } else if (user.type == UserType.University) {
       user.name = 'Write University Name Here';
       user.jobTitle = 'University Moto Here';
       user.photoUrl = 'https://simplehq.co/wp-content/uploads/2017/02/image-placeholder-blue.png';
@@ -74,5 +74,4 @@ export class RegisterComponent implements OnInit {
     Object.keys(user).map(key => o[key] = user[key]);
     return from(this.usersService.createUser(o));
   }
-
 }
