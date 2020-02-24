@@ -2,6 +2,7 @@ import {Component, OnInit, Output, EventEmitter} from '@angular/core';
 import {CoreService} from '../../services/core.service';
 import {Router} from '@angular/router';
 import {ItemsService} from '../../services/Items.service';
+import {AuthService} from '../../services/auth.service';
 
 @Component({
   selector: 'navbar',
@@ -9,29 +10,20 @@ import {ItemsService} from '../../services/Items.service';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-  theValue;
+  searchValue;
   currentUserId = JSON.parse(localStorage.getItem('userData')).user_id;
 
-  constructor(public itemsService: ItemsService, private router: Router) {
+  constructor(public itemsService: ItemsService, public authService: AuthService) {
   }
 
   ngOnInit() {
     this.itemsService.searchByTag.subscribe(tag => {
-      this.theValue = tag;
-      this.searchInItems(this.theValue);
+      this.searchValue = tag;
+      this.searchInItems(this.searchValue);
     });
   }
 
   searchInItems(searchKeyWord: string) {
     this.itemsService.searchInItemsKeyWord.next(searchKeyWord);
-  }
-
-  logout() {
-    localStorage.clear();
-    this.router.navigate(['login']);
-  }
-
-  searchInItems2(e) {
-    console.log(e);
   }
 }

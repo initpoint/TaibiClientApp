@@ -28,20 +28,13 @@ export class LoginComponent implements OnInit {
   }
 
   login(email?, pass?) {
-
+    // handle the demo login for Student and University
     if (email && pass) {
       this.loginVM.email = email;
       this.loginVM.password = pass;
     }
-    this.auth.login(this.loginVM).subscribe(async x => {
-      const token = await x.user.getIdToken();
-      localStorage.setItem('token', token);
-      localStorage.setItem('userData', JSON.stringify(this.jwtHelper.decodeToken(token)));
-      this.auth.updateCurrentUser().then(res => {
-        this.router.navigate(['/dashbord']);
-      });
-    }, e => {
-      this.toastrService.error(e.message);
+    this.auth.login(this.loginVM).subscribe(x => {
+      this.router.navigate(['/dashbord']);
     });
   }
 }

@@ -23,11 +23,13 @@ export class VacanciesComponent implements OnInit {
   }
 
   ngOnInit() {
-    // tslint:disable-next-line:triple-equals
-    this.approved = this.item.approvedApplicant && this.item.approvedApplicant.uid == this.authService.currentUserId;
-    this.canApply = this.authService.currentUser.type == UserType.Student && !this.approved;
-    this.canViewApplicants = this.item.user && this.item.user.uid === this.authService.currentUser.uid;
-    this.appliedBefore = this.item.usersApplyIds && this.item.usersApplyIds.includes(this.authService.currentUser.uid);
+    this.authService.updateCurrentUser().subscribe(ready => {
+      // tslint:disable-next-line:triple-equals
+      this.approved = this.item.approvedApplicant && this.item.approvedApplicant.uid == this.authService.currentUserId;
+      this.canApply = this.authService.currentUser.type == UserType.Student && !this.approved;
+      this.canViewApplicants = this.item.user && this.item.user.uid === this.authService.currentUser.uid;
+      this.appliedBefore = this.item.usersApplyIds && this.item.usersApplyIds.includes(this.authService.currentUser.uid);
+    });
   }
 
   apply(e: MouseEvent) {
