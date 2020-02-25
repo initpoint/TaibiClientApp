@@ -1122,17 +1122,20 @@
               <div class="right-sidebar">
 
                 <div class="message-btn btn-group">
-                  <button *ngIf="canAddPost" data-toggle="modal" data-target="#postModal"
+                  <button *ngIf="canAddPost" data-toggle="modal" data-target="#postModal" data-backdrop="static"
+                          data-keyboard="false"
                           class="btn btn-info mr-1" title="">
                     <i class="fa fa-envelope"></i>
                     Add Post
                   </button>
-                  <button *ngIf="canAddVacancy" data-toggle="modal" data-target="#exampleModal"
+                  <button *ngIf="canAddVacancy" data-toggle="modal" data-target="#vacancyModal" data-backdrop="static"
+                          data-keyboard="false"
                           class="btn btn-info mr-1" title=""><i
                     class="fa fa-briefcase"></i>
                     New Vacancy
                   </button>
-                  <button *ngIf="canAddFacility" data-toggle="modal" data-target="#facilityModal"
+                  <button *ngIf="canAddFacility" data-toggle="modal" data-target="#facilityModal" data-backdrop="static"
+                          data-keyboard="false"
                           class="btn btn-primary" title=""><i
                     class="fa fa-cogs"></i>
                     Add Facility
@@ -1355,164 +1358,89 @@
 <!--theme-layout end-->
 
 <!--Vacancy Modal-->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">New Vacancies</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="form-group">
-            <label for="vacancy-title" class="col-form-label">Vacancy Title:</label>
-            <input type="text" [(ngModel)]="vacancyToAdd.title" name="vacanciesTitle" class="form-control"
-                   id="vacancy-title">
-          </div>
-          <div class="form-group">
-            <label for="vacancy-desc" class="col-form-label">Vacancy Description:</label>
-            <textarea [(ngModel)]="vacancyToAdd.descirption" name="descirption" class="form-control"
-                      id="vacancy-desc"></textarea>
-          </div>
-          <div class="form-group">
-            <label for="vacancy-tags" class="col-form-label">Vacancy Tags (Comma Separated):</label>
-            <textarea class="form-control" id="vacancy-tags" [(ngModel)]="vacancyToAddTags" name="tags"></textarea>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="addVacancy()">Save</button>
-      </div>
+<div class="modal fade" id="vacancyModal" role="dialog">
+  <div class="modal-dialog modal-lg modal-content">
+    <div class="modal-header"><h5 class="modal-title">New Vacancy</h5>
+    </div>
+    <div class="modal-body">
+      <label class="col-form-label">Vacancy Title:</label>
+      <input type="text" [(ngModel)]="vacancyToAdd.title" class="form-control">
+      <label class="col-form-label">Vacancy Description:</label>
+      <textarea [(ngModel)]="vacancyToAdd.description" class="form-control"></textarea>
+      <label class="col-form-label">Vacancy Tags (Comma Separated):</label>
+      <textarea class="form-control" [(ngModel)]="vacancyToAddTags"></textarea>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+      <button class="btn btn-primary" data-dismiss="modal" (click)="addVacancy()">Save</button>
     </div>
   </div>
 </div>
 
 <!--Facility Modal-->
-<div class="modal fade" id="facilityModal" tabindex="-1" role="dialog" aria-labelledby="facilityModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="facilityModalLabel">New Vacancies</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="form-group">
-            <label for="recipient-name" class="col-form-label">Facility Name:</label>
-            <input type="text" [(ngModel)]="facilityToAdd.title" name="name" class="form-control"
-                   id="recipient-name">
-          </div>
-          <div class="form-group">
-            <label for="message-text" class="col-form-label">Facility Description:</label>
-            <textarea [(ngModel)]="facilityToAdd.descirption" name="descirption" class="form-control"
-                      id="message-text"></textarea>
-          </div>
-          <div class="form-group">
-            <label for="facility-tag" class="col-form-label">Tags (Comma Separated):</label>
-            <textarea class="form-control" id="facility-tag" [(ngModel)]="facilityToAddTags" name="tags"></textarea>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="addFacility()">Save</button>
-      </div>
+<div class="modal fade" id="facilityModal" role="dialog">
+  <div class="modal-dialog modal-lg modal-content">
+    <div class="modal-header"><h5 class="modal-title">New Facility</h5>
+    </div>
+    <div class="modal-body">
+      <label class="col-form-label">Facility Name:</label>
+      <input type="text" [(ngModel)]="facilityToAdd.title" class="form-control">
+      <label class="col-form-label">Facility Description:</label>
+      <textarea [(ngModel)]="facilityToAdd.description" class="form-control"></textarea>
+      <label class="col-form-label">Tags (Comma Separated):</label>
+      <textarea class="form-control" [(ngModel)]="facilityToAddTags"></textarea>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+      <button class="btn btn-primary" data-dismiss="modal" (click)="addFacility()">Save</button>
     </div>
   </div>
 </div>
 
 <!--Name and JobTitle Modal-->
-<div class="modal fade" id="editUsername" tabindex="-1" role="dialog" aria-labelledby="editUsername"
-     aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Edit Info</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="form-group">
-            <label for="recipient-name" class="col-form-label">Name:</label>
-            <input type="text" [(ngModel)]="user.name" name="name" class="form-control" id="recipient-name">
-          </div>
-          <div class="form-group">
-            <label for="message-text" class="col-form-label">Job Title:</label>
-            <input type="text" [(ngModel)]="user.jobTitle" name="jobTitle" class="form-control" id="recipient-name">
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="saveUserData()">Save</button>
-      </div>
+<div class="modal fade" id="editUsername" role="dialog">
+  <div class="modal-dialog modal-lg modal-content">
+    <div class="modal-header"><h5 class="modal-title">Edit Info</h5>
+    </div>
+    <div class="modal-body">
+      <label class="col-form-label">Name:</label>
+      <input type="text" [(ngModel)]="user.name" class="form-control">
+      <label class="col-form-label">Job Title:</label>
+      <input type="text" [(ngModel)]="user.jobTitle" class="form-control">
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+      <button class="btn btn-primary" data-dismiss="modal" (click)="saveUserData()">Save</button>
     </div>
   </div>
 </div>
 
 <!--Skills Modal-->
-<div class="modal fade" id="editSkillsModal" tabindex="-1" role="dialog" aria-labelledby="editSkillsModal"
-     aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="editSkillsModalLabel">Edit Skills</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="form-group">
-            <label for="recipient-name" class="col-form-label">Tags:</label>
-            <textarea type="text" [(ngModel)]="userTags" name="tags" class="form-control" id="skills-box"></textarea>
-          </div>
-
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="updateSkills()">Save</button>
-      </div>
+<div class="modal fade" id="editSkillsModal" role="dialog">
+  <div class="modal-dialog modal-lg modal-content">
+    <div class="modal-header"><h5 class="modal-title">Edit Skills</h5>
+    </div>
+    <div class="modal-body">
+      <textarea class="form-control" placeholder="Programming,Management,Research" [(ngModel)]="userTags"></textarea>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+      <button class="btn btn-primary" data-dismiss="modal" (click)="updateSkills()">Save</button>
     </div>
   </div>
 </div>
 
-
 <!--Post Modal-->
-<div class="modal fade" id="postModal" tabindex="-1" role="dialog" aria-labelledby="postModal"
-     aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="postModalLabel">New Post</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="form-group">
-            <label for="recipient-name" class="col-form-label"></label>
-            <textarea type="text" [(ngModel)]="postToAdd.descirption" name="tags" class="form-control"
-                      id="post-desc"></textarea>
-          </div>
-
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="addPost()">Add</button>
-      </div>
+<div class="modal fade" id="postModal" role="dialog">
+  <div class="modal-dialog modal-lg modal-content">
+    <div class="modal-header"><h5 class="modal-title">New Post</h5>
+    </div>
+    <div class="modal-body">
+      <textarea class="form-control" placeholder="Write your post here." [(ngModel)]="postToAdd.description"></textarea>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+      <button class="btn btn-primary" data-dismiss="modal" (click)="addPost()">Add</button>
     </div>
   </div>
 </div>

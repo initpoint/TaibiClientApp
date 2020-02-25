@@ -39,7 +39,7 @@ export class ItemsComponentsComponent implements OnInit {
       value = value.toLocaleLowerCase();
       if (value.length > 0) {
         this.itemsToDisplay = this.items.filter(item => {
-            if (item.descirption.toLocaleLowerCase().includes(value)) {
+            if (item.description.toLocaleLowerCase().includes(value)) {
               return true;
             }
             if (item.user.name.toLocaleLowerCase().includes(value)) {

@@ -2,7 +2,7 @@ import {AppUser} from './user.model';
 
 export class Item {
   public constructor(
-    public descirption: string = '',
+    public description: string = '',
     public title: string = '',
     public tags: string[] = [],
     public user?: AppUser,
