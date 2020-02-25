@@ -53,8 +53,37 @@ export class AuthService {
     return this.db.collection<AppUser>('users', ref => ref.where('uid', '==', userId)).doc<AppUser>(userId).snapshotChanges();
   }
 
-  updateItem(user: AppUser) {
-    this.db.doc('users/' + user.uid).update(user);
+  updateUser(user: AppUser) {
+    Object.keys(user).forEach(key => user[key] === undefined ? delete user[key] : {});
+    if (user.experience) {
+      user.experience.map(item => {
+        Object.keys(item).forEach(key => item[key] === undefined ? delete item[key] : {});
+      });
+    }
+    if (user.accomplishment) {
+      user.accomplishment.map(item => {
+        Object.keys(item).forEach(key => item[key] === undefined ? delete item[key] : {});
+      });
+    }
+
+    const o = {experience: [], accomplishment: []};
+    Object.keys(user).map(key => {
+      if (key === 'experience') {
+        o['experience'] = user.experience.map(item => {
+          return {...item};
+        });
+      } else if (key === 'accomplishment') {
+        o['accomplishment'] = user.accomplishment.map(item => {
+          return {...item};
+        });
+      } else {
+        o[key] = user[key];
+      }
+    });
+
+    return this.db.doc('users/' + user.uid).update(o).then(res=>{
+      this.toastrService.success('User Info Updated.')
+    });
   }
 
   login(model: LoginVM) {

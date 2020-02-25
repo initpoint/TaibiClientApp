@@ -1,5 +1,5 @@
 import {Component, OnChanges, OnInit, ViewEncapsulation} from '@angular/core';
-import {AppUser, UserType} from '../../shared/models/user.model';
+import {AppUser, UserType, UserExperiance} from '../../shared/models/user.model';
 import {ActivatedRoute} from '@angular/router';
 import {AuthService} from '../../shared/services/auth.service';
 import {Item, ItemType} from '../../shared/models/items.model';
@@ -18,15 +18,22 @@ export class ProfileComponent implements OnInit {
   userId: string;
   items = [];
   isLoading = false;
+  userTags = '';
+  userKnowledge = '';
+  userInterests = '';
+
   vacancyToAdd = new Item();
   facilityToAdd = new Item();
   postToAdd = new Item();
+  experienceToAdd = new UserExperiance();
+  accomplishmentToAdd = new UserExperiance();
   vacancyToAddTags = '';
   facilityToAddTags = '';
+
   canAddVacancy = false;
   canAddFacility = false;
   canAddPost = false;
-  userTags = '';
+  canEditInfo = false;
 
   constructor(public authService: AuthService, private itemsService: ItemsService,
               public statService: StatService, private activatedRoute: ActivatedRoute) {
@@ -40,7 +47,8 @@ export class ProfileComponent implements OnInit {
         this.user = x.payload.data();
         this.canAddVacancy = this.user.uid === this.authService.currentUserId && this.user.type === UserType.University;
         this.canAddFacility = this.user.uid === this.authService.currentUserId && this.user.type === UserType.University;
-        this.canAddPost = true;
+        this.canAddPost = this.user.uid === this.authService.currentUserId;
+        this.canEditInfo = this.user.uid === this.authService.currentUserId;
         if (this.user.tags) {
           this.userTags = this.user.tags.join();
         }
@@ -57,12 +65,13 @@ export class ProfileComponent implements OnInit {
           ...e.payload.doc.data()
         };
       });
+      console.log(this.items);
       this.isLoading = false;
     });
   }
 
   saveUserData() {
-    this.authService.updateItem(this.user);
+    return this.authService.updateUser(this.user);
   }
 
   addVacancy() {
@@ -95,5 +104,39 @@ export class ProfileComponent implements OnInit {
     this.postToAdd.user = this.authService.currentUser;
     this.postToAdd.createDate = Date.now();
     this.itemsService.createItem(this.postToAdd);
+  }
+
+  updateKnowledge() {
+    this.user.knowledge = this.userKnowledge.split(',');
+    this.saveUserData();
+  }
+
+  updateInterests() {
+    this.user.interests = this.userInterests.split(',');
+    this.saveUserData();
+  }
+
+  addExperience() {
+    this.user.experience.push(this.experienceToAdd);
+    this.saveUserData().then(res => {
+      this.experienceToAdd = new UserExperiance();
+    });
+  }
+
+  removeExperience(item: UserExperiance) {
+    this.user.experience.splice(this.user.experience.indexOf(item), 1);
+    this.saveUserData();
+  }
+
+  addAccomplishment() {
+    this.user.accomplishment.push(this.accomplishmentToAdd);
+    this.saveUserData().then(res => {
+      this.accomplishmentToAdd = new UserExperiance();
+    });
+  }
+
+  removeAccomplishment(item: UserExperiance) {
+    this.user.accomplishment.splice(this.user.accomplishment.indexOf(item), 1);
+    this.saveUserData();
   }
 }

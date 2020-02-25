@@ -12,23 +12,16 @@
               <div class="main-left-sidebar">
                 <div class="user_profile">
                   <div class="user-pro-img">
-                    <img [src]="user?.photoUrl" style="width: 170px; height: 170px;" alt=""
-                         (click)="statService.missingFeature('user-editPhoto')">
-                    <!-- <a title=""><i class="fa fa-camera"></i></a> -->
+                    <img [src]="user?.photoUrl" style="width: 170px; height: 170px;" alt="">
+                    <a title="" (click)="statService.missingFeature('user-editPhoto')"><i class="fa fa-camera"></i></a>
                   </div>
                   <!--user-pro-img end-->
                   <div class="user_pro_status">
                     <ul class="flw-hr">
                     </ul>
                     <ul class="flw-status">
-                      <li>
-                        <span>Following</span>
-                        <b>{{user?.numberOfFollowing}}</b>
-                      </li>
-                      <li>
-                        <span>Followers</span>
-                        <b>{{user?.numberOfFollowers}}</b>
-                      </li>
+                      <li><span>Following</span><b>{{user?.numberOfFollowing}}</b></li>
+                      <li><span>Followers</span><b>{{user?.numberOfFollowers}}</b></li>
                     </ul>
                   </div>
                   <!--user_pro_status end-->
@@ -63,8 +56,9 @@
             <div class="col-lg-6">
               <div class="main-ws-sec">
                 <div class="user-tab-sec">
-                  <h6><span class="h2">{{user?.name}} </span><a title="" class="overview-open"><i
-                    data-toggle="modal" data-target="#editUsername" class="fa fa-pencil"></i></a></h6>
+                  <h6><span class="h2">{{user?.name}} </span>
+                    <a *ngIf="canEditInfo" title="" class="overview-open"><i
+                      data-toggle="modal" data-target="#editUsername" class="fa fa-pencil"></i></a></h6>
                   <div class="star-descp">
                     <span>{{user?.jobTitle}}</span>
                   </div>
@@ -111,313 +105,86 @@
                   </div><!-- tab-feed end-->
                 </div>
                 <!--user-tab-sec end-->
+
                 <div class="product-feed-tab" [ngClass]="{'current': currentTab == 1}">
                   <div class="posts-section">
-                    <div class="post-bar">
-                      <div class="post_topbar">
-                        <div class="usy-dt">
-                          <img src="http://via.placeholder.com/50x50" alt="">
-                          <div class="usy-name">
-                            <h3>John Doe</h3>
-                            <span><img src="images/clock.png" alt="">3 min ago</span>
-                          </div>
-                        </div>
-                        <div class="ed-opts">
-                          <a title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
-                          <ul class="ed-options">
-                            <li><a title="">Edit Post</a></li>
-                            <li><a title="">Unsaved</a></li>
-                            <li><a title="">Unbid</a></li>
-                            <li><a title="">Close</a></li>
-                            <li><a title="">Hide</a></li>
-                          </ul>
-                        </div>
-                      </div>
-                      <div class="epi-sec">
-                        <ul class="descp">
-                          <li><img src="images/icon8.png" alt=""><span>Epic Coder</span></li>
-                          <li><img src="images/icon9.png" alt=""><span>India</span></li>
-                        </ul>
-                        <ul class="bk-links">
-                          <li><a title=""><i class="la la-bookmark"></i></a></li>
-                          <li><a title=""><i class="la la-envelope"></i></a></li>
-                        </ul>
-                      </div>
-                      <div class="job_descp">
-                        <h3>Senior Wordpress Developer</h3>
-                        <ul class="job-dt">
-                          <li><a title="">Full Time</a></li>
-                          <li><span>$30 / hr</span></li>
-                        </ul>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam luctus hendrerit metus, ut
-                          ullamcorper quam finibus at. Etiam id magna sit amet... <a title="">view more</a></p>
-                        <ul class="skill-tags">
-                          <li><a title="">HTML</a></li>
-                          <li><a title="">PHP</a></li>
-                          <li><a title="">CSS</a></li>
-                          <li><a title="">Javascript</a></li>
-                          <li><a title="">Wordpress</a></li>
-                        </ul>
-                      </div>
-                      <div class="job-status-bar">
-                        <ul class="like-com">
-                          <li>
-                            <a href="#"><i class="la la-heart"></i> Like</a>
-                            <img src="images/liked-img.png" alt="">
-                            <span>25</span>
-                          </li>
-                          <li><a title="" class="com"><img src="images/com.png" alt=""> Comment 15</a></li>
-                        </ul>
-                        <a><i class="la la-eye"></i>Views 50</a>
+                    <div *ngFor="let item of items">
+                      <div [ngSwitch]="item.type">
+                        <app-vacancies *ngSwitchCase="1" [item]="item"></app-vacancies>
+                        <app-facilities *ngSwitchCase="4" [item]="item"></app-facilities>
+                        <app-posts *ngSwitchCase="6" [item]="item"></app-posts>
                       </div>
                     </div>
-                    <!--post-bar end-->
-                    <div class="post-bar">
-                      <div class="post_topbar">
-                        <div class="usy-dt">
-                          <img src="http://via.placeholder.com/50x50" alt="">
-                          <div class="usy-name">
-                            <h3>John Doe</h3>
-                            <span><img src="images/clock.png" alt="">3 min ago</span>
-                          </div>
-                        </div>
-                        <div class="ed-opts">
-                          <a title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
-                          <ul class="ed-options">
-                            <li><a title="">Edit Post</a></li>
-                            <li><a title="">Unsaved</a></li>
-                            <li><a title="">Unbid</a></li>
-                            <li><a title="">Close</a></li>
-                            <li><a title="">Hide</a></li>
-                          </ul>
-                        </div>
-                      </div>
-                      <div class="epi-sec">
-                        <ul class="descp">
-                          <li><img src="images/icon8.png" alt=""><span>Front End Developer</span></li>
-                          <li><img src="images/icon9.png" alt=""><span>India</span></li>
-                        </ul>
-                        <ul class="bk-links">
-                          <li><a title=""><i class="la la-bookmark"></i></a></li>
-                          <li><a title=""><i class="la la-envelope"></i></a></li>
-                          <li><a title="" class="bid_now">Bid Now</a></li>
-                        </ul>
-                      </div>
-                      <div class="job_descp">
-                        <h3>Simple Classified Site</h3>
-                        <ul class="job-dt">
-                          <li><span>$300 - $350</span></li>
-                        </ul>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam luctus hendrerit metus, ut
-                          ullamcorper quam finibus at. Etiam id magna sit amet... <a title="">view more</a></p>
-                        <ul class="skill-tags">
-                          <li><a title="">HTML</a></li>
-                          <li><a title="">PHP</a></li>
-                          <li><a title="">CSS</a></li>
-                          <li><a title="">Javascript</a></li>
-                          <li><a title="">Wordpress</a></li>
-                        </ul>
-                      </div>
-                      <div class="job-status-bar">
-                        <ul class="like-com">
-                          <li>
-                            <a href="#"><i class="la la-heart"></i> Like</a>
-                            <img src="images/liked-img.png" alt="">
-                            <span>25</span>
-                          </li>
-                          <li><a title="" class="com"><img src="images/com.png" alt=""> Comment 15</a></li>
-                        </ul>
-                        <a><i class="la la-eye"></i>Views 50</a>
-                      </div>
-                    </div>
-                    <!--post-bar end-->
-                    <div class="post-bar">
-                      <div class="post_topbar">
-                        <div class="usy-dt">
-                          <img src="http://via.placeholder.com/50x50" alt="">
-                          <div class="usy-name">
-                            <h3>John Doe</h3>
-                            <span><img src="images/clock.png" alt="">3 min ago</span>
-                          </div>
-                        </div>
-                        <div class="ed-opts">
-                          <a title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
-                          <ul class="ed-options">
-                            <li><a title="">Edit Post</a></li>
-                            <li><a title="">Unsaved</a></li>
-                            <li><a title="">Unbid</a></li>
-                            <li><a title="">Close</a></li>
-                            <li><a title="">Hide</a></li>
-                          </ul>
-                        </div>
-                      </div>
-                      <div class="epi-sec">
-                        <ul class="descp">
-                          <li><img src="images/icon8.png" alt=""><span>Epic Coder</span></li>
-                          <li><img src="images/icon9.png" alt=""><span>India</span></li>
-                        </ul>
-                        <ul class="bk-links">
-                          <li><a title=""><i class="la la-bookmark"></i></a></li>
-                          <li><a title=""><i class="la la-envelope"></i></a></li>
-                        </ul>
-                      </div>
-                      <div class="job_descp">
-                        <h3>Senior UI / UX designer</h3>
-                        <ul class="job-dt">
-                          <li><a title="">Par Time</a></li>
-                          <li><span>$10 / hr</span></li>
-                        </ul>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam luctus hendrerit metus, ut
-                          ullamcorper quam finibus at. Etiam id magna sit amet... <a title="">view more</a></p>
-                        <ul class="skill-tags">
-                          <li><a title="">HTML</a></li>
-                          <li><a title="">PHP</a></li>
-                          <li><a title="">CSS</a></li>
-                          <li><a title="">Javascript</a></li>
-                          <li><a title="">Wordpress</a></li>
-                        </ul>
-                      </div>
-                      <div class="job-status-bar">
-                        <ul class="like-com">
-                          <li>
-                            <a href="#"><i class="la la-heart"></i> Like</a>
-                            <img src="images/liked-img.png" alt="">
-                            <span>25</span>
-                          </li>
-                          <li><a title="" class="com"><img src="images/com.png" alt=""> Comment 15</a></li>
-                        </ul>
-                        <a><i class="la la-eye"></i>Views 50</a>
-                      </div>
-                    </div>
-                    <!--post-bar end-->
-                    <div class="post-bar">
-                      <div class="post_topbar">
-                        <div class="usy-dt">
-                          <img src="http://via.placeholder.com/50x50" alt="">
-                          <div class="usy-name">
-                            <h3>John Doe</h3>
-                            <span><img src="images/clock.png" alt="">3 min ago</span>
-                          </div>
-                        </div>
-                        <div class="ed-opts">
-                          <a title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
-                          <ul class="ed-options">
-                            <li><a title="">Edit Post</a></li>
-                            <li><a title="">Unsaved</a></li>
-                            <li><a title="">Unbid</a></li>
-                            <li><a title="">Close</a></li>
-                            <li><a title="">Hide</a></li>
-                          </ul>
-                        </div>
-                      </div>
-                      <div class="epi-sec">
-                        <ul class="descp">
-                          <li><img src="images/icon8.png" alt=""><span>Epic Coder</span></li>
-                          <li><img src="images/icon9.png" alt=""><span>India</span></li>
-                        </ul>
-                        <ul class="bk-links">
-                          <li><a title=""><i class="la la-bookmark"></i></a></li>
-                          <li><a title=""><i class="la la-envelope"></i></a></li>
-                          <li><a title="" class="bid_now">Bid Now</a></li>
-                        </ul>
-                      </div>
-                      <div class="job_descp">
-                        <h3>Ios Shopping mobile app</h3>
-                        <ul class="job-dt">
-                          <li><span>$300 - $350</span></li>
-                        </ul>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam luctus hendrerit metus, ut
-                          ullamcorper quam finibus at. Etiam id magna sit amet... <a title="">view more</a></p>
-                        <ul class="skill-tags">
-                          <li><a title="">HTML</a></li>
-                          <li><a title="">PHP</a></li>
-                          <li><a title="">CSS</a></li>
-                          <li><a title="">Javascript</a></li>
-                          <li><a title="">Wordpress</a></li>
-                        </ul>
-                      </div>
-                      <div class="job-status-bar">
-                        <ul class="like-com">
-                          <li>
-                            <a href="#"><i class="la la-heart"></i> Like</a>
-                            <img src="images/liked-img.png" alt="">
-                            <span>25</span>
-                          </li>
-                          <li><a title="" class="com"><img src="images/com.png" alt=""> Comment 15</a></li>
-                        </ul>
-                        <a><i class="la la-eye"></i>Views 50</a>
-                      </div>
-                    </div>
-                    <!--post-bar end-->
-                    <div class="process-comm">
-                      <div class="spinner">
-                        <div class="bounce1"></div>
-                        <div class="bounce2"></div>
-                        <div class="bounce3"></div>
-                      </div>
-                    </div>
-                    <!--process-comm end-->
+                    <app-loader *ngIf="isLoading"></app-loader>
                   </div>
-                  <!--posts-section end-->
                 </div>
-                <!--product-feed-tab end-->
+
                 <div class="product-feed-tab" [ngClass]="{'current': currentTab == 2}">
                   <div class="user-profile-ov">
-                    <h3><a title="" class="overview-open">Overview</a> <a title="" class="overview-open"><i
-                      (click)="statService.missingFeature('user-editOverview')" class="fa fa-pencil"></i></a></h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque tempor aliquam felis, nec
-                      condimentum ipsum commodo id. Vivamus sit amet augue nec urna efficitur tincidunt. Vivamus
-                      consectetur aliquam lectus commodo viverra. Nunc eu augue nec arcu efficitur faucibus. Aliquam
-                      accumsan ac magna convallis bibendum. Quisque laoreet augue eget augue fermentum scelerisque.
-                      Vivamus dignissim mollis est dictum blandit. Nam porta auctor neque sed congue. Nullam rutrum eget
-                      ex at maximus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget vestibulum
-                      lorem.</p>
+                    <h3>Bio
+                      <a *ngIf="canEditInfo" data-toggle="modal" data-target="#bioModal"
+                         data-backdrop="static" data-keyboard="false"><i class="fa fa-pencil"></i></a></h3>
+                    <p>{{user.bio}}</p>
                   </div>
-                  <!--user-profile-ov end-->
-                  <div class="user-profile-ov st2">
-                    <h3><a title="" class="exp-bx-open">Experience </a><a title="" class="exp-bx-open"><i
-                      (click)="statService.missingFeature('user-editExperience')" class="fa fa-pencil"></i></a> <a
-                      title="" class="exp-bx-open"><i
-                      (click)="statService.missingFeature('user info')" class="fa fa-plus-square"></i></a></h3>
-                    <h4>Web designer <a title=""><i class="fa fa-pencil"
-                                                    (click)="statService.missingFeature('user info')"></i></a></h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque tempor aliquam felis, nec
-                      condimentum ipsum commodo id. Vivamus sit amet augue nec urna efficitur tincidunt. Vivamus
-                      consectetur aliquam lectus commodo viverra. </p>
-                    <h4>UI / UX Designer <a title=""><i class="fa fa-pencil"></i></a></h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque tempor aliquam felis, nec
-                      condimentum ipsum commodo id.</p>
-                    <h4>PHP developer <a title=""><i class="fa fa-pencil"></i></a></h4>
-                    <p class="no-margin">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque tempor aliquam
-                      felis, nec condimentum ipsum commodo id. Vivamus sit amet augue nec urna efficitur tincidunt.
-                      Vivamus consectetur aliquam lectus commodo viverra. </p>
-                  </div>
-                  <!--user-profile-ov end-->
                   <div class="user-profile-ov">
-                    <h3><a title="" class="ed-box-open">Education</a> <a title="" class="ed-box-open"><i
-                      (click)="statService.missingFeature('user info')"
-                      class="fa fa-pencil"></i></a> <a title=""><i (click)="statService.missingFeature('user info')"
-                                                                   class="fa fa-plus-square"></i></a></h3>
-                    <h4>Master of Computer Science</h4>
-                    <span>2015 - 2018</span>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque tempor aliquam felis, nec
-                      condimentum ipsum commodo id. Vivamus sit amet augue nec urna efficitur tincidunt. Vivamus
-                      consectetur aliquam lectus commodo viverra. </p>
+                    <h3>Affiliated University
+                      <a *ngIf="canEditInfo" data-toggle="modal" data-target="#affiliatedUniversityModal"
+                         data-backdrop="static" data-keyboard="false"><i class="fa fa-pencil"></i></a></h3>
+                    <p>{{user.affiliatedUniversity}}</p>
                   </div>
-                  <!--user-profile-ov end-->
                   <div class="user-profile-ov">
-                    <h3><a title="" class="lct-box-open">Location</a> <a title="" class="lct-box-open"><i
-                      (click)="statService.missingFeature('user info')" class="fa fa-pencil"></i></a> <a title=""><i
-                      (click)="statService.missingFeature('user info')" class="fa fa-plus-square"></i></a></h3>
-                    <h4>India</h4>
-                    <p>151/4 BT Chownk, Delhi </p>
+                    <h3>GPA
+                      <a *ngIf="canEditInfo" data-toggle="modal" data-target="#GPAModal"
+                         data-backdrop="static" data-keyboard="false"><i class="fa fa-pencil"></i></a></h3>
+                    <p>{{user.GPA}}</p>
                   </div>
-                  <!--user-profile-ov end-->
                   <div class="user-profile-ov">
-                    <h3><a title="" class="skills-open">Tags</a><a title="" class="skills-open"><i
-                      data-toggle="modal" data-target="#editSkillsModal" class="fa fa-pencil"></i></a></h3>
+                    <h3>Academic Year
+                      <a *ngIf="canEditInfo" data-toggle="modal" data-target="#academicYearModal"
+                         data-backdrop="static" data-keyboard="false"><i class="fa fa-pencil"></i></a></h3>
+                    <p>{{user.academicYear}}</p>
+                  </div>
+                  <div class="user-profile-ov">
+                    <h3>Knowledge
+                      <a *ngIf="canEditInfo" data-toggle="modal" data-target="#knowledgeModal"
+                         data-backdrop="static" data-keyboard="false"><i class="fa fa-pencil"></i></a></h3>
                     <ul class="skill-tags">
-                      <li *ngFor="let tag of user.tags"><a title="">{{tag}}</a></li>
+                      <li *ngFor="let item of user.knowledge"><a title="">{{item}}</a></li>
+                    </ul>
+                  </div>
+                  <div class="user-profile-ov">
+                    <h3>Interests
+                      <a *ngIf="canEditInfo" data-toggle="modal" data-target="#interestsModal"
+                         data-backdrop="static" data-keyboard="false"><i class="fa fa-pencil"></i></a></h3>
+                    <ul class="skill-tags">
+                      <li *ngFor="let item of user.interests"><a title="">{{item}}</a></li>
+                    </ul>
+                  </div>
+                  <div class="user-profile-ov st2">
+                    <h3>Experience
+                      <a *ngIf="canEditInfo" data-toggle="modal" data-target="#experienceModal"
+                         data-backdrop="static" data-keyboard="false"><i class="fa fa-pencil"></i></a></h3>
+                    <div *ngFor="let item of user.experience">
+                      <h4>{{item.title}}</h4>
+                      <span>{{item.date}}</span>
+                      <p>{{item.description}}</p></div>
+                  </div>
+                  <div class="user-profile-ov st2">
+                    <h3>Accomplishments
+                      <a *ngIf="canEditInfo" data-toggle="modal" data-target="#accomplishmentModal"
+                         data-backdrop="static" data-keyboard="false"><i class="fa fa-pencil"></i></a></h3>
+                    <div *ngFor="let item of user.accomplishment">
+                      <h4>{{item.title}}</h4>
+                      <span>{{item.date}}</span>
+                      <p>{{item.description}}</p></div>
+                  </div>
+                  <!--user-profile-ov end-->
+                  <div class="user-profile-ov">
+                    <h3>Tags
+                      <a *ngIf="canEditInfo" data-toggle="modal" data-target="#editSkillsModal"
+                         data-backdrop="static" data-keyboard="false"><i class="fa fa-pencil"></i></a></h3>
+                    <ul class="skill-tags">
+                      <li *ngFor="let tag of user.tags"><a>{{tag}}</a></li>
                     </ul>
                   </div>
                   <!--user-profile-ov end-->
@@ -1121,27 +888,20 @@
             <div class="col-lg-3">
               <div class="right-sidebar">
 
-                <div class="message-btn btn-group">
+                <div class="message-btn btn-group-vertical">
                   <button *ngIf="canAddPost" data-toggle="modal" data-target="#postModal" data-backdrop="static"
-                          data-keyboard="false"
-                          class="btn btn-info mr-1" title="">
-                    <i class="fa fa-envelope"></i>
-                    Add Post
+                          data-keyboard="false" class="btn btn-info mr-1" title="">
+                    <i class="fa fa-envelope"></i>Add Post
                   </button>
                   <button *ngIf="canAddVacancy" data-toggle="modal" data-target="#vacancyModal" data-backdrop="static"
-                          data-keyboard="false"
-                          class="btn btn-info mr-1" title=""><i
-                    class="fa fa-briefcase"></i>
-                    New Vacancy
+                          data-keyboard="false" class="btn btn-info mr-1" title=""><i
+                    class="fa fa-briefcase"></i>New Vacancy
                   </button>
                   <button *ngIf="canAddFacility" data-toggle="modal" data-target="#facilityModal" data-backdrop="static"
-                          data-keyboard="false"
-                          class="btn btn-primary" title=""><i
-                    class="fa fa-cogs"></i>
-                    Add Facility
+                          data-keyboard="false" class="btn btn-primary" title=""><i
+                    class="fa fa-cogs"></i>Add Facility
                   </button>
                 </div>
-
 
                 <div class="widget widget-Projects">
                   <div class="wd-heady">
@@ -1430,6 +1190,36 @@
   </div>
 </div>
 
+<!--Knowledge Modal-->
+<div class="modal fade" id="knowledgeModal" role="dialog">
+  <div class="modal-dialog modal-lg modal-content">
+    <div class="modal-header"><h5 class="modal-title">Edit Knowledge</h5>
+    </div>
+    <div class="modal-body">
+      <textarea class="form-control" placeholder="" [(ngModel)]="userKnowledge"></textarea>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+      <button class="btn btn-primary" data-dismiss="modal" (click)="updateKnowledge()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!--Interests Modal-->
+<div class="modal fade" id="interestsModal" role="dialog">
+  <div class="modal-dialog modal-lg modal-content">
+    <div class="modal-header"><h5 class="modal-title">Edit Interests</h5>
+    </div>
+    <div class="modal-body">
+      <textarea class="form-control" placeholder="" [(ngModel)]="userInterests"></textarea>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+      <button class="btn btn-primary" data-dismiss="modal" (click)="updateInterests()">Save</button>
+    </div>
+  </div>
+</div>
+
 <!--Post Modal-->
 <div class="modal fade" id="postModal" role="dialog">
   <div class="modal-dialog modal-lg modal-content">
@@ -1444,3 +1234,117 @@
     </div>
   </div>
 </div>
+
+<!--Bio Modal-->
+<div class="modal fade" id="bioModal" role="dialog">
+  <div class="modal-dialog modal-lg modal-content">
+    <div class="modal-header"><h5 class="modal-title">Edit Bio</h5>
+    </div>
+    <div class="modal-body">
+      <textarea class="form-control" placeholder="Tell the world who are you" [(ngModel)]="user.bio"></textarea>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+      <button class="btn btn-primary" data-dismiss="modal" (click)="saveUserData()">Add</button>
+    </div>
+  </div>
+</div>
+
+<!--Affiliated University Modal-->
+<div class="modal fade" id="affiliatedUniversityModal" role="dialog">
+  <div class="modal-dialog modal-lg modal-content">
+    <div class="modal-header"><h5 class="modal-title">Edit Affiliated University</h5>
+    </div>
+    <div class="modal-body">
+      <input type="text" class="form-control" [(ngModel)]="user.affiliatedUniversity">
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+      <button class="btn btn-primary" data-dismiss="modal" (click)="saveUserData()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!--GPA Modal-->
+<div class="modal fade" id="GPAModal" role="dialog">
+  <div class="modal-dialog modal-lg modal-content">
+    <div class="modal-header"><h5 class="modal-title">Edit GPA</h5>
+    </div>
+    <div class="modal-body">
+      <input type="text" class="form-control" [(ngModel)]="user.GPA">
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+      <button class="btn btn-primary" data-dismiss="modal" (click)="saveUserData()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!--Academic Year Modal-->
+<div class="modal fade" id="academicYearModal" role="dialog">
+  <div class="modal-dialog modal-lg modal-content">
+    <div class="modal-header"><h5 class="modal-title">Edit Academic Year</h5>
+    </div>
+    <div class="modal-body">
+      <input type="text" class="form-control" [(ngModel)]="user.academicYear">
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+      <button class="btn btn-primary" data-dismiss="modal" (click)="saveUserData()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!--Experience Modal-->
+<div class="modal fade" id="experienceModal" role="dialog">
+  <div class="modal-dialog modal-lg modal-content">
+    <div class="modal-header"><h5 class="modal-title">Edit Experience</h5>
+    </div>
+    <div class="modal-body">
+      <div class="user-profile-ov">
+        <div *ngFor="let item of user.experience">
+          <h4>{{item.title}} <a (click)="removeExperience(item)"><i class="fa fa-remove"></i></a></h4>
+          <span>{{item.date}}</span>
+          <p>{{item.description}}</p></div>
+      </div>
+      <label class="col-form-label">Title:</label>
+      <input type="text" [(ngModel)]="experienceToAdd.title" class="form-control">
+      <label class="col-form-label">Date:</label>
+      <input type="text" [(ngModel)]="experienceToAdd.date" class="form-control">
+      <label class="col-form-label">Description:</label>
+      <textarea [(ngModel)]="experienceToAdd.description" class="form-control"></textarea>
+      <button class="btn btn-success" (click)="addExperience()">Add</button>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" data-dismiss="modal">Close</button>
+    </div>
+  </div>
+</div>
+
+<!--Accomplishment Modal-->
+<div class="modal fade" id="accomplishmentModal" role="dialog">
+  <div class="modal-dialog modal-lg modal-content">
+    <div class="modal-header"><h5 class="modal-title">Edit Accomplishments</h5>
+    </div>
+    <div class="modal-body">
+      <div class="user-profile-ov">
+        <div *ngFor="let item of user.accomplishment">
+          <h4>{{item.title}} <a (click)="removeAccomplishment(item)"><i class="fa fa-remove"></i></a></h4>
+          <span>{{item.date}}</span>
+          <p>{{item.description}}</p>
+        </div>
+      </div>
+      <label class="col-form-label">Title:</label>
+      <input type="text" [(ngModel)]="accomplishmentToAdd.title" class="form-control">
+      <label class="col-form-label">Date:</label>
+      <input type="text" [(ngModel)]="accomplishmentToAdd.date" class="form-control">
+      <label class="col-form-label">Description:</label>
+      <textarea [(ngModel)]="accomplishmentToAdd.description" class="form-control"></textarea>
+      <button class="btn btn-success" (click)="addAccomplishment()">Add</button>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" data-dismiss="modal">Close</button>
+    </div>
+  </div>
+</div>
+

@@ -20,8 +20,8 @@ export class ItemsService {
     return this.db.collection<Item>('items').snapshotChanges();
   }
 
-  getUserItems(currentUserId: string) {
-    return this.db.collection<Item>('items', ref => ref.where('uid', '==', currentUserId)).snapshotChanges();
+  getUserItems(userId: string) {
+    return this.db.collection<Item>('items', ref => ref.where('user.uid', '==', userId)).snapshotChanges();
   }
 
   createItem(item: Item) {

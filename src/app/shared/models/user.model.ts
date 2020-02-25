@@ -20,13 +20,21 @@ export class AppUser {
     public GPA?: string,
     public academicYear ?: string,
     public interests ?: string[],
-    public experience ?: [],
+    public experience: UserExperiance[] = [],
     public bio ?: string,
-    public accomplishment ?: [],
+    public accomplishment: UserExperiance[] = [],
   ) {
   }
 }
 
+export class UserExperiance {
+  public constructor(
+    public title?: string,
+    public date?: string,
+    public description?: string
+  ) {
+  }
+}
 
 export enum UserType {
   All = '0',
@@ -34,3 +42,4 @@ export enum UserType {
   Student = '2',
   Professor = '3'
 }
+

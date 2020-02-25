@@ -68,10 +68,6 @@ export class RegisterComponent implements OnInit {
     }
     user.numberOfFollowers = Math.floor((Math.random() * 10000) + 1);
     user.numberOfFollowing = Math.floor((Math.random() * 10000) + 1);
-
-    Object.keys(user).forEach(key => user[key] === undefined && delete user[key]);
-    const o = {};
-    Object.keys(user).map(key => o[key] = user[key]);
-    return from(this.usersService.createUser(o));
+    return from(this.usersService.createUser(user));
   }
 }
