@@ -1,5 +1,5 @@
-import {Component, OnChanges, OnInit, ViewEncapsulation} from '@angular/core';
-import {AppUser, UserType, UserExperiance} from '../../shared/models/user.model';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {AppUser, UserExperiance, UserType} from '../../shared/models/user.model';
 import {ActivatedRoute} from '@angular/router';
 import {AuthService} from '../../shared/services/auth.service';
 import {Item, ItemType} from '../../shared/models/items.model';
@@ -34,6 +34,8 @@ export class ProfileComponent implements OnInit {
   canAddFacility = false;
   canAddPost = false;
   canEditInfo = false;
+  isStudent = false;
+  isProfessor = false;
 
   constructor(public authService: AuthService, private itemsService: ItemsService,
               public statService: StatService, private activatedRoute: ActivatedRoute) {
@@ -49,6 +51,8 @@ export class ProfileComponent implements OnInit {
         this.canAddFacility = this.user.uid === this.authService.currentUserId && this.user.type === UserType.University;
         this.canAddPost = this.user.uid === this.authService.currentUserId;
         this.canEditInfo = this.user.uid === this.authService.currentUserId;
+        this.isStudent = this.user.type == UserType.Student;
+        this.isProfessor = this.user.type == UserType.Professor;
         if (this.user.tags) {
           this.userTags = this.user.tags.join();
         }

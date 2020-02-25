@@ -68,7 +68,7 @@
                       <li data-tab="feed-dd" (click)="currentTab = 1" [ngClass]="{'active': currentTab == 1}">
                         <a title="">
                           <img src="images/ic1.png" alt="">
-                          <span>Feed</span>
+                          <span>Timeline</span>
                         </a>
                       </li>
                       <li data-tab="info-dd" (click)="currentTab = 2" [ngClass]="{'active': currentTab == 2}">
@@ -89,7 +89,8 @@
                           <span>My Bids</span>
                         </a>
                       </li> -->
-                      <li data-tab="portfolio-dd" (click)="currentTab = 5" [ngClass]="{'active': currentTab == 5}">
+                      <li data-tab="portfolio-dd" (click)="currentTab = 5;statService.missingFeature('user-protfolio')"
+                          [ngClass]="{'active': currentTab == 5}">
                         <a title="">
                           <img src="images/ic3.png" alt="">
                           <span>Portfolio</span>
@@ -126,25 +127,25 @@
                          data-backdrop="static" data-keyboard="false"><i class="fa fa-pencil"></i></a></h3>
                     <p>{{user.bio}}</p>
                   </div>
-                  <div class="user-profile-ov">
+                  <div class="user-profile-ov" *ngIf="isStudent || isProfessor">
                     <h3>Affiliated University
                       <a *ngIf="canEditInfo" data-toggle="modal" data-target="#affiliatedUniversityModal"
                          data-backdrop="static" data-keyboard="false"><i class="fa fa-pencil"></i></a></h3>
                     <p>{{user.affiliatedUniversity}}</p>
                   </div>
-                  <div class="user-profile-ov">
+                  <div class="user-profile-ov" *ngIf="isStudent">
                     <h3>GPA
                       <a *ngIf="canEditInfo" data-toggle="modal" data-target="#GPAModal"
                          data-backdrop="static" data-keyboard="false"><i class="fa fa-pencil"></i></a></h3>
                     <p>{{user.GPA}}</p>
                   </div>
-                  <div class="user-profile-ov">
+                  <div class="user-profile-ov" *ngIf="isStudent">
                     <h3>Academic Year
                       <a *ngIf="canEditInfo" data-toggle="modal" data-target="#academicYearModal"
                          data-backdrop="static" data-keyboard="false"><i class="fa fa-pencil"></i></a></h3>
                     <p>{{user.academicYear}}</p>
                   </div>
-                  <div class="user-profile-ov">
+                  <div class="user-profile-ov" *ngIf="isStudent">
                     <h3>Knowledge
                       <a *ngIf="canEditInfo" data-toggle="modal" data-target="#knowledgeModal"
                          data-backdrop="static" data-keyboard="false"><i class="fa fa-pencil"></i></a></h3>
@@ -152,7 +153,7 @@
                       <li *ngFor="let item of user.knowledge"><a title="">{{item}}</a></li>
                     </ul>
                   </div>
-                  <div class="user-profile-ov">
+                  <div class="user-profile-ov" *ngIf="isStudent || isProfessor">
                     <h3>Interests
                       <a *ngIf="canEditInfo" data-toggle="modal" data-target="#interestsModal"
                          data-backdrop="static" data-keyboard="false"><i class="fa fa-pencil"></i></a></h3>
@@ -160,7 +161,7 @@
                       <li *ngFor="let item of user.interests"><a title="">{{item}}</a></li>
                     </ul>
                   </div>
-                  <div class="user-profile-ov st2">
+                  <div class="user-profile-ov st2" *ngIf="isStudent || isProfessor">
                     <h3>Experience
                       <a *ngIf="canEditInfo" data-toggle="modal" data-target="#experienceModal"
                          data-backdrop="static" data-keyboard="false"><i class="fa fa-pencil"></i></a></h3>
@@ -169,7 +170,7 @@
                       <span>{{item.date}}</span>
                       <p>{{item.description}}</p></div>
                   </div>
-                  <div class="user-profile-ov st2">
+                  <div class="user-profile-ov st2" *ngIf="isStudent || isProfessor">
                     <h3>Accomplishments
                       <a *ngIf="canEditInfo" data-toggle="modal" data-target="#accomplishmentModal"
                          data-backdrop="static" data-keyboard="false"><i class="fa fa-pencil"></i></a></h3>
@@ -1178,7 +1179,7 @@
 <!--Skills Modal-->
 <div class="modal fade" id="editSkillsModal" role="dialog">
   <div class="modal-dialog modal-lg modal-content">
-    <div class="modal-header"><h5 class="modal-title">Edit Skills</h5>
+    <div class="modal-header"><h5 class="modal-title">Edit Tags</h5>
     </div>
     <div class="modal-body">
       <textarea class="form-control" placeholder="Programming,Management,Research" [(ngModel)]="userTags"></textarea>
