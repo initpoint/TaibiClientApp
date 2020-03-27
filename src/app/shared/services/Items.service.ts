@@ -3,21 +3,24 @@ import {AngularFirestore} from '@angular/fire/firestore';
 import {Item, ItemType} from '../models/items.model';
 import {BehaviorSubject} from 'rxjs';
 import {ToastrService} from 'ngx-toastr';
+import {UserType} from "../models/user.model";
+import {AuthService} from "./auth.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ItemsService {
   currentItemType = new BehaviorSubject(ItemType.All);
+  showUsers = new BehaviorSubject(UserType.All);
   searchInItemsKeyWord = new BehaviorSubject('');
   searchByTag = new BehaviorSubject('');
 
 
-  constructor(public db: AngularFirestore, public toastrService: ToastrService) {
+  constructor(public db: AngularFirestore, public toastrService: ToastrService,private authService:AuthService) {
   }
 
   getItems() {
-    return this.db.collection<Item>('items').snapshotChanges();
+    return this.db.collection<Item>('items',ref => ref.where('user.followersIds','array-contains',this.authService.currentUserId)).snapshotChanges();
   }
 
   getUserItems(userId: string) {

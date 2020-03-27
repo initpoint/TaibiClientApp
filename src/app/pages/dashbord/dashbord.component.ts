@@ -2,26 +2,31 @@ import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {ItemsService} from 'src/app/shared/services/Items.service';
 import {Item, ItemType} from 'src/app/shared/models/items.model';
 import {StatService} from '../../shared/services/stat.service';
+import {UserType} from "../../shared/models/user.model";
 
 @Component({
-  selector: 'app-dashbord',
-  templateUrl: './dashbord.component.html',
-  styleUrls: ['./dashbord.component.scss'],
-  encapsulation: ViewEncapsulation.None
+    selector: 'app-dashbord',
+    templateUrl: './dashbord.component.html',
+    styleUrls: ['./dashbord.component.scss'],
+    encapsulation: ViewEncapsulation.None
 })
 export class DashbordComponent implements OnInit {
 
-  constructor(public itemsService: ItemsService, public statService: StatService) {
-  }
+    constructor(public itemsService: ItemsService, public statService: StatService) {
+    }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+    }
 
-  changeCurrentType(type: ItemType) {
-    this.itemsService.currentItemType.next(type);
-  }
+    changeCurrentType(type: ItemType) {
+        this.itemsService.currentItemType.next(type);
+    }
 
-  notAvailable(tag: string) {
-    this.statService.missingFeature(`filter-${tag}`);
-  }
+    notAvailable(tag: string) {
+        this.statService.missingFeature(`filter-${tag}`);
+    }
+
+    showUsers(userType: UserType) {
+        this.itemsService.showUsers.next(userType);
+    }
 }

@@ -40,10 +40,10 @@ export class UserExperiance {
 }
 
 export enum UserType {
-  All = '0',
-  University = '1',
-  Student = '2',
-  Professor = '3',
-  Admin = '4'
+  All,
+  University,
+  Student,
+  Professor,
+  Admin
 }
 

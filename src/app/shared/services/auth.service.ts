@@ -4,7 +4,7 @@ import {from, Observable} from 'rxjs';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {LoginVM} from '../models/login.model';
 import {AngularFirestore} from '@angular/fire/firestore';
-import {AppUser} from '../models/user.model';
+import {AppUser, UserType} from '../models/user.model';
 import {RegisterVM} from '../models/register.model';
 import {Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
@@ -53,7 +53,6 @@ export class AuthService {
   getUser(userId) {
     return this.db.collection<AppUser>('users', ref => ref.where('uid', '==', userId)).doc<AppUser>(userId).snapshotChanges();
   }
-
   updateUser(user: AppUser) {
     Object.keys(user).forEach(key => user[key] === undefined ? delete user[key] : {});
     if (user.experience) {
@@ -106,7 +105,16 @@ export class AuthService {
       this.toastrService.success('User Created.');
     });
   }
-
+  getUsersByType(type: UserType) {
+    return this.db.collection<AppUser>('users',ref => ref.where('type','==',type.toString())).snapshotChanges().pipe(
+        map(x => x.map(y => {
+          return {
+            uid: y.payload.doc.id,
+            ...y.payload.doc.data()
+          };
+        }))
+    );
+  }
   getUsers() {
     return this.db.collection<AppUser>('users').snapshotChanges().pipe(
       map(x => x.map(y => {
