@@ -16,9 +16,7 @@
       <li><img src="assets/images/icon9.png" alt=""><span>Main Campus</span>
       </li>
     </ul>
-    <button data-toggle="modal" data-target="#bookModal" class="btn btn-info bk-links cat-btn">
-      BOOK
-    </button>
+    <button data-toggle="modal" data-target="#bookModal" class="btn btn-info bk-links cat-btn">BOOK</button>
     <button data-toggle="modal" data-target="#reservationsModal" class="btn btn-primary bk-links cat-btn mr-1"
             *ngIf="canViewReservations" [disabled]="!item.reservations?.length">
       {{item.reservations?.length}} Reservation{{item.reservations?.length > 1 ? 's' : ''}}

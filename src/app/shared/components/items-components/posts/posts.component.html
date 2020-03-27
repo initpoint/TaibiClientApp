@@ -10,6 +10,10 @@
       </div>
     </div>
   </div>
+
+  <div class="epi-sec">
+    <button class="btn btn-danger bk-links cat-btn mr-1" *ngIf="canRemove" (click)="remove()">Remove</button>
+  </div>
   <div class="job_descp">
     <h3>{{item.title}}</h3>
     <ul class="job-dt">

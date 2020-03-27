@@ -85,7 +85,7 @@ export class ItemsService {
     });
   }
 
-  deleteItem(itemId: string) {
+  removeItem(itemId: string) {
     this.db.doc('items/' + itemId).delete();
   }
 }
