@@ -55,9 +55,12 @@ export class ProfileComponent implements OnInit {
         this.canAddVacancy = this.user.uid === this.authService.currentUserId && this.user.type === UserType.University;
         this.canAddFacility = this.user.uid === this.authService.currentUserId && this.user.type === UserType.University;
         this.canAddPost = this.user.uid === this.authService.currentUserId;
-        this.canEditInfo = this.user.uid === this.authService.currentUserId;
+        this.canEditInfo = this.user.uid === this.authService.currentUserId || this.user.type === UserType.Admin;
         this.canViewUsers = this.user.uid === this.authService.currentUserId && this.user.type === UserType.Admin;
         this.canFollow = this.user.uid !== this.authService.currentUserId;
+        if (!this.user.followersIds) {
+          this.user.followersIds = []
+        }
         this.isFollowing = this.user.followersIds.includes(this.authService.currentUserId);
         this.isStudent = this.user.type == UserType.Student;
         this.isProfessor = this.user.type == UserType.Professor;
