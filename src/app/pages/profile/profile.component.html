@@ -858,29 +858,28 @@
                                     </div>
                                     <!--portfolio-gallery-sec end-->
                                 </div>
-                                <div class="product-feed-tab" *ngIf="canViewUsers" [ngClass]="{'current': currentTab == 6}">
+                                <div class="product-feed-tab" *ngIf="canViewUsers"
+                                     [ngClass]="{'current': currentTab == 6}">
                                     <div class="acc-setting">
                                         <div class="requests-list">
 
-                                            <div *ngFor="let user of Users" class="request-details">
+                                            <div *ngFor="let userData of Users" class="request-details">
                                                 <div class="noty-user-img">
-                                                    <img src="{{user.coverPhotoUrl}}" alt="">
+                                                    <img src="{{userData.coverPhotoUrl}}" alt="">
                                                 </div>
-                                                <a [routerLink]="['/profile/'+user.uid]">
-                                                <div class="request-info">
-                                                    <h3>{{user.name}}</h3>
-                                                    <span>{{user.jobTitle}}</span>
-                                                </div>
+                                                <a [routerLink]="['/profile/'+userData.uid]">
+                                                    <div class="request-info">
+                                                        <h3>{{userData.name}}</h3>
+                                                        <span>{{userData.jobTitle}}</span>
+                                                    </div>
                                                 </a>
                                                 <div class="accept-feat">
                                                     <ul>
                                                         <li>
-                                                            <button type="submit" class="btn btn-dark mr-1">Active
+                                                            <button (click)="changeUserState(userData);"
+                                                                    [ngClass]="{'btn-danger':userData.isActive}"
+                                                                    type="submit" class="btn btn-dark mr-1">Active
                                                             </button>
-                                                        </li>
-                                                        <li>
-                                                            <button type="submit" class="btn btn-danger"><i
-                                                                    class="la la-trash-o"></i></button>
                                                         </li>
                                                     </ul>
                                                 </div><!--accept-feat end-->

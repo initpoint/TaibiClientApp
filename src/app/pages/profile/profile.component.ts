@@ -40,6 +40,7 @@ export class ProfileComponent implements OnInit {
 
     Users = [];
     canViewUsers: boolean = false;
+
     constructor(public authService: AuthService, private itemsService: ItemsService, private usersService: UsersService,
                 public statService: StatService, private activatedRoute: ActivatedRoute) {
     }
@@ -66,10 +67,9 @@ export class ProfileComponent implements OnInit {
     }
 
     getUsers() {
-    this.usersService.getUsers().subscribe(users => {
-        console.log(users)
-        this.Users = users;
-    });
+        this.usersService.getUsers().subscribe(users => {
+            this.Users = users;
+        });
     }
 
     getItems() {
@@ -153,5 +153,10 @@ export class ProfileComponent implements OnInit {
     removeAccomplishment(item: UserExperiance) {
         this.user.accomplishment.splice(this.user.accomplishment.indexOf(item), 1);
         this.saveUserData();
+    }
+
+    changeUserState(user: AppUser) {
+        user.isActive = !user.isActive;
+        console.log(user);
     }
 }

@@ -23,6 +23,7 @@ export class AppUser {
     public experience: UserExperiance[] = [],
     public bio ?: string,
     public accomplishment: UserExperiance[] = [],
+    public isActive: boolean = true,
   ) {
   }
 }
