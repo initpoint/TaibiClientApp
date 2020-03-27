@@ -269,7 +269,7 @@ nav ul li:hover > ul,
 header {
   float: left;
   width: 100%;
-  background-color: #e44d3a;
+  background-color: #ffffff;
 }
 
 .header-data {
@@ -279,8 +279,8 @@ header {
 
 .logo {
   float: left;
-  width: 40px;
-  margin-right: 14px;
+  width: auto;
+  margin-right: 15px;
   margin-top: 10px;
 }
 
@@ -480,10 +480,8 @@ nav ul ul li a {
   position: absolute;
   top: 100%;
   right: 0;
+  left: unset;
   width: 300px;
-  background-color: #fff;
-  opacity: 0;
-  visibility: hidden;
 }
 
 .notification-box.active {
@@ -552,7 +550,7 @@ nav ul ul li a {
   text-transform: capitalize;
   font-weight: 600;
   text-align: center;
-  background-color: #e44d3a;
+  background-color: #868e96;
   padding: 18px 0;
 }
 
@@ -566,12 +564,12 @@ nav ul li span img {
 }
 
 nav ul li a {
-  color: #ffffff;
+  color: #000;
   font-size: 14px;
 }
 
 nav > ul > li > a:hover {
-  color: #fff;
+  color: #171717;
 }
 
 .user-account {

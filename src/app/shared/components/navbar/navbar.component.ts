@@ -3,6 +3,7 @@ import {CoreService} from '../../services/core.service';
 import {Router} from '@angular/router';
 import {ItemsService} from '../../services/Items.service';
 import {AuthService} from '../../services/auth.service';
+import {StatService} from '../../services/stat.service';
 
 @Component({
   selector: 'navbar',
@@ -13,7 +14,7 @@ export class NavbarComponent implements OnInit {
   searchValue;
   currentUserId = JSON.parse(localStorage.getItem('userData')).user_id;
 
-  constructor(public itemsService: ItemsService, public authService: AuthService) {
+  constructor(public itemsService: ItemsService, public authService: AuthService, public statService: StatService) {
   }
 
   ngOnInit() {
@@ -26,4 +27,11 @@ export class NavbarComponent implements OnInit {
   searchInItems(searchKeyWord: string) {
     this.itemsService.searchInItemsKeyWord.next(searchKeyWord);
   }
+
+    getAllNotifications() {
+        this.statService.missingFeature('notifications-get all')
+    }
+    clearNotifications() {
+        this.statService.missingFeature('notifications-clear')
+    }
 }
