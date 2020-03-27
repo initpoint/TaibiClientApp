@@ -10,6 +10,7 @@ import {ItemsService} from './Items.service';
 import {Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 import {JwtHelperService} from '@auth0/angular-jwt';
+import {map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -81,8 +82,8 @@ export class AuthService {
       }
     });
 
-    return this.db.doc('users/' + user.uid).update(o).then(res=>{
-      this.toastrService.success('User Info Updated.')
+    return this.db.doc('users/' + user.uid).update(o).then(res => {
+      this.toastrService.success('User Info Updated.');
     });
   }
 
@@ -105,4 +106,25 @@ export class AuthService {
     return from(userAuthProimse);
   }
 
+
+  createUser(user: AppUser) {
+    Object.keys(user).forEach(key => user[key] === undefined && delete user[key]);
+    const o = {};
+    Object.keys(user).map(key => o[key] = user[key]);
+    return this.db.doc('users/' + user.uid).set(o).then(res => {
+      this.toastrService.success('User Created.');
+    });
+  }
+
+
+  getUsers() {
+    return this.db.collection<AppUser>('users').snapshotChanges().pipe(
+      map(x => x.map(y => {
+        return {
+          uid: y.payload.doc.id,
+          ...y.payload.doc.data()
+        };
+      }))
+    );
+  }
 }

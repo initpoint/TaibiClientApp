@@ -4,7 +4,6 @@ import {Router} from '@angular/router';
 import {NotifierService} from 'angular-notifier';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {LoginVM} from 'src/app/shared/models/login.model';
-import {UsersService} from 'src/app/shared/services/users.service';
 import {ToastrService} from 'ngx-toastr';
 
 @Component({
@@ -20,7 +19,6 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private jwtHelper: JwtHelperService,
     private toastrService: ToastrService,
-    private usersService: UsersService,
     private notifierService: NotifierService) {
   }
 

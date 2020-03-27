@@ -2,14 +2,11 @@ import {Component, OnInit} from '@angular/core';
 import {RegisterVM} from 'src/app/shared/models/register.model';
 import {AuthService} from 'src/app/shared/services/auth.service';
 import {Router} from '@angular/router';
-import {NotifierService} from 'angular-notifier';
 import {JwtHelperService} from '@auth0/angular-jwt';
-import {UsersService} from 'src/app/shared/services/users.service';
 import {AppUser, UserType} from 'src/app/shared/models/user.model';
 import {from} from 'rxjs';
 import {CoreService} from 'src/app/shared/services/core.service';
 import {ToastrService} from 'ngx-toastr';
-import {StatService} from 'src/app/shared/services/stat.service';
 
 @Component({
   selector: 'app-register',
@@ -23,12 +20,9 @@ export class RegisterComponent implements OnInit {
   constructor(
     public auth: AuthService,
     private router: Router,
-    private usersService: UsersService,
     private coreService: CoreService,
     private jwtHelper: JwtHelperService,
-    public statService: StatService,
-    private toastrService: ToastrService,
-    private notifierService: NotifierService) {
+    private toastrService: ToastrService) {
 
   }
 
@@ -68,6 +62,6 @@ export class RegisterComponent implements OnInit {
     }
     user.numberOfFollowers = Math.floor((Math.random() * 10000) + 1);
     user.numberOfFollowing = Math.floor((Math.random() * 10000) + 1);
-    return from(this.usersService.createUser(user));
+    return from(this.auth.createUser(user));
   }
 }

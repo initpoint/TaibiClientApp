@@ -5,7 +5,6 @@ import {AuthService} from '../../shared/services/auth.service';
 import {Item, ItemType} from '../../shared/models/items.model';
 import {ItemsService} from '../../shared/services/Items.service';
 import {StatService} from '../../shared/services/stat.service';
-import {UsersService} from '../../shared/services/users.service';
 
 @Component({
   selector: 'app-profile-components',
@@ -42,7 +41,7 @@ export class ProfileComponent implements OnInit {
   canViewUsers = false;
   canFollow = false;
 
-  constructor(public authService: AuthService, private itemsService: ItemsService, private usersService: UsersService,
+  constructor(public authService: AuthService, private itemsService: ItemsService,
               public statService: StatService, private activatedRoute: ActivatedRoute) {
   }
 
@@ -68,11 +67,11 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-    getUsers() {
-        this.usersService.getUsers().subscribe(users => {
-            this.Users = users;
-        });
-    }
+  getUsers() {
+    this.authService.getUsers().subscribe(users => {
+      this.Users = users;
+    });
+  }
 
   getItems() {
     this.itemsService.getUserItems(this.user.uid).subscribe(data => {
@@ -162,7 +161,7 @@ export class ProfileComponent implements OnInit {
   }
 
   changeUserState(user: AppUser) {
-        user.isActive = !user.isActive;
-        console.log(user);
-    }
+    user.isActive = !user.isActive;
+    console.log(user);
+  }
 }
