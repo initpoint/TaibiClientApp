@@ -24,6 +24,8 @@ export class AppUser {
     public bio ?: string,
     public accomplishment: UserExperiance[] = [],
     public isActive: boolean = true,
+    public followingIds: string[] = [],
+    public followersIds: string[] = [],
   ) {
   }
 }

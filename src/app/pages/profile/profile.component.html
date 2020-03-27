@@ -865,6 +865,7 @@
 
                                     <div class="acc-setting">
                                         <div class="requests-list">
+
                                             <div *ngFor="let userData of Users">
                                                 <div *ngIf="userData.uid != authService.currentUserId" class="request-details">
                                                     <div class="noty-user-img">
@@ -889,8 +890,7 @@
                                                         </ul>
                                                     </div><!--accept-feat end-->
                                                 </div>
-                                            </div>
-                                            <!--request-detailse end-->
+                                            </div><!--request-detailse end-->
                                         </div>
                                     </div>
                                 </div>
@@ -1489,3 +1489,4 @@
         </div>
     </div>
 </div>
+
