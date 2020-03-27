@@ -10,11 +10,11 @@ import {SharedModuleModule} from 'src/app/shared/modules/shared-module.module';
   declarations: [
     ProfileComponent,
   ],
-  imports: [
-    CommonModule,
-    SharedModuleModule,
-    ProfileRoutingModule,
-  ]
+    imports: [
+        CommonModule,
+        SharedModuleModule,
+        ProfileRoutingModule,
+    ]
 })
 export class ProfileModule {
 }

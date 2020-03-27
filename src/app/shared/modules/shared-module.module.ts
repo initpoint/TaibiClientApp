@@ -12,6 +12,7 @@ import {LiftSideFilterComponent} from 'src/app/pages/dashbord/lift-side-filter/l
 import {ItemsComponentsComponent} from '../components/items-components/items-components.component';
 import {VacanciesComponent} from '../components/items-components/vacancies/vacancies.component';
 import {PostsComponent} from '../components/items-components/posts/posts.component';
+import {SignupComponent} from '../components/signup/signup.component';
 
 @NgModule({
   imports: [
@@ -27,6 +28,7 @@ import {PostsComponent} from '../components/items-components/posts/posts.compone
     LoaderComponent,
     VacanciesComponent,
     PostsComponent,
+    SignupComponent,
     LiftSideFilterComponent,
     ItemsComponentsComponent
   ],
@@ -38,6 +40,7 @@ import {PostsComponent} from '../components/items-components/posts/posts.compone
     LoaderComponent,
     VacanciesComponent,
     PostsComponent,
+    SignupComponent,
     LiftSideFilterComponent,
     ItemsComponentsComponent
   ],

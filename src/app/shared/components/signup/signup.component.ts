@@ -1,35 +1,34 @@
 import {Component, OnInit} from '@angular/core';
 import {RegisterVM} from 'src/app/shared/models/register.model';
-import {AuthService} from 'src/app/shared/services/auth.service';
-import {Router} from '@angular/router';
-import {JwtHelperService} from '@auth0/angular-jwt';
-import {AppUser, UserType} from 'src/app/shared/models/user.model';
-import {from} from 'rxjs';
-import {CoreService} from 'src/app/shared/services/core.service';
-import {ToastrService} from 'ngx-toastr';
+import {AppUser, UserType} from "../../models/user.model";
+import {from} from "rxjs";
+import {AuthService} from "../../services/auth.service";
+import {Router} from "@angular/router";
+import {CoreService} from "../../services/core.service";
+import {JwtHelperService} from "@auth0/angular-jwt";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  selector: 'app-signup',
+  templateUrl: './signup.component.html',
+  styleUrls: ['./signup.component.scss']
 })
-export class RegisterComponent implements OnInit {
-
+export class SignupComponent implements OnInit {
   registerVM = new RegisterVM();
-
+  public canCreateAdmin: boolean;
   constructor(
-    public auth: AuthService,
-    private router: Router,
-    private coreService: CoreService,
-    private jwtHelper: JwtHelperService,
-    private toastrService: ToastrService) {
+      public auth: AuthService,
+      public router: Router,
+      private coreService: CoreService,
+      private jwtHelper: JwtHelperService,
+      private toastrService: ToastrService) {
 
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.registerVM.userType = UserType.Student;
+    this.canCreateAdmin = this.auth.currentUser.type === UserType.Admin;
   }
-
   register() {
     this.auth.register(this.registerVM).subscribe(async x => {
       const token = await x.user.getIdToken();

@@ -861,9 +861,10 @@
                                 </div>
                                 <div class="product-feed-tab" *ngIf="canViewUsers"
                                      [ngClass]="{'current': currentTab == 6}">
+                                    <button data-toggle="modal" data-target="#createUserModal" class="btn btn-success mb-2 pull-right"><i class="fa fa-user-plus"></i> Add User</button>
+
                                     <div class="acc-setting">
                                         <div class="requests-list">
-
                                             <div *ngFor="let userData of Users">
                                                 <div *ngIf="userData.uid != authService.currentUserId" class="request-details">
                                                     <div class="noty-user-img">
@@ -888,7 +889,8 @@
                                                         </ul>
                                                     </div><!--accept-feat end-->
                                                 </div>
-                                            </div><!--request-detailse end-->
+                                            </div>
+                                            <!--request-detailse end-->
                                         </div>
                                     </div>
                                 </div>
@@ -1474,4 +1476,16 @@
         </div>
     </div>
 </div>
-
+<!--Accomplishment Modal-->
+<div class="modal fade" id="createUserModal" role="dialog">
+    <div class="modal-dialog modal-lg modal-content">
+        <div class="modal-header"><h5 class="modal-title">Edit Accomplishments</h5>
+        </div>
+        <div class="modal-body">
+           <app-signup></app-signup>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+    </div>
+</div>

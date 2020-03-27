@@ -3,29 +3,39 @@
     <div class="grid">
         <div id="login">
             <h2><span class="fontawesome-lock"></span>Sign In</h2>
-
-            <fieldset>
-                <p><label for="email">E-mail address</label></p>
-                <p><input type="email" id="email" name="email" [(ngModel)]="loginVM.email"
-                          placeholder="mail@address.com"></p>
-
-                <p><label for="password">Password</label></p>
-                <p><input type="password" id="password" name="password" [(ngModel)]="loginVM.password"
-                          placeholder="password">
-                </p>
-
-                <p><input type="submit" value="Sign In" (click)="login()"></p>
-                <p><input type="submit" class="back-to-sign-in" value="Go To Sign Up" [routerLink]="['/register']"></p>
-
+            <div class="card-body bg-light rounded-bottom">
+            <form>
+                <div class="form-group">
+                    <label for="email">E-mail address</label>
+                    <input type="email" id="email" class="form-control" name="email" [(ngModel)]="loginVM.email"
+                           placeholder="mail@address.com">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" name="password"
+                           [(ngModel)]="loginVM.password"
+                           placeholder="password">
+                </div>
+            </form>
+                <button type="button" class="btn btn-success" (click)="login()">Sign In</button>
+                <hr>
                 <p>
-                    <input type="button" value="Login as Student" (click)="login('student@mail.com','12345678')"><br>
-                    <input type="button" value="Login as Professor"
-                           (click)="login('professor@mail.com','12345678')"><br>
-                    <input type="button" value="Login as University Administrator" (click)="login('university@mail.com','12345678')"><br>
-                    <input type="button" value="Login as Admin" (click)="login('admin@uniconnects.com','12345678')">
+                    <button type="button" class="btn btn-dark mt-1" (click)="login('student@mail.com','12345678')">Login as
+                        Student
+                    </button><br>
+                    <button type="button" class="btn btn-dark mt-1" (click)="login('professor@mail.com','12345678')">Login as
+                        Professor
+                    </button><br>
+                    <button type="button" class="btn btn-dark mt-1" (click)="login('university@mail.com','12345678')">Login
+                        as University Administrator
+                    </button><br>
+                    <button type="button" class="btn btn-dark mt-1" (click)="login('admin@uniconnects.com','12345678')">Login
+                        as Admin
+                    </button>
                 </p>
-            </fieldset>
-
+            </div>
         </div>
+        <p class="text-center"><a class="text-dark" [routerLink]="['/register']">Need an account? Sign up here</a></p>
     </div>
+
 </div>

@@ -1,0 +1,48 @@
+<form>
+    <div class="form-group">
+        <label for="email">E-mail address</label>
+        <input type="email" id="email" class="form-control" name="email" [(ngModel)]="registerVM.email"
+               placeholder="mail@address.com">
+    </div>
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" id="password" name="password"
+               [(ngModel)]="registerVM.password"
+               placeholder="password">
+    </div>
+    <div class="form-group">
+        <div class="form-check">
+            <input class="form-check-input ml-0" type="radio" name="userType"
+                   [(ngModel)]="registerVM.userType" id="exampleRadios1" value="2" checked>
+            <label class="form-check-label" for="exampleRadios1">
+                Student
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input ml-0" type="radio" name="userType"
+                   [(ngModel)]="registerVM.userType" id="exampleRadios2"
+                   value="1">
+            <label class="form-check-label" for="exampleRadios2">
+                University Administrator
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input ml-0" type="radio" name="userType"
+                   [(ngModel)]="registerVM.userType" id="exampleRadios3"
+                   value="3">
+            <label class="form-check-label" for="exampleRadios3">
+                Professor
+            </label>
+        </div>
+        <div *ngIf="canCreateAdmin" class="form-check">
+            <input class="form-check-input ml-0" type="radio" name="userType"
+                   [(ngModel)]="registerVM.userType" id="exampleRadios4"
+                   value="4">
+            <label class="form-check-label" for="exampleRadios4">
+                Admin
+            </label>
+        </div>
+    </div>
+    <button type="button" class="btn btn-success" (click)="register()">Sign Up</button>
+</form>
+

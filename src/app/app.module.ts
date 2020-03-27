@@ -26,7 +26,7 @@ import {ToastrModule} from 'ngx-toastr';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {RouterModule} from '@angular/router';
 import {RegisterComponent} from './pages/register/register.component';
-
+import {SharedModuleModule} from "./shared/modules/shared-module.module";
 export function tokenGetter() {
   return localStorage.getItem('token');
 }
@@ -69,7 +69,8 @@ export function tokenGetter() {
     AngularFireAuthModule,
     AngularFirestoreModule.enablePersistence(),
     AngularFireAnalyticsModule,
-    AngularFirePerformanceModule
+    AngularFirePerformanceModule,
+    SharedModuleModule
   ],
   providers: [
     {
