@@ -1,887 +1,893 @@
 <div class="wrapper">
-  <section class="cover-sec">
-    <img [src]="user?.coverPhotoUrl" alt="" style="height: 400px;">
-    <a title="" (click)="changeCover()"><i class="fa fa-camera"></i> Change Image</a>
-  </section>
-  <main>
-    <div class="main-section">
-      <div class="container">
-        <div class="main-section-data">
-          <div class="row">
-            <div class="col-lg-3">
-              <div class="main-left-sidebar">
-                <div class="user_profile">
-                  <div class="user-pro-img">
-                    <img [src]="user?.photoUrl" style="width: 170px; height: 170px;" alt="">
-                    <a title="" (click)="statService.missingFeature('user-editPhoto')"><i
-                      class="fa fa-camera"></i></a>
-                  </div>
-                  <!--user-pro-img end-->
-                  <div class="user_pro_status">
-                    <ul class="flw-hr">
-                    </ul>
-                    <ul class="flw-status">
-                      <li><span>Following</span><b>{{user?.numberOfFollowing}}</b></li>
-                      <li><span>Followers</span><b>{{user?.numberOfFollowers}}</b></li>
-                    </ul>
-                  </div>
-                  <!--user_pro_status end-->
-                  <ul class="social_links"
-                      (click)="statService.missingFeature('user-editSocialLinks')">
-                    <li><a title=""><i
-                      class="la la-globe"></i> www.example.com</a></li>
-                    <li><a title=""><i
-                      class="fa fa-facebook-square"></i>
-                      Http://www.facebook.com/john...</a></li>
-                    <li><a title=""><i
-                      class="fa fa-twitter"></i> Http://www.Twitter.com/john...</a></li>
-                    <li><a title=""><i
-                      class="fa fa-google-plus-square"></i>
-                      Http://www.googleplus.com/john...</a></li>
-                    <li><a title=""><i
-                      class="fa fa-behance-square"></i> Http://www.behance.com/john...</a>
-                    </li>
-                    <li><a title=""><i
-                      class="fa fa-pinterest"></i> Http://www.pinterest.com/john...</a>
-                    </li>
-                    <li><a title=""><i
-                      class="fa fa-instagram"></i> Http://www.instagram.com/john...</a>
-                    </li>
-                    <li><a title=""><i
-                      class="fa fa-youtube"></i> Http://www.youtube.com/john...</a></li>
-                  </ul>
-                </div>
-                <!--user_profile end-->
-              </div>
-              <!--main-left-sidebar end-->
-            </div>
-            <div class="col-lg-6">
-              <div class="main-ws-sec">
-                <div class="user-tab-sec">
-                  <h6><span class="h2">{{user?.name}} </span>
-                    <a *ngIf="canEditInfo" title="" class="overview-open"><i
-                      data-toggle="modal" data-target="#editUsername"
-                      class="fa fa-pencil"></i></a></h6>
-                  <div class="star-descp">
-                    <span>{{user?.jobTitle}}</span>
-                  </div>
-                  <!--star-descp end-->
-                  <div class="tab-feed st2">
-                    <ul>
-                      <li data-tab="feed-dd" (click)="currentTab = 1"
-                          [ngClass]="{'active': currentTab == 1}">
-                        <a title="">
-                          <img src="assets/images/ic1.png" alt="">
-                          <span>Timeline</span>
-                        </a>
-                      </li>
-                      <li data-tab="info-dd" (click)="currentTab = 2"
-                          [ngClass]="{'active': currentTab == 2}">
-                        <a title="">
-                          <img src="assets/images/ic2.png" alt="">
-                          <span>Info</span>
-                        </a>
-                      </li>
-                      <!-- <li data-tab="saved-jobs" (click)="currentTab = 3"  [ngClass]="{'active': currentTab == 3}">
-                        <a title="">
-                          <img src="assets/images/ic4.png" alt="">
-                          <span>Saved Jobs</span>
-                        </a>
-                      </li> -->
-                      <!-- <li data-tab="my-bids" (click)="currentTab = 4"  [ngClass]="{'active': currentTab == 4}">
-                        <a title="">
-                          <img src="assets/images/ic5.png" alt="">
-                          <span>My Bids</span>
-                        </a>
-                      </li> -->
-                      <li data-tab="portfolio-dd"
-                          (click)="currentTab = 5;statService.missingFeature('user-protfolio')"
-                          [ngClass]="{'active': currentTab == 5}">
-                        <a title="">
-                          <img src="assets/images/ic3.png" alt="">
-                          <span>Portfolio</span>
-                        </a>
-                      </li>
-                      <!-- <li data-tab="payment-dd" >
-                        <a title=""  (click)="currentTab = 6"  [ngClass]="{'active': currentTab == 6}">
-                          <img src="assets/images/ic6.png" alt="">
-                          <span>Payment</span>
-                        </a>
-                      </li> -->
-                      <li *ngIf="canViewUsers" data-tab="payment-dd">
-                        <a title="" (click)="currentTab = 6;getUsers();"
-                           [ngClass]="{'active': currentTab == 6}">
-                          <img src="assets/images/ic6.png" alt="">
-                          <span>Users</span>
-                        </a>
-                      </li>
-                    </ul>
-                  </div><!-- tab-feed end-->
-                </div>
-                <!--user-tab-sec end-->
-
-                <div class="product-feed-tab" [ngClass]="{'current': currentTab == 1}">
-                  <div class="posts-section">
-                    <div *ngFor="let item of items">
-                      <div [ngSwitch]="item.type">
-                        <app-vacancies *ngSwitchCase="1" [item]="item"></app-vacancies>
-                        <app-facilities *ngSwitchCase="4" [item]="item"></app-facilities>
-                        <app-posts *ngSwitchCase="6" [item]="item"></app-posts>
-                      </div>
-                    </div>
-                    <app-loader *ngIf="isLoading"></app-loader>
-                  </div>
-                </div>
-
-                <div class="product-feed-tab" [ngClass]="{'current': currentTab == 2}">
-                  <div class="user-profile-ov">
-                    <h3>Bio
-                      <a *ngIf="canEditInfo" data-toggle="modal" data-target="#bioModal"
-                         data-backdrop="static" data-keyboard="false"><i class="fa fa-pencil"></i></a>
-                    </h3>
-                    <p>{{user.bio}}</p>
-                  </div>
-                  <div class="user-profile-ov" *ngIf="isStudent || isProfessor">
-                    <h3>Affiliated University
-                      <a *ngIf="canEditInfo" data-toggle="modal"
-                         data-target="#affiliatedUniversityModal"
-                         data-backdrop="static" data-keyboard="false"><i class="fa fa-pencil"></i></a>
-                    </h3>
-                    <p>{{user.affiliatedUniversity}}</p>
-                  </div>
-                  <div class="user-profile-ov" *ngIf="isStudent">
-                    <h3>GPA
-                      <a *ngIf="canEditInfo" data-toggle="modal" data-target="#GPAModal"
-                         data-backdrop="static" data-keyboard="false"><i class="fa fa-pencil"></i></a>
-                    </h3>
-                    <p>{{user.GPA}}</p>
-                  </div>
-                  <div class="user-profile-ov" *ngIf="isStudent">
-                    <h3>Academic Year
-                      <a *ngIf="canEditInfo" data-toggle="modal" data-target="#academicYearModal"
-                         data-backdrop="static" data-keyboard="false"><i class="fa fa-pencil"></i></a>
-                    </h3>
-                    <p>{{user.academicYear}}</p>
-                  </div>
-                  <div class="user-profile-ov" *ngIf="isStudent">
-                    <h3>Knowledge
-                      <a *ngIf="canEditInfo" data-toggle="modal" data-target="#knowledgeModal"
-                         data-backdrop="static" data-keyboard="false"><i class="fa fa-pencil"></i></a>
-                    </h3>
-                    <ul class="skill-tags">
-                      <li *ngFor="let item of user.knowledge"><a title="">{{item}}</a></li>
-                    </ul>
-                  </div>
-                  <div class="user-profile-ov" *ngIf="isStudent || isProfessor">
-                    <h3>Interests
-                      <a *ngIf="canEditInfo" data-toggle="modal" data-target="#interestsModal"
-                         data-backdrop="static" data-keyboard="false"><i class="fa fa-pencil"></i></a>
-                    </h3>
-                    <ul class="skill-tags">
-                      <li *ngFor="let item of user.interests"><a title="">{{item}}</a></li>
-                    </ul>
-                  </div>
-                  <div class="user-profile-ov st2" *ngIf="isStudent || isProfessor">
-                    <h3>Experience
-                      <a *ngIf="canEditInfo" data-toggle="modal" data-target="#experienceModal"
-                         data-backdrop="static" data-keyboard="false"><i class="fa fa-pencil"></i></a>
-                    </h3>
-                    <div *ngFor="let item of user.experience">
-                      <h4>{{item.title}}</h4>
-                      <span>{{item.date}}</span>
-                      <p>{{item.description}}</p></div>
-                  </div>
-                  <div class="user-profile-ov st2" *ngIf="isStudent || isProfessor">
-                    <h3>Accomplishments
-                      <a *ngIf="canEditInfo" data-toggle="modal"
-                         data-target="#accomplishmentModal"
-                         data-backdrop="static" data-keyboard="false"><i class="fa fa-pencil"></i></a>
-                    </h3>
-                    <div *ngFor="let item of user.accomplishment">
-                      <h4>{{item.title}}</h4>
-                      <span>{{item.date}}</span>
-                      <p>{{item.description}}</p></div>
-                  </div>
-                  <!--user-profile-ov end-->
-                  <div class="user-profile-ov">
-                    <h3>Tags
-                      <a *ngIf="canEditInfo" data-toggle="modal" data-target="#editSkillsModal"
-                         data-backdrop="static" data-keyboard="false"><i class="fa fa-pencil"></i></a>
-                    </h3>
-                    <ul class="skill-tags">
-                      <li *ngFor="let tag of user.tags"><a>{{tag}}</a></li>
-                    </ul>
-                  </div>
-                  <!--user-profile-ov end-->
-                </div>
-                <!--product-feed-tab end-->
-                <div class="product-feed-tab" [ngClass]="{'current': currentTab == 3}">
-                  <div class="posts-section">
-                    <div class="post-bar">
-                      <div class="post_topbar">
-                        <div class="usy-dt">
-                          <img src="http://via.placeholder.com/50x50" alt="">
-                          <div class="usy-name">
-                            <h3>John Doe</h3>
-                            <span><img src="assets/images/clock.png" alt="">3 min ago</span>
-                          </div>
+    <section class="cover-sec">
+        <img [src]="user?.coverPhotoUrl" alt="" style="height: 400px;">
+        <a title="" (click)="changeCover()"><i class="fa fa-camera"></i> Change Image</a>
+    </section>
+    <main>
+        <div class="main-section">
+            <div class="container">
+                <div class="main-section-data">
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <div class="main-left-sidebar">
+                                <div class="user_profile">
+                                    <div class="user-pro-img">
+                                        <img [src]="user?.photoUrl" style="width: 170px; height: 170px;" alt="">
+                                        <a title="" (click)="statService.missingFeature('user-editPhoto')"><i
+                                                class="fa fa-camera"></i></a>
+                                    </div>
+                                    <!--user-pro-img end-->
+                                    <div class="user_pro_status">
+                                        <ul class="flw-hr">
+                                        </ul>
+                                        <ul class="flw-status">
+                                            <li><span>Following</span><b>{{user?.numberOfFollowing}}</b></li>
+                                            <li><span>Followers</span><b>{{user?.numberOfFollowers}}</b></li>
+                                        </ul>
+                                    </div>
+                                    <!--user_pro_status end-->
+                                    <ul class="social_links"
+                                        (click)="statService.missingFeature('user-editSocialLinks')">
+                                        <li><a title=""><i
+                                                class="la la-globe"></i> www.example.com</a></li>
+                                        <li><a title=""><i
+                                                class="fa fa-facebook-square"></i>
+                                            Http://www.facebook.com/john...</a></li>
+                                        <li><a title=""><i
+                                                class="fa fa-twitter"></i> Http://www.Twitter.com/john...</a></li>
+                                        <li><a title=""><i
+                                                class="fa fa-google-plus-square"></i>
+                                            Http://www.googleplus.com/john...</a></li>
+                                        <li><a title=""><i
+                                                class="fa fa-behance-square"></i> Http://www.behance.com/john...</a>
+                                        </li>
+                                        <li><a title=""><i
+                                                class="fa fa-pinterest"></i> Http://www.pinterest.com/john...</a>
+                                        </li>
+                                        <li><a title=""><i
+                                                class="fa fa-instagram"></i> Http://www.instagram.com/john...</a>
+                                        </li>
+                                        <li><a title=""><i
+                                                class="fa fa-youtube"></i> Http://www.youtube.com/john...</a></li>
+                                    </ul>
+                                </div>
+                                <!--user_profile end-->
+                            </div>
+                            <!--main-left-sidebar end-->
                         </div>
-                        <div class="ed-opts">
-                          <a title="" class="ed-opts-open"><i
-                            class="la la-ellipsis-v"></i></a>
-                          <ul class="ed-options">
-                            <li><a title="">Edit Post</a></li>
-                            <li><a title="">Unsaved</a></li>
-                            <li><a title="">Unbid</a></li>
-                            <li><a title="">Close</a></li>
-                            <li><a title="">Hide</a></li>
-                          </ul>
-                        </div>
-                      </div>
-                      <div class="epi-sec">
-                        <ul class="descp">
-                          <li><img src="assets/images/icon8.png"
-                                   alt=""><span>Epic Coder</span></li>
-                          <li><img src="assets/images/icon9.png" alt=""><span>India</span>
-                          </li>
-                        </ul>
-                        <ul class="bk-links">
-                          <li><a title=""><i class="la la-bookmark"></i></a></li>
-                          <li><a title=""><i class="la la-envelope"></i></a></li>
-                        </ul>
-                      </div>
-                      <div class="job_descp">
-                        <h3>Senior Wordpress Developer</h3>
-                        <ul class="job-dt">
-                          <li><a title="">Full Time</a></li>
-                          <li><span>$30 / hr</span></li>
-                        </ul>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
-                          luctus hendrerit metus, ut
-                          ullamcorper quam finibus at. Etiam id magna sit amet... <a title="">view
-                            more</a></p>
-                        <ul class="skill-tags">
-                          <li><a title="">HTML</a></li>
-                          <li><a title="">PHP</a></li>
-                          <li><a title="">CSS</a></li>
-                          <li><a title="">Javascript</a></li>
-                          <li><a title="">Wordpress</a></li>
-                        </ul>
-                      </div>
-                      <div class="job-status-bar">
-                        <ul class="like-com">
-                          <li>
-                            <a href="#"><i class="la la-heart"></i> Like</a>
-                            <img src="assets/images/liked-img.png" alt="">
-                            <span>25</span>
-                          </li>
-                          <li><a title="" class="com"><img src="assets/images/com.png" alt="">
-                            Comment 15</a></li>
-                        </ul>
-                        <a><i class="la la-eye"></i>Views 50</a>
-                      </div>
-                    </div>
-                    <!--post-bar end-->
-                    <div class="post-bar">
-                      <div class="post_topbar">
-                        <div class="usy-dt">
-                          <img src="http://via.placeholder.com/50x50" alt="">
-                          <div class="usy-name">
-                            <h3>John Doe</h3>
-                            <span><img src="assets/images/clock.png" alt="">3 min ago</span>
-                          </div>
-                        </div>
-                        <div class="ed-opts">
-                          <a title="" class="ed-opts-open"><i
-                            class="la la-ellipsis-v"></i></a>
-                          <ul class="ed-options">
-                            <li><a title="">Edit Post</a></li>
-                            <li><a title="">Unsaved</a></li>
-                            <li><a title="">Unbid</a></li>
-                            <li><a title="">Close</a></li>
-                            <li><a title="">Hide</a></li>
-                          </ul>
-                        </div>
-                      </div>
-                      <div class="epi-sec">
-                        <ul class="descp">
-                          <li><img src="assets/images/icon8.png"
-                                   alt=""><span>Epic Coder</span></li>
-                          <li><img src="assets/images/icon9.png" alt=""><span>India</span>
-                          </li>
-                        </ul>
-                        <ul class="bk-links">
-                          <li><a title=""><i class="la la-bookmark"></i></a></li>
-                          <li><a title=""><i class="la la-envelope"></i></a></li>
-                        </ul>
-                      </div>
-                      <div class="job_descp">
-                        <h3>Senior Wordpress Developer</h3>
-                        <ul class="job-dt">
-                          <li><a title="">Full Time</a></li>
-                          <li><span>$30 / hr</span></li>
-                        </ul>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
-                          luctus hendrerit metus, ut
-                          ullamcorper quam finibus at. Etiam id magna sit amet... <a title="">view
-                            more</a></p>
-                        <ul class="skill-tags">
-                          <li><a title="">HTML</a></li>
-                          <li><a title="">PHP</a></li>
-                          <li><a title="">CSS</a></li>
-                          <li><a title="">Javascript</a></li>
-                          <li><a title="">Wordpress</a></li>
-                        </ul>
-                      </div>
-                      <div class="job-status-bar">
-                        <ul class="like-com">
-                          <li>
-                            <a href="#"><i class="la la-heart"></i> Like</a>
-                            <img src="assets/images/liked-img.png" alt="">
-                            <span>25</span>
-                          </li>
-                          <li><a title="" class="com"><img src="assets/images/com.png" alt="">
-                            Comment 15</a></li>
-                        </ul>
-                        <a><i class="la la-eye"></i>Views 50</a>
-                      </div>
-                    </div>
-                    <!--post-bar end-->
-                    <div class="post-bar">
-                      <div class="post_topbar">
-                        <div class="usy-dt">
-                          <img src="http://via.placeholder.com/50x50" alt="">
-                          <div class="usy-name">
-                            <h3>John Doe</h3>
-                            <span><img src="assets/images/clock.png" alt="">3 min ago</span>
-                          </div>
-                        </div>
-                        <div class="ed-opts">
-                          <a title="" class="ed-opts-open"><i
-                            class="la la-ellipsis-v"></i></a>
-                          <ul class="ed-options">
-                            <li><a title="">Edit Post</a></li>
-                            <li><a title="">Unsaved</a></li>
-                            <li><a title="">Unbid</a></li>
-                            <li><a title="">Close</a></li>
-                            <li><a title="">Hide</a></li>
-                          </ul>
-                        </div>
-                      </div>
-                      <div class="epi-sec">
-                        <ul class="descp">
-                          <li><img src="assets/images/icon8.png"
-                                   alt=""><span>Epic Coder</span></li>
-                          <li><img src="assets/images/icon9.png" alt=""><span>India</span>
-                          </li>
-                        </ul>
-                        <ul class="bk-links">
-                          <li><a title=""><i class="la la-bookmark"></i></a></li>
-                          <li><a title=""><i class="la la-envelope"></i></a></li>
-                        </ul>
-                      </div>
-                      <div class="job_descp">
-                        <h3>Senior Wordpress Developer</h3>
-                        <ul class="job-dt">
-                          <li><a title="">Full Time</a></li>
-                          <li><span>$30 / hr</span></li>
-                        </ul>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
-                          luctus hendrerit metus, ut
-                          ullamcorper quam finibus at. Etiam id magna sit amet... <a title="">view
-                            more</a></p>
-                        <ul class="skill-tags">
-                          <li><a title="">HTML</a></li>
-                          <li><a title="">PHP</a></li>
-                          <li><a title="">CSS</a></li>
-                          <li><a title="">Javascript</a></li>
-                          <li><a title="">Wordpress</a></li>
-                        </ul>
-                      </div>
-                      <div class="job-status-bar">
-                        <ul class="like-com">
-                          <li>
-                            <a href="#"><i class="la la-heart"></i> Like</a>
-                            <img src="assets/images/liked-img.png" alt="">
-                            <span>25</span>
-                          </li>
-                          <li><a title="" class="com"><img src="assets/images/com.png" alt="">
-                            Comment 15</a></li>
-                        </ul>
-                        <a><i class="la la-eye"></i>Views 50</a>
-                      </div>
-                    </div>
-                    <!--post-bar end-->
-                    <div class="post-bar">
-                      <div class="post_topbar">
-                        <div class="usy-dt">
-                          <img src="http://via.placeholder.com/50x50" alt="">
-                          <div class="usy-name">
-                            <h3>John Doe</h3>
-                            <span><img src="assets/images/clock.png" alt="">3 min ago</span>
-                          </div>
-                        </div>
-                        <div class="ed-opts">
-                          <a title="" class="ed-opts-open"><i
-                            class="la la-ellipsis-v"></i></a>
-                          <ul class="ed-options">
-                            <li><a title="">Edit Post</a></li>
-                            <li><a title="">Unsaved</a></li>
-                            <li><a title="">Unbid</a></li>
-                            <li><a title="">Close</a></li>
-                            <li><a title="">Hide</a></li>
-                          </ul>
-                        </div>
-                      </div>
-                      <div class="epi-sec">
-                        <ul class="descp">
-                          <li><img src="assets/images/icon8.png"
-                                   alt=""><span>Epic Coder</span></li>
-                          <li><img src="assets/images/icon9.png" alt=""><span>India</span>
-                          </li>
-                        </ul>
-                        <ul class="bk-links">
-                          <li><a title=""><i class="la la-bookmark"></i></a></li>
-                          <li><a title=""><i class="la la-envelope"></i></a></li>
-                        </ul>
-                      </div>
-                      <div class="job_descp">
-                        <h3>Senior Wordpress Developer</h3>
-                        <ul class="job-dt">
-                          <li><a title="">Full Time</a></li>
-                          <li><span>$30 / hr</span></li>
-                        </ul>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
-                          luctus hendrerit metus, ut
-                          ullamcorper quam finibus at. Etiam id magna sit amet... <a title="">view
-                            more</a></p>
-                        <ul class="skill-tags">
-                          <li><a title="">HTML</a></li>
-                          <li><a title="">PHP</a></li>
-                          <li><a title="">CSS</a></li>
-                          <li><a title="">Javascript</a></li>
-                          <li><a title="">Wordpress</a></li>
-                        </ul>
-                      </div>
-                      <div class="job-status-bar">
-                        <ul class="like-com">
-                          <li>
-                            <a href="#"><i class="la la-heart"></i> Like</a>
-                            <img src="assets/images/liked-img.png" alt="">
-                            <span>25</span>
-                          </li>
-                          <li><a title="" class="com"><img src="assets/images/com.png" alt="">
-                            Comment 15</a></li>
-                        </ul>
-                        <a><i class="la la-eye"></i>Views 50</a>
-                      </div>
-                    </div>
-                    <!--post-bar end-->
-                    <div class="process-comm">
-                      <a title=""><img src="assets/images/process-icon.png" alt=""></a>
-                    </div>
-                    <!--process-comm end-->
-                  </div>
-                  <!--posts-section end-->
-                </div>
-                <!--product-feed-tab end-->
-                <div class="product-feed-tab" [ngClass]="{'current': currentTab == 4}">
-                  <div class="posts-section">
-                    <div class="post-bar">
-                      <div class="post_topbar">
-                        <div class="usy-dt">
-                          <img src="http://via.placeholder.com/50x50" alt="">
-                          <div class="usy-name">
-                            <h3>John Doe</h3>
-                            <span><img src="assets/images/clock.png" alt="">3 min ago</span>
-                          </div>
-                        </div>
-                        <div class="ed-opts">
-                          <a title="" class="ed-opts-open"><i
-                            class="la la-ellipsis-v"></i></a>
-                          <ul class="ed-options">
-                            <li><a title="">Edit Post</a></li>
-                            <li><a title="">Unsaved</a></li>
-                            <li><a title="">Unbid</a></li>
-                            <li><a title="">Close</a></li>
-                            <li><a title="">Hide</a></li>
-                          </ul>
-                        </div>
-                      </div>
-                      <div class="epi-sec">
-                        <ul class="descp">
-                          <li><img src="assets/images/icon8.png" alt=""><span>Frontend Developer</span>
-                          </li>
-                          <li><img src="assets/images/icon9.png" alt=""><span>India</span>
-                          </li>
-                        </ul>
-                        <ul class="bk-links">
-                          <li><a title=""><i class="la la-bookmark"></i></a></li>
-                          <li><a title=""><i class="la la-envelope"></i></a></li>
-                          <li><a title="" class="bid_now">Bid Now</a></li>
-                        </ul>
-                      </div>
-                      <div class="job_descp">
-                        <h3>Simple Classified Site</h3>
-                        <ul class="job-dt">
-                          <li><span>$300 - $350</span></li>
-                        </ul>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
-                          luctus hendrerit metus, ut
-                          ullamcorper quam finibus at. Etiam id magna sit amet... <a title="">view
-                            more</a></p>
-                        <ul class="skill-tags">
-                          <li><a title="">HTML</a></li>
-                          <li><a title="">PHP</a></li>
-                          <li><a title="">CSS</a></li>
-                          <li><a title="">Javascript</a></li>
-                          <li><a title="">Wordpress</a></li>
-                          <li><a title="">Photoshop</a></li>
-                          <li><a title="">Illustrator</a></li>
-                          <li><a title="">Corel Draw</a></li>
-                        </ul>
-                      </div>
-                      <div class="job-status-bar">
-                        <ul class="like-com">
-                          <li>
-                            <a href="#"><i class="la la-heart"></i> Like</a>
-                            <img src="assets/images/liked-img.png" alt="">
-                            <span>25</span>
-                          </li>
-                          <li><a title="" class="com"><img src="assets/images/com.png" alt="">
-                            Comment 15</a></li>
-                        </ul>
-                        <a><i class="la la-eye"></i>Views 50</a>
-                      </div>
-                    </div>
-                    <!--post-bar end-->
-                    <div class="post-bar">
-                      <div class="post_topbar">
-                        <div class="usy-dt">
-                          <img src="http://via.placeholder.com/50x50" alt="">
-                          <div class="usy-name">
-                            <h3>John Doe</h3>
-                            <span><img src="assets/images/clock.png" alt="">3 min ago</span>
-                          </div>
-                        </div>
-                        <div class="ed-opts">
-                          <a title="" class="ed-opts-open"><i
-                            class="la la-ellipsis-v"></i></a>
-                          <ul class="ed-options">
-                            <li><a title="">Edit Post</a></li>
-                            <li><a title="">Unsaved</a></li>
-                            <li><a title="">Unbid</a></li>
-                            <li><a title="">Close</a></li>
-                            <li><a title="">Hide</a></li>
-                          </ul>
-                        </div>
-                      </div>
-                      <div class="epi-sec">
-                        <ul class="descp">
-                          <li><img src="assets/images/icon8.png" alt=""><span>Frontend Developer</span>
-                          </li>
-                          <li><img src="assets/images/icon9.png" alt=""><span>India</span>
-                          </li>
-                        </ul>
-                        <ul class="bk-links">
-                          <li><a title=""><i class="la la-bookmark"></i></a></li>
-                          <li><a title=""><i class="la la-envelope"></i></a></li>
-                          <li><a title="" class="bid_now">Bid Now</a></li>
-                        </ul>
-                      </div>
-                      <div class="job_descp">
-                        <h3>Ios Shopping mobile app</h3>
-                        <ul class="job-dt">
-                          <li><span>$300 - $350</span></li>
-                        </ul>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
-                          luctus hendrerit metus, ut
-                          ullamcorper quam finibus at. Etiam id magna sit amet... <a title="">view
-                            more</a></p>
-                        <ul class="skill-tags">
-                          <li><a title="">HTML</a></li>
-                          <li><a title="">PHP</a></li>
-                          <li><a title="">CSS</a></li>
-                          <li><a title="">Javascript</a></li>
-                          <li><a title="">Wordpress</a></li>
-                          <li><a title="">Photoshop</a></li>
-                          <li><a title="">Illustrator</a></li>
-                          <li><a title="">Corel Draw</a></li>
-                        </ul>
-                      </div>
-                      <div class="job-status-bar">
-                        <ul class="like-com">
-                          <li>
-                            <a href="#"><i class="la la-heart"></i> Like</a>
-                            <img src="assets/images/liked-img.png" alt="">
-                            <span>25</span>
-                          </li>
-                          <li><a title="" class="com"><img src="assets/images/com.png" alt="">
-                            Comment 15</a></li>
-                        </ul>
-                        <a><i class="la la-eye"></i>Views 50</a>
-                      </div>
-                    </div>
-                    <!--post-bar end-->
-                    <div class="post-bar">
-                      <div class="post_topbar">
-                        <div class="usy-dt">
-                          <img src="http://via.placeholder.com/50x50" alt="">
-                          <div class="usy-name">
-                            <h3>John Doe</h3>
-                            <span><img src="assets/images/clock.png" alt="">3 min ago</span>
-                          </div>
-                        </div>
-                        <div class="ed-opts">
-                          <a title="" class="ed-opts-open"><i
-                            class="la la-ellipsis-v"></i></a>
-                          <ul class="ed-options">
-                            <li><a title="">Edit Post</a></li>
-                            <li><a title="">Unsaved</a></li>
-                            <li><a title="">Unbid</a></li>
-                            <li><a title="">Close</a></li>
-                            <li><a title="">Hide</a></li>
-                          </ul>
-                        </div>
-                      </div>
-                      <div class="epi-sec">
-                        <ul class="descp">
-                          <li><img src="assets/images/icon8.png" alt=""><span>Frontend Developer</span>
-                          </li>
-                          <li><img src="assets/images/icon9.png" alt=""><span>India</span>
-                          </li>
-                        </ul>
-                        <ul class="bk-links">
-                          <li><a title=""><i class="la la-bookmark"></i></a></li>
-                          <li><a title=""><i class="la la-envelope"></i></a></li>
-                          <li><a title="" class="bid_now">Bid Now</a></li>
-                        </ul>
-                      </div>
-                      <div class="job_descp">
-                        <h3>Simple Classified Site</h3>
-                        <ul class="job-dt">
-                          <li><span>$300 - $350</span></li>
-                        </ul>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
-                          luctus hendrerit metus, ut
-                          ullamcorper quam finibus at. Etiam id magna sit amet... <a title="">view
-                            more</a></p>
-                        <ul class="skill-tags">
-                          <li><a title="">HTML</a></li>
-                          <li><a title="">PHP</a></li>
-                          <li><a title="">CSS</a></li>
-                          <li><a title="">Javascript</a></li>
-                          <li><a title="">Wordpress</a></li>
-                          <li><a title="">Photoshop</a></li>
-                          <li><a title="">Illustrator</a></li>
-                          <li><a title="">Corel Draw</a></li>
-                        </ul>
-                      </div>
-                      <div class="job-status-bar">
-                        <ul class="like-com">
-                          <li>
-                            <a href="#"><i class="la la-heart"></i> Like</a>
-                            <img src="assets/images/liked-img.png" alt="">
-                            <span>25</span>
-                          </li>
-                          <li><a title="" class="com"><img src="assets/images/com.png" alt="">
-                            Comment 15</a></li>
-                        </ul>
-                        <a><i class="la la-eye"></i>Views 50</a>
-                      </div>
-                    </div>
-                    <!--post-bar end-->
-                    <div class="post-bar">
-                      <div class="post_topbar">
-                        <div class="usy-dt">
-                          <img src="http://via.placeholder.com/50x50" alt="">
-                          <div class="usy-name">
-                            <h3>John Doe</h3>
-                            <span><img src="assets/images/clock.png" alt="">3 min ago</span>
-                          </div>
-                        </div>
-                        <div class="ed-opts">
-                          <a title="" class="ed-opts-open"><i
-                            class="la la-ellipsis-v"></i></a>
-                          <ul class="ed-options">
-                            <li><a title="">Edit Post</a></li>
-                            <li><a title="">Unsaved</a></li>
-                            <li><a title="">Unbid</a></li>
-                            <li><a title="">Close</a></li>
-                            <li><a title="">Hide</a></li>
-                          </ul>
-                        </div>
-                      </div>
-                      <div class="epi-sec">
-                        <ul class="descp">
-                          <li><img src="assets/images/icon8.png" alt=""><span>Frontend Developer</span>
-                          </li>
-                          <li><img src="assets/images/icon9.png" alt=""><span>India</span>
-                          </li>
-                        </ul>
-                        <ul class="bk-links">
-                          <li><a title=""><i class="la la-bookmark"></i></a></li>
-                          <li><a title=""><i class="la la-envelope"></i></a></li>
-                          <li><a title="" class="bid_now">Bid Now</a></li>
-                        </ul>
-                      </div>
-                      <div class="job_descp">
-                        <h3>Ios Shopping mobile app</h3>
-                        <ul class="job-dt">
-                          <li><span>$300 - $350</span></li>
-                        </ul>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
-                          luctus hendrerit metus, ut
-                          ullamcorper quam finibus at. Etiam id magna sit amet... <a title="">view
-                            more</a></p>
-                        <ul class="skill-tags">
-                          <li><a title="">HTML</a></li>
-                          <li><a title="">PHP</a></li>
-                          <li><a title="">CSS</a></li>
-                          <li><a title="">Javascript</a></li>
-                          <li><a title="">Wordpress</a></li>
-                          <li><a title="">Photoshop</a></li>
-                          <li><a title="">Illustrator</a></li>
-                          <li><a title="">Corel Draw</a></li>
-                        </ul>
-                      </div>
-                      <div class="job-status-bar">
-                        <ul class="like-com">
-                          <li>
-                            <a href="#"><i class="la la-heart"></i> Like</a>
-                            <img src="assets/images/liked-img.png" alt="">
-                            <span>25</span>
-                          </li>
-                          <li><a title="" class="com"><img src="assets/images/com.png" alt="">
-                            Comment 15</a></li>
-                        </ul>
-                        <a><i class="la la-eye"></i>Views 50</a>
-                      </div>
-                    </div>
-                    <!--post-bar end-->
-                    <div class="process-comm">
-                      <a title=""><img src="assets/images/process-icon.png" alt=""></a>
-                    </div>
-                    <!--process-comm end-->
-                  </div>
-                  <!--posts-section end-->
-                </div>
-                <!--product-feed-tab end-->
-                <div class="product-feed-tab" [ngClass]="{'current': currentTab == 5}">
-                  <div class="portfolio-gallery-sec">
-                    <h3>Portfolio</h3>
-                    <div class="gallery_pf">
-                      <div class="row">
-                        <div class="col-lg-4 col-md-4 col-sm-6 col-6">
-                          <div class="gallery_pt"
-                               (click)="statService.missingFeature('user info')">
-                            <img src="http://via.placeholder.com/271x174" alt="">
-                            <a title=""><img src="assets/images/all-out.png" alt=""></a>
-                          </div>
-                          <!--gallery_pt end-->
-                        </div>
-                        <div class="col-lg-4 col-md-4 col-sm-6 col-6">
-                          <div class="gallery_pt"
-                               (click)="statService.missingFeature('user info')">
-                            <img src="http://via.placeholder.com/170x170" alt="">
-                            <a title=""><img src="assets/images/all-out.png" alt=""></a>
-                          </div>
-                          <!--gallery_pt end-->
-                        </div>
-                        <div class="col-lg-4 col-md-4 col-sm-6 col-6">
-                          <div class="gallery_pt"
-                               (click)="statService.missingFeature('user info')">
-                            <img src="http://via.placeholder.com/170x170" alt="">
-                            <a title=""><img src="assets/images/all-out.png" alt=""></a>
-                          </div>
-                          <!--gallery_pt end-->
-                        </div>
-                        <div class="col-lg-4 col-md-4 col-sm-6 col-6">
-                          <div class="gallery_pt"
-                               (click)="statService.missingFeature('user info')">
-                            <img src="http://via.placeholder.com/170x170" alt="">
-                            <a title=""><img src="assets/images/all-out.png" alt=""></a>
-                          </div>
-                          <!--gallery_pt end-->
-                        </div>
-                        <div class="col-lg-4 col-md-4 col-sm-6 col-6">
-                          <div class="gallery_pt"
-                               (click)="statService.missingFeature('user info')">
-                            <img src="http://via.placeholder.com/170x170" alt="">
-                            <a title=""><img src="assets/images/all-out.png" alt=""></a>
-                          </div>
-                          <!--gallery_pt end-->
-                        </div>
-                        <div class="col-lg-4 col-md-4 col-sm-6 col-6">
-                          <div class="gallery_pt"
-                               (click)="statService.missingFeature('user info')">
-                            <img src="http://via.placeholder.com/170x170" alt="">
-                            <a title=""><img src="assets/images/all-out.png" alt=""></a>
-                          </div>
-                          <!--gallery_pt end-->
-                        </div>
-                        <div class="col-lg-4 col-md-4 col-sm-6 col-6">
-                          <div class="gallery_pt"
-                               (click)="statService.missingFeature('user info')">
-                            <img src="http://via.placeholder.com/170x170" alt="">
-                            <a title=""><img src="assets/images/all-out.png" alt=""></a>
-                          </div>
-                          <!--gallery_pt end-->
-                        </div>
-                        <div class="col-lg-4 col-md-4 col-sm-6 col-6">
-                          <div class="gallery_pt"
-                               (click)="statService.missingFeature('user info')">
-                            <img src="http://via.placeholder.com/170x170" alt="">
-                            <a title=""><img src="assets/images/all-out.png" alt=""></a>
-                          </div>
-                          <!--gallery_pt end-->
-                        </div>
-                        <div class="col-lg-4 col-md-4 col-sm-6 col-6">
-                          <div class="gallery_pt"
-                               (click)="statService.missingFeature('user info')">
-                            <img src="http://via.placeholder.com/170x170" alt="">
-                            <a title=""><img src="assets/images/all-out.png" alt=""></a>
-                          </div>
-                          <!--gallery_pt end-->
-                        </div>
-                        <div class="col-lg-4 col-md-4 col-sm-6 col-6">
-                          <div class="gallery_pt"
-                               (click)="statService.missingFeature('user info')">
-                            <img src="http://via.placeholder.com/170x170" alt="">
-                            <a title=""><img src="assets/images/all-out.png" alt=""></a>
-                          </div>
-                          <!--gallery_pt end-->
-                        </div>
-                      </div>
-                    </div>
-                    <!--gallery_pf end-->
-                  </div>
-                  <!--portfolio-gallery-sec end-->
-                </div>
-                <div class="product-feed-tab" *ngIf="canViewUsers" [ngClass]="{'current': currentTab == 6}">
-                  <div class="acc-setting">
-                    <div class="requests-list">
-
-                                            <div *ngFor="let userData of Users" class="request-details">
-                                                <div class="noty-user-img">
-                                                    <img src="{{userData.coverPhotoUrl}}" alt="">
-                                                </div>
-                                                <a [routerLink]="['/profile/'+userData.uid]">
-                                                    <div class="request-info">
-                                                        <h3>{{userData.name}}</h3>
-                                                        <span>{{userData.jobTitle}}</span>
-                                                    </div>
+                        <div class="col-lg-6">
+                            <div class="main-ws-sec">
+                                <div class="user-tab-sec">
+                                    <h6><span class="h2">{{user?.name}} </span>
+                                        <a *ngIf="canEditInfo" title="" class="overview-open"><i
+                                                data-toggle="modal" data-target="#editUsername"
+                                                class="fa fa-pencil"></i></a></h6>
+                                    <div class="star-descp">
+                                        <span>{{user?.jobTitle}}</span>
+                                    </div>
+                                    <!--star-descp end-->
+                                    <div class="tab-feed st2">
+                                        <ul>
+                                            <li data-tab="feed-dd" (click)="currentTab = 1"
+                                                [ngClass]="{'active': currentTab == 1}">
+                                                <a title="">
+                                                    <img src="assets/images/ic1.png" alt="">
+                                                    <span>Timeline</span>
                                                 </a>
-                                                <div class="accept-feat">
-                                                    <ul>
-                                                        <li>
-                                                            <button (click)="changeUserState(userData);"
-                                                                    [ngClass]="{'btn-danger':userData.isActive}"
-                                                                    type="submit" class="btn btn-dark mr-1">Active
-                                                            </button>
-                                                        </li>
+                                            </li>
+                                            <li data-tab="info-dd" (click)="currentTab = 2"
+                                                [ngClass]="{'active': currentTab == 2}">
+                                                <a title="">
+                                                    <img src="assets/images/ic2.png" alt="">
+                                                    <span>Info</span>
+                                                </a>
+                                            </li>
+                                            <!-- <li data-tab="saved-jobs" (click)="currentTab = 3"  [ngClass]="{'active': currentTab == 3}">
+                                              <a title="">
+                                                <img src="assets/images/ic4.png" alt="">
+                                                <span>Saved Jobs</span>
+                                              </a>
+                                            </li> -->
+                                            <!-- <li data-tab="my-bids" (click)="currentTab = 4"  [ngClass]="{'active': currentTab == 4}">
+                                              <a title="">
+                                                <img src="assets/images/ic5.png" alt="">
+                                                <span>My Bids</span>
+                                              </a>
+                                            </li> -->
+                                            <li data-tab="portfolio-dd"
+                                                (click)="currentTab = 5;statService.missingFeature('user-protfolio')"
+                                                [ngClass]="{'active': currentTab == 5}">
+                                                <a title="">
+                                                    <img src="assets/images/ic3.png" alt="">
+                                                    <span>Portfolio</span>
+                                                </a>
+                                            </li>
+                                            <!-- <li data-tab="payment-dd" >
+                                              <a title=""  (click)="currentTab = 6"  [ngClass]="{'active': currentTab == 6}">
+                                                <img src="assets/images/ic6.png" alt="">
+                                                <span>Payment</span>
+                                              </a>
+                                            </li> -->
+                                            <li *ngIf="canViewUsers" data-tab="payment-dd"
+                                                [ngClass]="{'active': currentTab == 6}"
+                                                (click)="currentTab = 6;getUsers();">
+                                                <a title="">
+                                                    <img src="assets/images/ic6.png" alt="">
+                                                    <span>Users</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div><!-- tab-feed end-->
+                                </div>
+                                <!--user-tab-sec end-->
+
+                                <div class="product-feed-tab" [ngClass]="{'current': currentTab == 1}">
+                                    <div class="posts-section">
+                                        <div *ngFor="let item of items">
+                                            <div [ngSwitch]="item.type">
+                                                <app-vacancies *ngSwitchCase="1" [item]="item"></app-vacancies>
+                                                <app-facilities *ngSwitchCase="4" [item]="item"></app-facilities>
+                                                <app-posts *ngSwitchCase="6" [item]="item"></app-posts>
+                                            </div>
+                                        </div>
+                                        <app-loader *ngIf="isLoading"></app-loader>
+                                    </div>
+                                </div>
+
+                                <div class="product-feed-tab" [ngClass]="{'current': currentTab == 2}">
+                                    <div class="user-profile-ov">
+                                        <h3>Bio
+                                            <a *ngIf="canEditInfo" data-toggle="modal" data-target="#bioModal"
+                                               data-backdrop="static" data-keyboard="false"><i class="fa fa-pencil"></i></a>
+                                        </h3>
+                                        <p>{{user.bio}}</p>
+                                    </div>
+                                    <div class="user-profile-ov" *ngIf="isStudent || isProfessor">
+                                        <h3>Affiliated University
+                                            <a *ngIf="canEditInfo" data-toggle="modal"
+                                               data-target="#affiliatedUniversityModal"
+                                               data-backdrop="static" data-keyboard="false"><i class="fa fa-pencil"></i></a>
+                                        </h3>
+                                        <p>{{user.affiliatedUniversity}}</p>
+                                    </div>
+                                    <div class="user-profile-ov" *ngIf="isStudent">
+                                        <h3>GPA
+                                            <a *ngIf="canEditInfo" data-toggle="modal" data-target="#GPAModal"
+                                               data-backdrop="static" data-keyboard="false"><i class="fa fa-pencil"></i></a>
+                                        </h3>
+                                        <p>{{user.GPA}}</p>
+                                    </div>
+                                    <div class="user-profile-ov" *ngIf="isStudent">
+                                        <h3>Academic Year
+                                            <a *ngIf="canEditInfo" data-toggle="modal" data-target="#academicYearModal"
+                                               data-backdrop="static" data-keyboard="false"><i class="fa fa-pencil"></i></a>
+                                        </h3>
+                                        <p>{{user.academicYear}}</p>
+                                    </div>
+                                    <div class="user-profile-ov" *ngIf="isStudent">
+                                        <h3>Knowledge
+                                            <a *ngIf="canEditInfo" data-toggle="modal" data-target="#knowledgeModal"
+                                               data-backdrop="static" data-keyboard="false"><i class="fa fa-pencil"></i></a>
+                                        </h3>
+                                        <ul class="skill-tags">
+                                            <li *ngFor="let item of user.knowledge"><a title="">{{item}}</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="user-profile-ov" *ngIf="isStudent || isProfessor">
+                                        <h3>Interests
+                                            <a *ngIf="canEditInfo" data-toggle="modal" data-target="#interestsModal"
+                                               data-backdrop="static" data-keyboard="false"><i class="fa fa-pencil"></i></a>
+                                        </h3>
+                                        <ul class="skill-tags">
+                                            <li *ngFor="let item of user.interests"><a title="">{{item}}</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="user-profile-ov st2" *ngIf="isStudent || isProfessor">
+                                        <h3>Experience
+                                            <a *ngIf="canEditInfo" data-toggle="modal" data-target="#experienceModal"
+                                               data-backdrop="static" data-keyboard="false"><i class="fa fa-pencil"></i></a>
+                                        </h3>
+                                        <div *ngFor="let item of user.experience">
+                                            <h4>{{item.title}}</h4>
+                                            <span>{{item.date}}</span>
+                                            <p>{{item.description}}</p></div>
+                                    </div>
+                                    <div class="user-profile-ov st2" *ngIf="isStudent || isProfessor">
+                                        <h3>Accomplishments
+                                            <a *ngIf="canEditInfo" data-toggle="modal"
+                                               data-target="#accomplishmentModal"
+                                               data-backdrop="static" data-keyboard="false"><i class="fa fa-pencil"></i></a>
+                                        </h3>
+                                        <div *ngFor="let item of user.accomplishment">
+                                            <h4>{{item.title}}</h4>
+                                            <span>{{item.date}}</span>
+                                            <p>{{item.description}}</p></div>
+                                    </div>
+                                    <!--user-profile-ov end-->
+                                    <div class="user-profile-ov">
+                                        <h3>Tags
+                                            <a *ngIf="canEditInfo" data-toggle="modal" data-target="#editSkillsModal"
+                                               data-backdrop="static" data-keyboard="false"><i class="fa fa-pencil"></i></a>
+                                        </h3>
+                                        <ul class="skill-tags">
+                                            <li *ngFor="let tag of user.tags"><a>{{tag}}</a></li>
+                                        </ul>
+                                    </div>
+                                    <!--user-profile-ov end-->
+                                </div>
+                                <!--product-feed-tab end-->
+                                <div class="product-feed-tab" [ngClass]="{'current': currentTab == 3}">
+                                    <div class="posts-section">
+                                        <div class="post-bar">
+                                            <div class="post_topbar">
+                                                <div class="usy-dt">
+                                                    <img src="http://via.placeholder.com/50x50" alt="">
+                                                    <div class="usy-name">
+                                                        <h3>John Doe</h3>
+                                                        <span><img src="assets/images/clock.png" alt="">3 min ago</span>
+                                                    </div>
+                                                </div>
+                                                <div class="ed-opts">
+                                                    <a title="" class="ed-opts-open"><i
+                                                            class="la la-ellipsis-v"></i></a>
+                                                    <ul class="ed-options">
+                                                        <li><a title="">Edit Post</a></li>
+                                                        <li><a title="">Unsaved</a></li>
+                                                        <li><a title="">Unbid</a></li>
+                                                        <li><a title="">Close</a></li>
+                                                        <li><a title="">Hide</a></li>
                                                     </ul>
-                                                </div><!--accept-feat end-->
+                                                </div>
+                                            </div>
+                                            <div class="epi-sec">
+                                                <ul class="descp">
+                                                    <li><img src="assets/images/icon8.png"
+                                                             alt=""><span>Epic Coder</span></li>
+                                                    <li><img src="assets/images/icon9.png" alt=""><span>India</span>
+                                                    </li>
+                                                </ul>
+                                                <ul class="bk-links">
+                                                    <li><a title=""><i class="la la-bookmark"></i></a></li>
+                                                    <li><a title=""><i class="la la-envelope"></i></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="job_descp">
+                                                <h3>Senior Wordpress Developer</h3>
+                                                <ul class="job-dt">
+                                                    <li><a title="">Full Time</a></li>
+                                                    <li><span>$30 / hr</span></li>
+                                                </ul>
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
+                                                    luctus hendrerit metus, ut
+                                                    ullamcorper quam finibus at. Etiam id magna sit amet... <a title="">view
+                                                        more</a></p>
+                                                <ul class="skill-tags">
+                                                    <li><a title="">HTML</a></li>
+                                                    <li><a title="">PHP</a></li>
+                                                    <li><a title="">CSS</a></li>
+                                                    <li><a title="">Javascript</a></li>
+                                                    <li><a title="">Wordpress</a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="job-status-bar">
+                                                <ul class="like-com">
+                                                    <li>
+                                                        <a href="#"><i class="la la-heart"></i> Like</a>
+                                                        <img src="assets/images/liked-img.png" alt="">
+                                                        <span>25</span>
+                                                    </li>
+                                                    <li><a title="" class="com"><img src="assets/images/com.png" alt="">
+                                                        Comment 15</a></li>
+                                                </ul>
+                                                <a><i class="la la-eye"></i>Views 50</a>
+                                            </div>
+                                        </div>
+                                        <!--post-bar end-->
+                                        <div class="post-bar">
+                                            <div class="post_topbar">
+                                                <div class="usy-dt">
+                                                    <img src="http://via.placeholder.com/50x50" alt="">
+                                                    <div class="usy-name">
+                                                        <h3>John Doe</h3>
+                                                        <span><img src="assets/images/clock.png" alt="">3 min ago</span>
+                                                    </div>
+                                                </div>
+                                                <div class="ed-opts">
+                                                    <a title="" class="ed-opts-open"><i
+                                                            class="la la-ellipsis-v"></i></a>
+                                                    <ul class="ed-options">
+                                                        <li><a title="">Edit Post</a></li>
+                                                        <li><a title="">Unsaved</a></li>
+                                                        <li><a title="">Unbid</a></li>
+                                                        <li><a title="">Close</a></li>
+                                                        <li><a title="">Hide</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="epi-sec">
+                                                <ul class="descp">
+                                                    <li><img src="assets/images/icon8.png"
+                                                             alt=""><span>Epic Coder</span></li>
+                                                    <li><img src="assets/images/icon9.png" alt=""><span>India</span>
+                                                    </li>
+                                                </ul>
+                                                <ul class="bk-links">
+                                                    <li><a title=""><i class="la la-bookmark"></i></a></li>
+                                                    <li><a title=""><i class="la la-envelope"></i></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="job_descp">
+                                                <h3>Senior Wordpress Developer</h3>
+                                                <ul class="job-dt">
+                                                    <li><a title="">Full Time</a></li>
+                                                    <li><span>$30 / hr</span></li>
+                                                </ul>
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
+                                                    luctus hendrerit metus, ut
+                                                    ullamcorper quam finibus at. Etiam id magna sit amet... <a title="">view
+                                                        more</a></p>
+                                                <ul class="skill-tags">
+                                                    <li><a title="">HTML</a></li>
+                                                    <li><a title="">PHP</a></li>
+                                                    <li><a title="">CSS</a></li>
+                                                    <li><a title="">Javascript</a></li>
+                                                    <li><a title="">Wordpress</a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="job-status-bar">
+                                                <ul class="like-com">
+                                                    <li>
+                                                        <a href="#"><i class="la la-heart"></i> Like</a>
+                                                        <img src="assets/images/liked-img.png" alt="">
+                                                        <span>25</span>
+                                                    </li>
+                                                    <li><a title="" class="com"><img src="assets/images/com.png" alt="">
+                                                        Comment 15</a></li>
+                                                </ul>
+                                                <a><i class="la la-eye"></i>Views 50</a>
+                                            </div>
+                                        </div>
+                                        <!--post-bar end-->
+                                        <div class="post-bar">
+                                            <div class="post_topbar">
+                                                <div class="usy-dt">
+                                                    <img src="http://via.placeholder.com/50x50" alt="">
+                                                    <div class="usy-name">
+                                                        <h3>John Doe</h3>
+                                                        <span><img src="assets/images/clock.png" alt="">3 min ago</span>
+                                                    </div>
+                                                </div>
+                                                <div class="ed-opts">
+                                                    <a title="" class="ed-opts-open"><i
+                                                            class="la la-ellipsis-v"></i></a>
+                                                    <ul class="ed-options">
+                                                        <li><a title="">Edit Post</a></li>
+                                                        <li><a title="">Unsaved</a></li>
+                                                        <li><a title="">Unbid</a></li>
+                                                        <li><a title="">Close</a></li>
+                                                        <li><a title="">Hide</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="epi-sec">
+                                                <ul class="descp">
+                                                    <li><img src="assets/images/icon8.png"
+                                                             alt=""><span>Epic Coder</span></li>
+                                                    <li><img src="assets/images/icon9.png" alt=""><span>India</span>
+                                                    </li>
+                                                </ul>
+                                                <ul class="bk-links">
+                                                    <li><a title=""><i class="la la-bookmark"></i></a></li>
+                                                    <li><a title=""><i class="la la-envelope"></i></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="job_descp">
+                                                <h3>Senior Wordpress Developer</h3>
+                                                <ul class="job-dt">
+                                                    <li><a title="">Full Time</a></li>
+                                                    <li><span>$30 / hr</span></li>
+                                                </ul>
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
+                                                    luctus hendrerit metus, ut
+                                                    ullamcorper quam finibus at. Etiam id magna sit amet... <a title="">view
+                                                        more</a></p>
+                                                <ul class="skill-tags">
+                                                    <li><a title="">HTML</a></li>
+                                                    <li><a title="">PHP</a></li>
+                                                    <li><a title="">CSS</a></li>
+                                                    <li><a title="">Javascript</a></li>
+                                                    <li><a title="">Wordpress</a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="job-status-bar">
+                                                <ul class="like-com">
+                                                    <li>
+                                                        <a href="#"><i class="la la-heart"></i> Like</a>
+                                                        <img src="assets/images/liked-img.png" alt="">
+                                                        <span>25</span>
+                                                    </li>
+                                                    <li><a title="" class="com"><img src="assets/images/com.png" alt="">
+                                                        Comment 15</a></li>
+                                                </ul>
+                                                <a><i class="la la-eye"></i>Views 50</a>
+                                            </div>
+                                        </div>
+                                        <!--post-bar end-->
+                                        <div class="post-bar">
+                                            <div class="post_topbar">
+                                                <div class="usy-dt">
+                                                    <img src="http://via.placeholder.com/50x50" alt="">
+                                                    <div class="usy-name">
+                                                        <h3>John Doe</h3>
+                                                        <span><img src="assets/images/clock.png" alt="">3 min ago</span>
+                                                    </div>
+                                                </div>
+                                                <div class="ed-opts">
+                                                    <a title="" class="ed-opts-open"><i
+                                                            class="la la-ellipsis-v"></i></a>
+                                                    <ul class="ed-options">
+                                                        <li><a title="">Edit Post</a></li>
+                                                        <li><a title="">Unsaved</a></li>
+                                                        <li><a title="">Unbid</a></li>
+                                                        <li><a title="">Close</a></li>
+                                                        <li><a title="">Hide</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="epi-sec">
+                                                <ul class="descp">
+                                                    <li><img src="assets/images/icon8.png"
+                                                             alt=""><span>Epic Coder</span></li>
+                                                    <li><img src="assets/images/icon9.png" alt=""><span>India</span>
+                                                    </li>
+                                                </ul>
+                                                <ul class="bk-links">
+                                                    <li><a title=""><i class="la la-bookmark"></i></a></li>
+                                                    <li><a title=""><i class="la la-envelope"></i></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="job_descp">
+                                                <h3>Senior Wordpress Developer</h3>
+                                                <ul class="job-dt">
+                                                    <li><a title="">Full Time</a></li>
+                                                    <li><span>$30 / hr</span></li>
+                                                </ul>
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
+                                                    luctus hendrerit metus, ut
+                                                    ullamcorper quam finibus at. Etiam id magna sit amet... <a title="">view
+                                                        more</a></p>
+                                                <ul class="skill-tags">
+                                                    <li><a title="">HTML</a></li>
+                                                    <li><a title="">PHP</a></li>
+                                                    <li><a title="">CSS</a></li>
+                                                    <li><a title="">Javascript</a></li>
+                                                    <li><a title="">Wordpress</a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="job-status-bar">
+                                                <ul class="like-com">
+                                                    <li>
+                                                        <a href="#"><i class="la la-heart"></i> Like</a>
+                                                        <img src="assets/images/liked-img.png" alt="">
+                                                        <span>25</span>
+                                                    </li>
+                                                    <li><a title="" class="com"><img src="assets/images/com.png" alt="">
+                                                        Comment 15</a></li>
+                                                </ul>
+                                                <a><i class="la la-eye"></i>Views 50</a>
+                                            </div>
+                                        </div>
+                                        <!--post-bar end-->
+                                        <div class="process-comm">
+                                            <a title=""><img src="assets/images/process-icon.png" alt=""></a>
+                                        </div>
+                                        <!--process-comm end-->
+                                    </div>
+                                    <!--posts-section end-->
+                                </div>
+                                <!--product-feed-tab end-->
+                                <div class="product-feed-tab" [ngClass]="{'current': currentTab == 4}">
+                                    <div class="posts-section">
+                                        <div class="post-bar">
+                                            <div class="post_topbar">
+                                                <div class="usy-dt">
+                                                    <img src="http://via.placeholder.com/50x50" alt="">
+                                                    <div class="usy-name">
+                                                        <h3>John Doe</h3>
+                                                        <span><img src="assets/images/clock.png" alt="">3 min ago</span>
+                                                    </div>
+                                                </div>
+                                                <div class="ed-opts">
+                                                    <a title="" class="ed-opts-open"><i
+                                                            class="la la-ellipsis-v"></i></a>
+                                                    <ul class="ed-options">
+                                                        <li><a title="">Edit Post</a></li>
+                                                        <li><a title="">Unsaved</a></li>
+                                                        <li><a title="">Unbid</a></li>
+                                                        <li><a title="">Close</a></li>
+                                                        <li><a title="">Hide</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="epi-sec">
+                                                <ul class="descp">
+                                                    <li><img src="assets/images/icon8.png" alt=""><span>Frontend Developer</span>
+                                                    </li>
+                                                    <li><img src="assets/images/icon9.png" alt=""><span>India</span>
+                                                    </li>
+                                                </ul>
+                                                <ul class="bk-links">
+                                                    <li><a title=""><i class="la la-bookmark"></i></a></li>
+                                                    <li><a title=""><i class="la la-envelope"></i></a></li>
+                                                    <li><a title="" class="bid_now">Bid Now</a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="job_descp">
+                                                <h3>Simple Classified Site</h3>
+                                                <ul class="job-dt">
+                                                    <li><span>$300 - $350</span></li>
+                                                </ul>
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
+                                                    luctus hendrerit metus, ut
+                                                    ullamcorper quam finibus at. Etiam id magna sit amet... <a title="">view
+                                                        more</a></p>
+                                                <ul class="skill-tags">
+                                                    <li><a title="">HTML</a></li>
+                                                    <li><a title="">PHP</a></li>
+                                                    <li><a title="">CSS</a></li>
+                                                    <li><a title="">Javascript</a></li>
+                                                    <li><a title="">Wordpress</a></li>
+                                                    <li><a title="">Photoshop</a></li>
+                                                    <li><a title="">Illustrator</a></li>
+                                                    <li><a title="">Corel Draw</a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="job-status-bar">
+                                                <ul class="like-com">
+                                                    <li>
+                                                        <a href="#"><i class="la la-heart"></i> Like</a>
+                                                        <img src="assets/images/liked-img.png" alt="">
+                                                        <span>25</span>
+                                                    </li>
+                                                    <li><a title="" class="com"><img src="assets/images/com.png" alt="">
+                                                        Comment 15</a></li>
+                                                </ul>
+                                                <a><i class="la la-eye"></i>Views 50</a>
+                                            </div>
+                                        </div>
+                                        <!--post-bar end-->
+                                        <div class="post-bar">
+                                            <div class="post_topbar">
+                                                <div class="usy-dt">
+                                                    <img src="http://via.placeholder.com/50x50" alt="">
+                                                    <div class="usy-name">
+                                                        <h3>John Doe</h3>
+                                                        <span><img src="assets/images/clock.png" alt="">3 min ago</span>
+                                                    </div>
+                                                </div>
+                                                <div class="ed-opts">
+                                                    <a title="" class="ed-opts-open"><i
+                                                            class="la la-ellipsis-v"></i></a>
+                                                    <ul class="ed-options">
+                                                        <li><a title="">Edit Post</a></li>
+                                                        <li><a title="">Unsaved</a></li>
+                                                        <li><a title="">Unbid</a></li>
+                                                        <li><a title="">Close</a></li>
+                                                        <li><a title="">Hide</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="epi-sec">
+                                                <ul class="descp">
+                                                    <li><img src="assets/images/icon8.png" alt=""><span>Frontend Developer</span>
+                                                    </li>
+                                                    <li><img src="assets/images/icon9.png" alt=""><span>India</span>
+                                                    </li>
+                                                </ul>
+                                                <ul class="bk-links">
+                                                    <li><a title=""><i class="la la-bookmark"></i></a></li>
+                                                    <li><a title=""><i class="la la-envelope"></i></a></li>
+                                                    <li><a title="" class="bid_now">Bid Now</a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="job_descp">
+                                                <h3>Ios Shopping mobile app</h3>
+                                                <ul class="job-dt">
+                                                    <li><span>$300 - $350</span></li>
+                                                </ul>
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
+                                                    luctus hendrerit metus, ut
+                                                    ullamcorper quam finibus at. Etiam id magna sit amet... <a title="">view
+                                                        more</a></p>
+                                                <ul class="skill-tags">
+                                                    <li><a title="">HTML</a></li>
+                                                    <li><a title="">PHP</a></li>
+                                                    <li><a title="">CSS</a></li>
+                                                    <li><a title="">Javascript</a></li>
+                                                    <li><a title="">Wordpress</a></li>
+                                                    <li><a title="">Photoshop</a></li>
+                                                    <li><a title="">Illustrator</a></li>
+                                                    <li><a title="">Corel Draw</a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="job-status-bar">
+                                                <ul class="like-com">
+                                                    <li>
+                                                        <a href="#"><i class="la la-heart"></i> Like</a>
+                                                        <img src="assets/images/liked-img.png" alt="">
+                                                        <span>25</span>
+                                                    </li>
+                                                    <li><a title="" class="com"><img src="assets/images/com.png" alt="">
+                                                        Comment 15</a></li>
+                                                </ul>
+                                                <a><i class="la la-eye"></i>Views 50</a>
+                                            </div>
+                                        </div>
+                                        <!--post-bar end-->
+                                        <div class="post-bar">
+                                            <div class="post_topbar">
+                                                <div class="usy-dt">
+                                                    <img src="http://via.placeholder.com/50x50" alt="">
+                                                    <div class="usy-name">
+                                                        <h3>John Doe</h3>
+                                                        <span><img src="assets/images/clock.png" alt="">3 min ago</span>
+                                                    </div>
+                                                </div>
+                                                <div class="ed-opts">
+                                                    <a title="" class="ed-opts-open"><i
+                                                            class="la la-ellipsis-v"></i></a>
+                                                    <ul class="ed-options">
+                                                        <li><a title="">Edit Post</a></li>
+                                                        <li><a title="">Unsaved</a></li>
+                                                        <li><a title="">Unbid</a></li>
+                                                        <li><a title="">Close</a></li>
+                                                        <li><a title="">Hide</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="epi-sec">
+                                                <ul class="descp">
+                                                    <li><img src="assets/images/icon8.png" alt=""><span>Frontend Developer</span>
+                                                    </li>
+                                                    <li><img src="assets/images/icon9.png" alt=""><span>India</span>
+                                                    </li>
+                                                </ul>
+                                                <ul class="bk-links">
+                                                    <li><a title=""><i class="la la-bookmark"></i></a></li>
+                                                    <li><a title=""><i class="la la-envelope"></i></a></li>
+                                                    <li><a title="" class="bid_now">Bid Now</a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="job_descp">
+                                                <h3>Simple Classified Site</h3>
+                                                <ul class="job-dt">
+                                                    <li><span>$300 - $350</span></li>
+                                                </ul>
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
+                                                    luctus hendrerit metus, ut
+                                                    ullamcorper quam finibus at. Etiam id magna sit amet... <a title="">view
+                                                        more</a></p>
+                                                <ul class="skill-tags">
+                                                    <li><a title="">HTML</a></li>
+                                                    <li><a title="">PHP</a></li>
+                                                    <li><a title="">CSS</a></li>
+                                                    <li><a title="">Javascript</a></li>
+                                                    <li><a title="">Wordpress</a></li>
+                                                    <li><a title="">Photoshop</a></li>
+                                                    <li><a title="">Illustrator</a></li>
+                                                    <li><a title="">Corel Draw</a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="job-status-bar">
+                                                <ul class="like-com">
+                                                    <li>
+                                                        <a href="#"><i class="la la-heart"></i> Like</a>
+                                                        <img src="assets/images/liked-img.png" alt="">
+                                                        <span>25</span>
+                                                    </li>
+                                                    <li><a title="" class="com"><img src="assets/images/com.png" alt="">
+                                                        Comment 15</a></li>
+                                                </ul>
+                                                <a><i class="la la-eye"></i>Views 50</a>
+                                            </div>
+                                        </div>
+                                        <!--post-bar end-->
+                                        <div class="post-bar">
+                                            <div class="post_topbar">
+                                                <div class="usy-dt">
+                                                    <img src="http://via.placeholder.com/50x50" alt="">
+                                                    <div class="usy-name">
+                                                        <h3>John Doe</h3>
+                                                        <span><img src="assets/images/clock.png" alt="">3 min ago</span>
+                                                    </div>
+                                                </div>
+                                                <div class="ed-opts">
+                                                    <a title="" class="ed-opts-open"><i
+                                                            class="la la-ellipsis-v"></i></a>
+                                                    <ul class="ed-options">
+                                                        <li><a title="">Edit Post</a></li>
+                                                        <li><a title="">Unsaved</a></li>
+                                                        <li><a title="">Unbid</a></li>
+                                                        <li><a title="">Close</a></li>
+                                                        <li><a title="">Hide</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="epi-sec">
+                                                <ul class="descp">
+                                                    <li><img src="assets/images/icon8.png" alt=""><span>Frontend Developer</span>
+                                                    </li>
+                                                    <li><img src="assets/images/icon9.png" alt=""><span>India</span>
+                                                    </li>
+                                                </ul>
+                                                <ul class="bk-links">
+                                                    <li><a title=""><i class="la la-bookmark"></i></a></li>
+                                                    <li><a title=""><i class="la la-envelope"></i></a></li>
+                                                    <li><a title="" class="bid_now">Bid Now</a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="job_descp">
+                                                <h3>Ios Shopping mobile app</h3>
+                                                <ul class="job-dt">
+                                                    <li><span>$300 - $350</span></li>
+                                                </ul>
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
+                                                    luctus hendrerit metus, ut
+                                                    ullamcorper quam finibus at. Etiam id magna sit amet... <a title="">view
+                                                        more</a></p>
+                                                <ul class="skill-tags">
+                                                    <li><a title="">HTML</a></li>
+                                                    <li><a title="">PHP</a></li>
+                                                    <li><a title="">CSS</a></li>
+                                                    <li><a title="">Javascript</a></li>
+                                                    <li><a title="">Wordpress</a></li>
+                                                    <li><a title="">Photoshop</a></li>
+                                                    <li><a title="">Illustrator</a></li>
+                                                    <li><a title="">Corel Draw</a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="job-status-bar">
+                                                <ul class="like-com">
+                                                    <li>
+                                                        <a href="#"><i class="la la-heart"></i> Like</a>
+                                                        <img src="assets/images/liked-img.png" alt="">
+                                                        <span>25</span>
+                                                    </li>
+                                                    <li><a title="" class="com"><img src="assets/images/com.png" alt="">
+                                                        Comment 15</a></li>
+                                                </ul>
+                                                <a><i class="la la-eye"></i>Views 50</a>
+                                            </div>
+                                        </div>
+                                        <!--post-bar end-->
+                                        <div class="process-comm">
+                                            <a title=""><img src="assets/images/process-icon.png" alt=""></a>
+                                        </div>
+                                        <!--process-comm end-->
+                                    </div>
+                                    <!--posts-section end-->
+                                </div>
+                                <!--product-feed-tab end-->
+                                <div class="product-feed-tab" [ngClass]="{'current': currentTab == 5}">
+                                    <div class="portfolio-gallery-sec">
+                                        <h3>Portfolio</h3>
+                                        <div class="gallery_pf">
+                                            <div class="row">
+                                                <div class="col-lg-4 col-md-4 col-sm-6 col-6">
+                                                    <div class="gallery_pt"
+                                                         (click)="statService.missingFeature('user info')">
+                                                        <img src="http://via.placeholder.com/271x174" alt="">
+                                                        <a title=""><img src="assets/images/all-out.png" alt=""></a>
+                                                    </div>
+                                                    <!--gallery_pt end-->
+                                                </div>
+                                                <div class="col-lg-4 col-md-4 col-sm-6 col-6">
+                                                    <div class="gallery_pt"
+                                                         (click)="statService.missingFeature('user info')">
+                                                        <img src="http://via.placeholder.com/170x170" alt="">
+                                                        <a title=""><img src="assets/images/all-out.png" alt=""></a>
+                                                    </div>
+                                                    <!--gallery_pt end-->
+                                                </div>
+                                                <div class="col-lg-4 col-md-4 col-sm-6 col-6">
+                                                    <div class="gallery_pt"
+                                                         (click)="statService.missingFeature('user info')">
+                                                        <img src="http://via.placeholder.com/170x170" alt="">
+                                                        <a title=""><img src="assets/images/all-out.png" alt=""></a>
+                                                    </div>
+                                                    <!--gallery_pt end-->
+                                                </div>
+                                                <div class="col-lg-4 col-md-4 col-sm-6 col-6">
+                                                    <div class="gallery_pt"
+                                                         (click)="statService.missingFeature('user info')">
+                                                        <img src="http://via.placeholder.com/170x170" alt="">
+                                                        <a title=""><img src="assets/images/all-out.png" alt=""></a>
+                                                    </div>
+                                                    <!--gallery_pt end-->
+                                                </div>
+                                                <div class="col-lg-4 col-md-4 col-sm-6 col-6">
+                                                    <div class="gallery_pt"
+                                                         (click)="statService.missingFeature('user info')">
+                                                        <img src="http://via.placeholder.com/170x170" alt="">
+                                                        <a title=""><img src="assets/images/all-out.png" alt=""></a>
+                                                    </div>
+                                                    <!--gallery_pt end-->
+                                                </div>
+                                                <div class="col-lg-4 col-md-4 col-sm-6 col-6">
+                                                    <div class="gallery_pt"
+                                                         (click)="statService.missingFeature('user info')">
+                                                        <img src="http://via.placeholder.com/170x170" alt="">
+                                                        <a title=""><img src="assets/images/all-out.png" alt=""></a>
+                                                    </div>
+                                                    <!--gallery_pt end-->
+                                                </div>
+                                                <div class="col-lg-4 col-md-4 col-sm-6 col-6">
+                                                    <div class="gallery_pt"
+                                                         (click)="statService.missingFeature('user info')">
+                                                        <img src="http://via.placeholder.com/170x170" alt="">
+                                                        <a title=""><img src="assets/images/all-out.png" alt=""></a>
+                                                    </div>
+                                                    <!--gallery_pt end-->
+                                                </div>
+                                                <div class="col-lg-4 col-md-4 col-sm-6 col-6">
+                                                    <div class="gallery_pt"
+                                                         (click)="statService.missingFeature('user info')">
+                                                        <img src="http://via.placeholder.com/170x170" alt="">
+                                                        <a title=""><img src="assets/images/all-out.png" alt=""></a>
+                                                    </div>
+                                                    <!--gallery_pt end-->
+                                                </div>
+                                                <div class="col-lg-4 col-md-4 col-sm-6 col-6">
+                                                    <div class="gallery_pt"
+                                                         (click)="statService.missingFeature('user info')">
+                                                        <img src="http://via.placeholder.com/170x170" alt="">
+                                                        <a title=""><img src="assets/images/all-out.png" alt=""></a>
+                                                    </div>
+                                                    <!--gallery_pt end-->
+                                                </div>
+                                                <div class="col-lg-4 col-md-4 col-sm-6 col-6">
+                                                    <div class="gallery_pt"
+                                                         (click)="statService.missingFeature('user info')">
+                                                        <img src="http://via.placeholder.com/170x170" alt="">
+                                                        <a title=""><img src="assets/images/all-out.png" alt=""></a>
+                                                    </div>
+                                                    <!--gallery_pt end-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--gallery_pf end-->
+                                    </div>
+                                    <!--portfolio-gallery-sec end-->
+                                </div>
+                                <div class="product-feed-tab" *ngIf="canViewUsers"
+                                     [ngClass]="{'current': currentTab == 6}">
+                                    <div class="acc-setting">
+                                        <div class="requests-list">
+
+                                            <div *ngFor="let userData of Users">
+                                                <div *ngIf="userData.uid != authService.currentUserId" class="request-details">
+                                                    <div class="noty-user-img">
+                                                        <img src="{{userData.coverPhotoUrl}}" alt="">
+                                                    </div>
+                                                    <a [routerLink]="['/profile/'+userData.uid]">
+                                                        <div class="request-info">
+                                                            <h3>{{userData.name}}</h3>
+                                                            <span>{{userData.jobTitle}}</span>
+                                                        </div>
+                                                    </a>
+                                                    <div class="accept-feat">
+                                                        <ul>
+                                                            <li>
+                                                                <button (click)="changeUserState(userData);"
+                                                                        [ngClass]="{'btn-danger':userData.isActive,
+                                                                    'btn-dark':!userData.isActive}"
+                                                                        type="submit"
+                                                                        class="btn mr-1">{{userData.isActive ? 'Deactivate' : 'Activate'}}
+                                                                </button>
+                                                            </li>
+                                                        </ul>
+                                                    </div><!--accept-feat end-->
+                                                </div>
                                             </div><!--request-detailse end-->
                                         </div>
                                     </div>
@@ -995,478 +1001,477 @@
                                 <!--                </div>-->
                                 <!--product-feed-tab end-->
                             </div>
-       import {StatService} from 'src/app/shared/services/stat.service';
-                     <!--main-ws-sec end-->
+                            <!--main-ws-sec end-->
                         </div>
                         <div class="col-lg-3">
                             <div class="right-sidebar">
 
-                <div class="message-btn btn-group-vertical">
-                  <button *ngIf="canAddPost" data-toggle="modal" data-target="#postModal"
-                          data-backdrop="static"
-                          data-keyboard="false" class="btn btn-info mr-1" title="">
-                    <i class="fa fa-envelope"></i> Add Post
-                  </button>
-                  <button *ngIf="canAddVacancy" data-toggle="modal" data-target="#vacancyModal"
-                          data-backdrop="static"
-                          data-keyboard="false" class="btn btn-info mr-1" title=""><i
-                    class="fa fa-briefcase"></i> New Vacancy
-                  </button>
-                  <button *ngIf="canAddFacility" data-toggle="modal" data-target="#facilityModal"
-                          data-backdrop="static"
-                          data-keyboard="false" class="btn btn-primary" title=""><i
-                    class="fa fa-cogs"></i> Add Facility
-                  </button>
-                  <button *ngIf="canFollow" class="btn btn-info" title="" (click)="follow()"><i
-                    class="fa fa-cogs"></i> Follow
-                  </button>
+                                <div class="message-btn btn-group-vertical">
+                                    <button *ngIf="canAddPost" data-toggle="modal" data-target="#postModal"
+                                            data-backdrop="static"
+                                            data-keyboard="false" class="btn btn-info mr-1" title="">
+                                        <i class="fa fa-envelope"></i> Add Post
+                                    </button>
+                                    <button *ngIf="canAddVacancy" data-toggle="modal" data-target="#vacancyModal"
+                                            data-backdrop="static"
+                                            data-keyboard="false" class="btn btn-info mr-1" title=""><i
+                                            class="fa fa-briefcase"></i> New Vacancy
+                                    </button>
+                                    <button *ngIf="canAddFacility" data-toggle="modal" data-target="#facilityModal"
+                                            data-backdrop="static"
+                                            data-keyboard="false" class="btn btn-primary" title=""><i
+                                            class="fa fa-cogs"></i> Add Facility
+                                    </button>
+                                    <button *ngIf="canFollow" class="btn btn-info" title="" (click)="follow()"><i
+                                            class="fa fa-cogs"></i> Follow
+                                    </button>
+                                </div>
+
+                                <div class="widget widget-Projects">
+                                    <div class="wd-heady">
+                                        <h3>Projects </h3><i
+                                            (click)="statService.missingFeature('user-editProjects')"
+                                            class="fa fa-pencil ml-1"></i>
+                                        <!-- <img src="assets/assets/images/photo-icon.png" alt=""> -->
+                                    </div>
+                                    <div class="pf-gallery" (click)="statService.missingFeature('user-viewProjects')">
+                                        <ul>
+                                            <li><a title=""><img
+                                                    src="http://via.placeholder.com/70x70" alt=""></a></li>
+                                            <li><a title=""><img
+                                                    src="http://via.placeholder.com/70x70" alt=""></a></li>
+                                            <li><a title=""><img
+                                                    src="http://via.placeholder.com/70x70" alt=""></a></li>
+                                            <li><a title=""><img
+                                                    src="http://via.placeholder.com/70x70" alt=""></a></li>
+                                            <li><a title=""><img
+                                                    src="http://via.placeholder.com/70x70" alt=""></a></li>
+                                            <li><a title=""><img
+                                                    src="http://via.placeholder.com/70x70" alt=""></a></li>
+                                            <li><a title=""><img
+                                                    src="http://via.placeholder.com/70x70" alt=""></a></li>
+                                            <li><a title=""><img
+                                                    src="http://via.placeholder.com/70x70" alt=""></a></li>
+                                            <li><a title=""><img
+                                                    src="http://via.placeholder.com/70x70" alt=""></a></li>
+                                            <li><a title=""><img
+                                                    src="http://via.placeholder.com/70x70" alt=""></a></li>
+                                            <li><a title=""><img
+                                                    src="http://via.placeholder.com/70x70" alt=""></a></li>
+                                            <li><a title=""><img
+                                                    src="http://via.placeholder.com/70x70" alt=""></a></li>
+                                        </ul>
+                                    </div>
+                                    <!--pf-gallery end-->
+                                </div>
+                                <!--widget-Projects end-->
+                            </div>
+                            <!--right-sidebar end-->
+                        </div>
+                    </div>
+                </div><!-- main-section-data end-->
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footy-sec mn no-margin">
+            <div class="container">
+                <ul>
+                    <li><a title="">Help Center</a></li>
+                    <li><a title="">Privacy Policy</a></li>
+                    <li><a title="">Community Guidelines</a></li>
+                    <li><a title="">Cookies Policy</a></li>
+                    <li><a title="">Career</a></li>
+                    <li><a title="">Forum</a></li>
+                    <li><a title="">Language</a></li>
+                    <li><a title="">Copyright Policy</a></li>
+                </ul>
+                <p><img src="assets/images/copy-icon2.png" alt="">Copyright 2018</p>
+                <img class="fl-rgt" src="assets/images/logo2.png" alt="">
+            </div>
+        </div>
+    </footer>
+    <!--footer end-->
+
+    <div class="overview-box" id="overview-box">
+        <div class="overview-edit">
+            <h3>Overview</h3>
+            <span>5000 character left</span>
+            <form>
+                <textarea></textarea>
+                <button type="submit" class="save">Save</button>
+                <button type="submit" class="cancel">Cancel</button>
+            </form>
+            <a title="" class="close-box"><i class="la la-close"></i></a>
+        </div>
+        <!--overview-edit end-->
+    </div>
+    <!--overview-box end-->
+
+
+    <div class="overview-box" id="experience-box">
+        <div class="overview-edit">
+            <h3>Experience</h3>
+            <form>
+                <input type="text" name="subject" placeholder="Subject">
+                <textarea></textarea>
+                <button type="submit" class="save">Save</button>
+                <button type="submit" class="save-add">Save & Add More</button>
+                <button type="submit" class="cancel">Cancel</button>
+            </form>
+            <a title="" class="close-box"><i class="la la-close"></i></a>
+        </div>
+        <!--overview-edit end-->
+    </div>
+    <!--overview-box end-->
+
+    <div class="overview-box" id="education-box">
+        <div class="overview-edit">
+            <h3>Education</h3>
+            <form>
+                <input type="text" name="school" placeholder="School / University">
+                <div class="datepicky">
+                    <div class="row">
+                        <div class="col-lg-6 no-left-pd">
+                            <div class="datefm">
+                                <input type="text" name="from" placeholder="From" class="datepicker">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 no-righ-pd">
+                            <div class="datefm">
+                                <input type="text" name="to" placeholder="To" class="datepicker">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                <input type="text" name="degree" placeholder="Degree">
+                <textarea placeholder="Description"></textarea>
+                <button type="submit" class="save">Save</button>
+                <button type="submit" class="save-add">Save & Add More</button>
+                <button type="submit" class="cancel">Cancel</button>
+            </form>
+            <a title="" class="close-box"><i class="la la-close"></i></a>
+        </div>
+        <!--overview-edit end-->
+    </div>
+    <!--overview-box end-->
 
-                <div class="widget widget-Projects">
-                  <div class="wd-heady">
-                    <h3>Projects </h3><i
-                    (click)="statService.missingFeature('user-editProjects')"
-                    class="fa fa-pencil ml-1"></i>
-                    <!-- <img src="assets/assets/images/photo-icon.png" alt=""> -->
-                  </div>
-                  <div class="pf-gallery" (click)="statService.missingFeature('user-viewProjects')">
-                    <ul>
-                      <li><a title=""><img
-                        src="http://via.placeholder.com/70x70" alt=""></a></li>
-                      <li><a title=""><img
-                        src="http://via.placeholder.com/70x70" alt=""></a></li>
-                      <li><a title=""><img
-                        src="http://via.placeholder.com/70x70" alt=""></a></li>
-                      <li><a title=""><img
-                        src="http://via.placeholder.com/70x70" alt=""></a></li>
-                      <li><a title=""><img
-                        src="http://via.placeholder.com/70x70" alt=""></a></li>
-                      <li><a title=""><img
-                        src="http://via.placeholder.com/70x70" alt=""></a></li>
-                      <li><a title=""><img
-                        src="http://via.placeholder.com/70x70" alt=""></a></li>
-                      <li><a title=""><img
-                        src="http://via.placeholder.com/70x70" alt=""></a></li>
-                      <li><a title=""><img
-                        src="http://via.placeholder.com/70x70" alt=""></a></li>
-                      <li><a title=""><img
-                        src="http://via.placeholder.com/70x70" alt=""></a></li>
-                      <li><a title=""><img
-                        src="http://via.placeholder.com/70x70" alt=""></a></li>
-                      <li><a title=""><img
-                        src="http://via.placeholder.com/70x70" alt=""></a></li>
-                    </ul>
-                  </div>
-                  <!--pf-gallery end-->
+    <div class="overview-box" id="location-box">
+        <div class="overview-edit">
+            <h3>Location</h3>
+            <form>
+                <div class="datefm">
+                    <select>
+                        <option>Country</option>
+                        <option value="pakistan">Pakistan</option>
+                        <option value="england">England</option>
+                        <option value="india">India</option>
+                        <option value="usa">United Sates</option>
+                    </select>
+                    <i class="fa fa-globe"></i>
                 </div>
-                <!--widget-Projects end-->
-              </div>
-              <!--right-sidebar end-->
-            </div>
-          </div>
-        </div><!-- main-section-data end-->
-      </div>
-    </div>
-  </main>
-
-  <footer>
-    <div class="footy-sec mn no-margin">
-      <div class="container">
-        <ul>
-          <li><a title="">Help Center</a></li>
-          <li><a title="">Privacy Policy</a></li>
-          <li><a title="">Community Guidelines</a></li>
-          <li><a title="">Cookies Policy</a></li>
-          <li><a title="">Career</a></li>
-          <li><a title="">Forum</a></li>
-          <li><a title="">Language</a></li>
-          <li><a title="">Copyright Policy</a></li>
-        </ul>
-        <p><img src="assets/images/copy-icon2.png" alt="">Copyright 2018</p>
-        <img class="fl-rgt" src="assets/images/logo2.png" alt="">
-      </div>
-    </div>
-  </footer>
-  <!--footer end-->
-
-  <div class="overview-box" id="overview-box">
-    <div class="overview-edit">
-      <h3>Overview</h3>
-      <span>5000 character left</span>
-      <form>
-        <textarea></textarea>
-        <button type="submit" class="save">Save</button>
-        <button type="submit" class="cancel">Cancel</button>
-      </form>
-      <a title="" class="close-box"><i class="la la-close"></i></a>
-    </div>
-    <!--overview-edit end-->
-  </div>
-  <!--overview-box end-->
-
-
-  <div class="overview-box" id="experience-box">
-    <div class="overview-edit">
-      <h3>Experience</h3>
-      <form>
-        <input type="text" name="subject" placeholder="Subject">
-        <textarea></textarea>
-        <button type="submit" class="save">Save</button>
-        <button type="submit" class="save-add">Save & Add More</button>
-        <button type="submit" class="cancel">Cancel</button>
-      </form>
-      <a title="" class="close-box"><i class="la la-close"></i></a>
-    </div>
-    <!--overview-edit end-->
-  </div>
-  <!--overview-box end-->
-
-  <div class="overview-box" id="education-box">
-    <div class="overview-edit">
-      <h3>Education</h3>
-      <form>
-        <input type="text" name="school" placeholder="School / University">
-        <div class="datepicky">
-          <div class="row">
-            <div class="col-lg-6 no-left-pd">
-              <div class="datefm">
-                <input type="text" name="from" placeholder="From" class="datepicker">
-                <i class="fa fa-calendar"></i>
-              </div>
-            </div>
-            <div class="col-lg-6 no-righ-pd">
-              <div class="datefm">
-                <input type="text" name="to" placeholder="To" class="datepicker">
-                <i class="fa fa-calendar"></i>
-              </div>
-            </div>
-          </div>
+                <div class="datefm">
+                    <select>
+                        <option>City</option>
+                        <option value="london">London</option>
+                        <option value="new-york">New York</option>
+                        <option value="sydney">Sydney</option>
+                        <option value="chicago">Chicago</option>
+                    </select>
+                    <i class="fa fa-map-marker"></i>
+                </div>
+                <button type="submit" class="save">Save</button>
+                <button type="submit" class="cancel">Cancel</button>
+            </form>
+            <a title="" class="close-box"><i class="la la-close"></i></a>
         </div>
-        <input type="text" name="degree" placeholder="Degree">
-        <textarea placeholder="Description"></textarea>
-        <button type="submit" class="save">Save</button>
-        <button type="submit" class="save-add">Save & Add More</button>
-        <button type="submit" class="cancel">Cancel</button>
-      </form>
-      <a title="" class="close-box"><i class="la la-close"></i></a>
+        <!--overview-edit end-->
     </div>
-    <!--overview-edit end-->
-  </div>
-  <!--overview-box end-->
+    <!--overview-box end-->
 
-  <div class="overview-box" id="location-box">
-    <div class="overview-edit">
-      <h3>Location</h3>
-      <form>
-        <div class="datefm">
-          <select>
-            <option>Country</option>
-            <option value="pakistan">Pakistan</option>
-            <option value="england">England</option>
-            <option value="india">India</option>
-            <option value="usa">United Sates</option>
-          </select>
-          <i class="fa fa-globe"></i>
+    <div class="overview-box" id="skills-box">
+        <div class="overview-edit">
+            <h3>Skills</h3>
+            <ul>
+                <li><a title="" class="skl-name">HTML</a><a
+                        title="" class="close-skl"><i
+                        class="la la-close"></i></a></li>
+                <li><a title="" class="skl-name">php</a><a
+                        title="" class="close-skl"><i
+                        class="la la-close"></i></a></li>
+                <li><a title="" class="skl-name">css</a><a
+                        title="" class="close-skl"><i
+                        class="la la-close"></i></a></li>
+            </ul>
+            <form>
+                <input type="text" name="skills" placeholder="Skills">
+                <button type="submit" class="save">Save</button>
+                <button type="submit" class="save-add">Save & Add More</button>
+                <button type="submit" class="cancel">Cancel</button>
+            </form>
+            <a title="" class="close-box"><i class="la la-close"></i></a>
         </div>
-        <div class="datefm">
-          <select>
-            <option>City</option>
-            <option value="london">London</option>
-            <option value="new-york">New York</option>
-            <option value="sydney">Sydney</option>
-            <option value="chicago">Chicago</option>
-          </select>
-          <i class="fa fa-map-marker"></i>
-        </div>
-        <button type="submit" class="save">Save</button>
-        <button type="submit" class="cancel">Cancel</button>
-      </form>
-      <a title="" class="close-box"><i class="la la-close"></i></a>
+        <!--overview-edit end-->
     </div>
-    <!--overview-edit end-->
-  </div>
-  <!--overview-box end-->
+    <!--overview-box end-->
 
-  <div class="overview-box" id="skills-box">
-    <div class="overview-edit">
-      <h3>Skills</h3>
-      <ul>
-        <li><a title="" class="skl-name">HTML</a><a
-          title="" class="close-skl"><i
-          class="la la-close"></i></a></li>
-        <li><a title="" class="skl-name">php</a><a
-          title="" class="close-skl"><i
-          class="la la-close"></i></a></li>
-        <li><a title="" class="skl-name">css</a><a
-          title="" class="close-skl"><i
-          class="la la-close"></i></a></li>
-      </ul>
-      <form>
-        <input type="text" name="skills" placeholder="Skills">
-        <button type="submit" class="save">Save</button>
-        <button type="submit" class="save-add">Save & Add More</button>
-        <button type="submit" class="cancel">Cancel</button>
-      </form>
-      <a title="" class="close-box"><i class="la la-close"></i></a>
-    </div>
-    <!--overview-edit end-->
-  </div>
-  <!--overview-box end-->
-
-  <div class="overview-box" id="create-Projects">
-    <div class="overview-edit">
-      <h3>Create Projects</h3>
-      <form>
-        <input type="text" name="pf-name" placeholder="Projects Name">
-        <div class="file-submit">
-          <input type="file" name="file">
+    <div class="overview-box" id="create-Projects">
+        <div class="overview-edit">
+            <h3>Create Projects</h3>
+            <form>
+                <input type="text" name="pf-name" placeholder="Projects Name">
+                <div class="file-submit">
+                    <input type="file" name="file">
+                </div>
+                <div class="pf-img">
+                    <img src="http://via.placeholder.com/60x60" alt="">
+                </div>
+                <input type="text" name="website-url" placeholder="htp://www.example.com">
+                <button type="submit" class="save">Save</button>
+                <button type="submit" class="cancel">Cancel</button>
+            </form>
+            <a title="" class="close-box"><i class="la la-close"></i></a>
         </div>
-        <div class="pf-img">
-          <img src="http://via.placeholder.com/60x60" alt="">
-        </div>
-        <input type="text" name="website-url" placeholder="htp://www.example.com">
-        <button type="submit" class="save">Save</button>
-        <button type="submit" class="cancel">Cancel</button>
-      </form>
-      <a title="" class="close-box"><i class="la la-close"></i></a>
+        <!--overview-edit end-->
     </div>
-    <!--overview-edit end-->
-  </div>
-  <!--overview-box end-->
+    <!--overview-box end-->
 
 </div>
 <!--theme-layout end-->
 
 <!--Vacancy Modal-->
 <div class="modal fade" id="vacancyModal" role="dialog">
-  <div class="modal-dialog modal-lg modal-content">
-    <div class="modal-header"><h5 class="modal-title">New Vacancy</h5>
+    <div class="modal-dialog modal-lg modal-content">
+        <div class="modal-header"><h5 class="modal-title">New Vacancy</h5>
+        </div>
+        <div class="modal-body">
+            <label class="col-form-label">Vacancy Title:</label>
+            <input type="text" [(ngModel)]="vacancyToAdd.title" class="form-control">
+            <label class="col-form-label">Vacancy Description:</label>
+            <textarea [(ngModel)]="vacancyToAdd.description" class="form-control"></textarea>
+            <label class="col-form-label">Vacancy Tags (Comma Separated):</label>
+            <textarea class="form-control" [(ngModel)]="vacancyToAddTags"></textarea>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <button class="btn btn-primary" data-dismiss="modal" (click)="addVacancy()">Save</button>
+        </div>
     </div>
-    <div class="modal-body">
-      <label class="col-form-label">Vacancy Title:</label>
-      <input type="text" [(ngModel)]="vacancyToAdd.title" class="form-control">
-      <label class="col-form-label">Vacancy Description:</label>
-      <textarea [(ngModel)]="vacancyToAdd.description" class="form-control"></textarea>
-      <label class="col-form-label">Vacancy Tags (Comma Separated):</label>
-      <textarea class="form-control" [(ngModel)]="vacancyToAddTags"></textarea>
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-      <button class="btn btn-primary" data-dismiss="modal" (click)="addVacancy()">Save</button>
-    </div>
-  </div>
 </div>
 
 <!--Facility Modal-->
 <div class="modal fade" id="facilityModal" role="dialog">
-  <div class="modal-dialog modal-lg modal-content">
-    <div class="modal-header"><h5 class="modal-title">New Facility</h5>
+    <div class="modal-dialog modal-lg modal-content">
+        <div class="modal-header"><h5 class="modal-title">New Facility</h5>
+        </div>
+        <div class="modal-body">
+            <label class="col-form-label">Facility Name:</label>
+            <input type="text" [(ngModel)]="facilityToAdd.title" class="form-control">
+            <label class="col-form-label">Facility Description:</label>
+            <textarea [(ngModel)]="facilityToAdd.description" class="form-control"></textarea>
+            <label class="col-form-label">Tags (Comma Separated):</label>
+            <textarea class="form-control" [(ngModel)]="facilityToAddTags"></textarea>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <button class="btn btn-primary" data-dismiss="modal" (click)="addFacility()">Save</button>
+        </div>
     </div>
-    <div class="modal-body">
-      <label class="col-form-label">Facility Name:</label>
-      <input type="text" [(ngModel)]="facilityToAdd.title" class="form-control">
-      <label class="col-form-label">Facility Description:</label>
-      <textarea [(ngModel)]="facilityToAdd.description" class="form-control"></textarea>
-      <label class="col-form-label">Tags (Comma Separated):</label>
-      <textarea class="form-control" [(ngModel)]="facilityToAddTags"></textarea>
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-      <button class="btn btn-primary" data-dismiss="modal" (click)="addFacility()">Save</button>
-    </div>
-  </div>
 </div>
 
 <!--Name and JobTitle Modal-->
 <div class="modal fade" id="editUsername" role="dialog">
-  <div class="modal-dialog modal-lg modal-content">
-    <div class="modal-header"><h5 class="modal-title">Edit Info</h5>
+    <div class="modal-dialog modal-lg modal-content">
+        <div class="modal-header"><h5 class="modal-title">Edit Info</h5>
+        </div>
+        <div class="modal-body">
+            <label class="col-form-label">Name:</label>
+            <input type="text" [(ngModel)]="user.name" class="form-control">
+            <label class="col-form-label">Job Title:</label>
+            <input type="text" [(ngModel)]="user.jobTitle" class="form-control">
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <button class="btn btn-primary" data-dismiss="modal" (click)="saveUserData()">Save</button>
+        </div>
     </div>
-    <div class="modal-body">
-      <label class="col-form-label">Name:</label>
-      <input type="text" [(ngModel)]="user.name" class="form-control">
-      <label class="col-form-label">Job Title:</label>
-      <input type="text" [(ngModel)]="user.jobTitle" class="form-control">
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-      <button class="btn btn-primary" data-dismiss="modal" (click)="saveUserData()">Save</button>
-    </div>
-  </div>
 </div>
 
 <!--Skills Modal-->
 <div class="modal fade" id="editSkillsModal" role="dialog">
-  <div class="modal-dialog modal-lg modal-content">
-    <div class="modal-header"><h5 class="modal-title">Edit Tags</h5>
-    </div>
-    <div class="modal-body">
+    <div class="modal-dialog modal-lg modal-content">
+        <div class="modal-header"><h5 class="modal-title">Edit Tags</h5>
+        </div>
+        <div class="modal-body">
             <textarea class="form-control" placeholder="Programming,Management,Research"
                       [(ngModel)]="userTags"></textarea>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <button class="btn btn-primary" data-dismiss="modal" (click)="updateSkills()">Save</button>
+        </div>
     </div>
-    <div class="modal-footer">
-      <button class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-      <button class="btn btn-primary" data-dismiss="modal" (click)="updateSkills()">Save</button>
-    </div>
-  </div>
 </div>
 
 <!--Knowledge Modal-->
 <div class="modal fade" id="knowledgeModal" role="dialog">
-  <div class="modal-dialog modal-lg modal-content">
-    <div class="modal-header"><h5 class="modal-title">Edit Knowledge</h5>
+    <div class="modal-dialog modal-lg modal-content">
+        <div class="modal-header"><h5 class="modal-title">Edit Knowledge</h5>
+        </div>
+        <div class="modal-body">
+            <textarea class="form-control" placeholder="" [(ngModel)]="userKnowledge"></textarea>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <button class="btn btn-primary" data-dismiss="modal" (click)="updateKnowledge()">Save</button>
+        </div>
     </div>
-    <div class="modal-body">
-      <textarea class="form-control" placeholder="" [(ngModel)]="userKnowledge"></textarea>
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-      <button class="btn btn-primary" data-dismiss="modal" (click)="updateKnowledge()">Save</button>
-    </div>
-  </div>
 </div>
 
 <!--Interests Modal-->
 <div class="modal fade" id="interestsModal" role="dialog">
-  <div class="modal-dialog modal-lg modal-content">
-    <div class="modal-header"><h5 class="modal-title">Edit Interests</h5>
+    <div class="modal-dialog modal-lg modal-content">
+        <div class="modal-header"><h5 class="modal-title">Edit Interests</h5>
+        </div>
+        <div class="modal-body">
+            <textarea class="form-control" placeholder="" [(ngModel)]="userInterests"></textarea>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <button class="btn btn-primary" data-dismiss="modal" (click)="updateInterests()">Save</button>
+        </div>
     </div>
-    <div class="modal-body">
-      <textarea class="form-control" placeholder="" [(ngModel)]="userInterests"></textarea>
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-      <button class="btn btn-primary" data-dismiss="modal" (click)="updateInterests()">Save</button>
-    </div>
-  </div>
 </div>
 
 <!--Post Modal-->
 <div class="modal fade" id="postModal" role="dialog">
-  <div class="modal-dialog modal-lg modal-content">
-    <div class="modal-header"><h5 class="modal-title">New Post</h5>
-    </div>
-    <div class="modal-body">
+    <div class="modal-dialog modal-lg modal-content">
+        <div class="modal-header"><h5 class="modal-title">New Post</h5>
+        </div>
+        <div class="modal-body">
             <textarea class="form-control" placeholder="Write your post here."
                       [(ngModel)]="postToAdd.description"></textarea>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <button class="btn btn-primary" data-dismiss="modal" (click)="addPost()">Add</button>
+        </div>
     </div>
-    <div class="modal-footer">
-      <button class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-      <button class="btn btn-primary" data-dismiss="modal" (click)="addPost()">Add</button>
-    </div>
-  </div>
 </div>
 
 <!--Bio Modal-->
 <div class="modal fade" id="bioModal" role="dialog">
-  <div class="modal-dialog modal-lg modal-content">
-    <div class="modal-header"><h5 class="modal-title">Edit Bio</h5>
+    <div class="modal-dialog modal-lg modal-content">
+        <div class="modal-header"><h5 class="modal-title">Edit Bio</h5>
+        </div>
+        <div class="modal-body">
+            <textarea class="form-control" placeholder="Tell the world who are you" [(ngModel)]="user.bio"></textarea>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <button class="btn btn-primary" data-dismiss="modal" (click)="saveUserData()">Add</button>
+        </div>
     </div>
-    <div class="modal-body">
-      <textarea class="form-control" placeholder="Tell the world who are you" [(ngModel)]="user.bio"></textarea>
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-      <button class="btn btn-primary" data-dismiss="modal" (click)="saveUserData()">Add</button>
-    </div>
-  </div>
 </div>
 
 <!--Affiliated University Modal-->
 <div class="modal fade" id="affiliatedUniversityModal" role="dialog">
-  <div class="modal-dialog modal-lg modal-content">
-    <div class="modal-header"><h5 class="modal-title">Edit Affiliated University</h5>
+    <div class="modal-dialog modal-lg modal-content">
+        <div class="modal-header"><h5 class="modal-title">Edit Affiliated University</h5>
+        </div>
+        <div class="modal-body">
+            <input type="text" class="form-control" [(ngModel)]="user.affiliatedUniversity">
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <button class="btn btn-primary" data-dismiss="modal" (click)="saveUserData()">Save</button>
+        </div>
     </div>
-    <div class="modal-body">
-      <input type="text" class="form-control" [(ngModel)]="user.affiliatedUniversity">
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-      <button class="btn btn-primary" data-dismiss="modal" (click)="saveUserData()">Save</button>
-    </div>
-  </div>
 </div>
 
 <!--GPA Modal-->
 <div class="modal fade" id="GPAModal" role="dialog">
-  <div class="modal-dialog modal-lg modal-content">
-    <div class="modal-header"><h5 class="modal-title">Edit GPA</h5>
+    <div class="modal-dialog modal-lg modal-content">
+        <div class="modal-header"><h5 class="modal-title">Edit GPA</h5>
+        </div>
+        <div class="modal-body">
+            <input type="text" class="form-control" [(ngModel)]="user.GPA">
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <button class="btn btn-primary" data-dismiss="modal" (click)="saveUserData()">Save</button>
+        </div>
     </div>
-    <div class="modal-body">
-      <input type="text" class="form-control" [(ngModel)]="user.GPA">
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-      <button class="btn btn-primary" data-dismiss="modal" (click)="saveUserData()">Save</button>
-    </div>
-  </div>
 </div>
 
 <!--Academic Year Modal-->
 <div class="modal fade" id="academicYearModal" role="dialog">
-  <div class="modal-dialog modal-lg modal-content">
-    <div class="modal-header"><h5 class="modal-title">Edit Academic Year</h5>
+    <div class="modal-dialog modal-lg modal-content">
+        <div class="modal-header"><h5 class="modal-title">Edit Academic Year</h5>
+        </div>
+        <div class="modal-body">
+            <input type="text" class="form-control" [(ngModel)]="user.academicYear">
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <button class="btn btn-primary" data-dismiss="modal" (click)="saveUserData()">Save</button>
+        </div>
     </div>
-    <div class="modal-body">
-      <input type="text" class="form-control" [(ngModel)]="user.academicYear">
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-      <button class="btn btn-primary" data-dismiss="modal" (click)="saveUserData()">Save</button>
-    </div>
-  </div>
 </div>
 
 <!--Experience Modal-->
 <div class="modal fade" id="experienceModal" role="dialog">
-  <div class="modal-dialog modal-lg modal-content">
-    <div class="modal-header"><h5 class="modal-title">Edit Experience</h5>
+    <div class="modal-dialog modal-lg modal-content">
+        <div class="modal-header"><h5 class="modal-title">Edit Experience</h5>
+        </div>
+        <div class="modal-body">
+            <div class="user-profile-ov">
+                <div *ngFor="let item of user.experience">
+                    <h4>{{item.title}} <a (click)="removeExperience(item)"><i class="fa fa-remove"></i></a></h4>
+                    <span>{{item.date}}</span>
+                    <p>{{item.description}}</p></div>
+            </div>
+            <label class="col-form-label">Title:</label>
+            <input type="text" [(ngModel)]="experienceToAdd.title" class="form-control">
+            <label class="col-form-label">Date:</label>
+            <input type="text" [(ngModel)]="experienceToAdd.date" class="form-control">
+            <label class="col-form-label">Description:</label>
+            <textarea [(ngModel)]="experienceToAdd.description" class="form-control"></textarea>
+            <button class="btn btn-success" (click)="addExperience()">Add</button>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
     </div>
-    <div class="modal-body">
-      <div class="user-profile-ov">
-        <div *ngFor="let item of user.experience">
-          <h4>{{item.title}} <a (click)="removeExperience(item)"><i class="fa fa-remove"></i></a></h4>
-          <span>{{item.date}}</span>
-          <p>{{item.description}}</p></div>
-      </div>
-      <label class="col-form-label">Title:</label>
-      <input type="text" [(ngModel)]="experienceToAdd.title" class="form-control">
-      <label class="col-form-label">Date:</label>
-      <input type="text" [(ngModel)]="experienceToAdd.date" class="form-control">
-      <label class="col-form-label">Description:</label>
-      <textarea [(ngModel)]="experienceToAdd.description" class="form-control"></textarea>
-      <button class="btn btn-success" (click)="addExperience()">Add</button>
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-secondary" data-dismiss="modal">Close</button>
-    </div>
-  </div>
 </div>
 
 <!--Accomplishment Modal-->
 <div class="modal fade" id="accomplishmentModal" role="dialog">
-  <div class="modal-dialog modal-lg modal-content">
-    <div class="modal-header"><h5 class="modal-title">Edit Accomplishments</h5>
-    </div>
-    <div class="modal-body">
-      <div class="user-profile-ov">
-        <div *ngFor="let item of user.accomplishment">
-          <h4>{{item.title}} <a (click)="removeAccomplishment(item)"><i class="fa fa-remove"></i></a></h4>
-          <span>{{item.date}}</span>
-          <p>{{item.description}}</p>
+    <div class="modal-dialog modal-lg modal-content">
+        <div class="modal-header"><h5 class="modal-title">Edit Accomplishments</h5>
         </div>
-      </div>
-      <label class="col-form-label">Title:</label>
-      <input type="text" [(ngModel)]="accomplishmentToAdd.title" class="form-control">
-      <label class="col-form-label">Date:</label>
-      <input type="text" [(ngModel)]="accomplishmentToAdd.date" class="form-control">
-      <label class="col-form-label">Description:</label>
-      <textarea [(ngModel)]="accomplishmentToAdd.description" class="form-control"></textarea>
-      <button class="btn btn-success" (click)="addAccomplishment()">Add</button>
+        <div class="modal-body">
+            <div class="user-profile-ov">
+                <div *ngFor="let item of user.accomplishment">
+                    <h4>{{item.title}} <a (click)="removeAccomplishment(item)"><i class="fa fa-remove"></i></a></h4>
+                    <span>{{item.date}}</span>
+                    <p>{{item.description}}</p>
+                </div>
+            </div>
+            <label class="col-form-label">Title:</label>
+            <input type="text" [(ngModel)]="accomplishmentToAdd.title" class="form-control">
+            <label class="col-form-label">Date:</label>
+            <input type="text" [(ngModel)]="accomplishmentToAdd.date" class="form-control">
+            <label class="col-form-label">Description:</label>
+            <textarea [(ngModel)]="accomplishmentToAdd.description" class="form-control"></textarea>
+            <button class="btn btn-success" (click)="addAccomplishment()">Add</button>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
     </div>
-    <div class="modal-footer">
-      <button class="btn btn-secondary" data-dismiss="modal">Close</button>
-    </div>
-  </div>
 </div>
 
