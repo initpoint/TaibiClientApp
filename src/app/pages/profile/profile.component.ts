@@ -161,13 +161,14 @@ export class ProfileComponent implements OnInit {
   follow() {
     if (!this.isFollowing) {
       this.authService.followUser(this.user.uid);
-    }else{
+    } else {
       this.authService.unfollowUser(this.user.uid);
     }
   }
 
   changeUserState(user: AppUser) {
     user.isActive = !user.isActive;
-    console.log(user);
+    this.statService.missingFeature('user-activate');
+    this.authService.updateUser(user);
   }
 }
