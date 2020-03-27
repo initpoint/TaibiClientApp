@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Observable, from, BehaviorSubject} from 'rxjs';
+import {from, Observable} from 'rxjs';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {LoginVM} from '../models/login.model';
 import {AngularFirestore} from '@angular/fire/firestore';
@@ -109,6 +109,18 @@ export class AuthService {
 
   getUsers() {
     return this.db.collection<AppUser>('users').snapshotChanges().pipe(
+      map(x => x.map(y => {
+        return {
+          uid: y.payload.doc.id,
+          ...y.payload.doc.data()
+        };
+      }))
+    );
+  }
+
+  getFollowers(uid: string) {
+    return this.db.collection<AppUser>('users',
+      ref => ref.where('followingIds', 'array-contains', uid)).snapshotChanges().pipe(
       map(x => x.map(y => {
         return {
           uid: y.payload.doc.id,

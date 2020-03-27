@@ -38,7 +38,8 @@ export class ProfileComponent implements OnInit {
   isProfessor = false;
   isFollowing = false;
 
-  Users = [];
+  allUsers: AppUser[] = [];
+  followers: AppUser[] = [];
   canViewUsers = false;
   canFollow = false;
 
@@ -59,7 +60,7 @@ export class ProfileComponent implements OnInit {
         this.canViewUsers = this.user.uid === this.authService.currentUserId && this.user.type === UserType.Admin;
         this.canFollow = this.user.uid !== this.authService.currentUserId;
         if (!this.user.followersIds) {
-          this.user.followersIds = []
+          this.user.followersIds = [];
         }
         this.isFollowing = this.user.followersIds.includes(this.authService.currentUserId);
         this.isStudent = this.user.type == UserType.Student;
@@ -67,6 +68,8 @@ export class ProfileComponent implements OnInit {
         if (this.user.tags) {
           this.userTags = this.user.tags.join();
         }
+        this.followers = [];
+        this.currentTab = 1;
         this.getItems();
       });
     });
@@ -74,7 +77,13 @@ export class ProfileComponent implements OnInit {
 
   getUsers() {
     this.authService.getUsers().subscribe(users => {
-      this.Users = users;
+      this.allUsers = users;
+    });
+  }
+
+  getFollowers() {
+    this.authService.getFollowers(this.user.uid).subscribe(users => {
+      this.followers = users;
     });
   }
 
@@ -86,7 +95,6 @@ export class ProfileComponent implements OnInit {
           ...e.payload.doc.data()
         };
       });
-      console.log(this.items);
       this.isLoading = false;
     });
   }
@@ -162,10 +170,10 @@ export class ProfileComponent implements OnInit {
   }
 
   follow() {
-    if (!this.isFollowing) {
-      this.authService.followUser(this.user.uid);
-    } else {
+    if (this.isFollowing) {
       this.authService.unfollowUser(this.user.uid);
+    } else {
+      this.authService.followUser(this.user.uid);
     }
   }
 
