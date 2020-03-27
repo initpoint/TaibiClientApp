@@ -1,25 +1,31 @@
 <div class="align body" style="height: 100vh;">
-  <img src="assets/images/logo.png" width="170" height="70" style="margin: 10px;">
-  <div class="grid">
-    <div id="login">
-      <h2><span class="fontawesome-lock"></span>Sign In</h2>
+    <img src="assets/images/logo.png" width="170" height="70" style="margin: 10px;">
+    <div class="grid">
+        <div id="login">
+            <h2><span class="fontawesome-lock"></span>Sign In</h2>
 
-      <fieldset>
-        <p><label for="email">E-mail address</label></p>
-        <p><input type="email" id="email" name="email" [(ngModel)]="loginVM.email" placeholder="mail@address.com"></p>
+            <fieldset>
+                <p><label for="email">E-mail address</label></p>
+                <p><input type="email" id="email" name="email" [(ngModel)]="loginVM.email"
+                          placeholder="mail@address.com"></p>
 
-        <p><label for="password">Password</label></p>
-        <p><input type="password" id="password" name="password" [(ngModel)]="loginVM.password" placeholder="password">
-        </p>
+                <p><label for="password">Password</label></p>
+                <p><input type="password" id="password" name="password" [(ngModel)]="loginVM.password"
+                          placeholder="password">
+                </p>
 
-        <p><input type="submit" value="Sign In" (click)="login()"></p>
-        <p><input type="submit" class="back-to-sign-in" value="Go To Sign Up" [routerLink]="['/register']"></p>
+                <p><input type="submit" value="Sign In" (click)="login()"></p>
+                <p><input type="submit" class="back-to-sign-in" value="Go To Sign Up" [routerLink]="['/register']"></p>
 
-        <p><input type="button" value="Login as Student" (click)="login('student@mail.com','12345678')"><br>
-          <input type="button" value="Login as Professor" (click)="login('professor@mail.com','12345678')"><br>
-          <input type="button" value="Login as University" (click)="login('university@mail.com','12345678')"></p>
-      </fieldset>
+                <p>
+                    <input type="button" value="Login as Student" (click)="login('student@mail.com','12345678')"><br>
+                    <input type="button" value="Login as Professor"
+                           (click)="login('professor@mail.com','12345678')"><br>
+                    <input type="button" value="Login as University Administrator" (click)="login('university@mail.com','12345678')"><br>
+                    <input type="button" value="Login as Admin" (click)="login('admin@uniconnects.com','12345678')">
+                </p>
+            </fieldset>
 
+        </div>
     </div>
-  </div>
 </div>

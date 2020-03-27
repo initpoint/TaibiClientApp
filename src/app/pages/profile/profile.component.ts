@@ -5,142 +5,153 @@ import {AuthService} from '../../shared/services/auth.service';
 import {Item, ItemType} from '../../shared/models/items.model';
 import {ItemsService} from '../../shared/services/Items.service';
 import {StatService} from '../../shared/services/stat.service';
+import {UsersService} from '../../shared/services/users.service';
 
 @Component({
-  selector: 'app-profile-components',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss'],
-  encapsulation: ViewEncapsulation.Emulated
+    selector: 'app-profile-components',
+    templateUrl: './profile.component.html',
+    styleUrls: ['./profile.component.scss'],
+    encapsulation: ViewEncapsulation.Emulated
 })
 export class ProfileComponent implements OnInit {
-  currentTab = 1;
-  user: AppUser = new AppUser();
-  userId: string;
-  items = [];
-  isLoading = false;
-  userTags = '';
-  userKnowledge = '';
-  userInterests = '';
+    currentTab = 1;
+    user: AppUser = new AppUser();
+    userId: string;
+    items = [];
+    isLoading = false;
+    userTags = '';
+    userKnowledge = '';
+    userInterests = '';
 
-  vacancyToAdd = new Item();
-  facilityToAdd = new Item();
-  postToAdd = new Item();
-  experienceToAdd = new UserExperiance();
-  accomplishmentToAdd = new UserExperiance();
-  vacancyToAddTags = '';
-  facilityToAddTags = '';
+    vacancyToAdd = new Item();
+    facilityToAdd = new Item();
+    postToAdd = new Item();
+    experienceToAdd = new UserExperiance();
+    accomplishmentToAdd = new UserExperiance();
+    vacancyToAddTags = '';
+    facilityToAddTags = '';
 
-  canAddVacancy = false;
-  canAddFacility = false;
-  canAddPost = false;
-  canEditInfo = false;
-  isStudent = false;
-  isProfessor = false;
+    canAddVacancy = false;
+    canAddFacility = false;
+    canAddPost = false;
+    canEditInfo = false;
+    isStudent = false;
+    isProfessor = false;
 
-  constructor(public authService: AuthService, private itemsService: ItemsService,
-              public statService: StatService, private activatedRoute: ActivatedRoute) {
-  }
+    Users = [];
+    canViewUsers: boolean = false;
+    constructor(public authService: AuthService, private itemsService: ItemsService, private usersService: UsersService,
+                public statService: StatService, private activatedRoute: ActivatedRoute) {
+    }
 
-  ngOnInit() {
-    this.isLoading = true;
-    this.activatedRoute.params.subscribe(x => {
-      this.userId = x['id'];
-      this.authService.getUser(this.userId).subscribe(x => {
-        this.user = x.payload.data();
-        this.canAddVacancy = this.user.uid === this.authService.currentUserId && this.user.type === UserType.University;
-        this.canAddFacility = this.user.uid === this.authService.currentUserId && this.user.type === UserType.University;
-        this.canAddPost = this.user.uid === this.authService.currentUserId;
-        this.canEditInfo = this.user.uid === this.authService.currentUserId;
-        this.isStudent = this.user.type == UserType.Student;
-        this.isProfessor = this.user.type == UserType.Professor;
-        if (this.user.tags) {
-          this.userTags = this.user.tags.join();
-        }
-        this.getItems();
-      });
+    ngOnInit() {
+        this.isLoading = true;
+        this.activatedRoute.params.subscribe(x => {
+            this.userId = x['id'];
+            this.authService.getUser(this.userId).subscribe(x => {
+                this.user = x.payload.data();
+                this.canAddVacancy = this.user.uid === this.authService.currentUserId && this.user.type === UserType.University;
+                this.canAddFacility = this.user.uid === this.authService.currentUserId && this.user.type === UserType.University;
+                this.canAddPost = this.user.uid === this.authService.currentUserId;
+                this.canEditInfo = this.user.uid === this.authService.currentUserId;
+                this.canViewUsers = this.user.uid === this.authService.currentUserId && this.user.type === UserType.Admin;
+                this.isStudent = this.user.type == UserType.Student;
+                this.isProfessor = this.user.type == UserType.Professor;
+                if (this.user.tags) {
+                    this.userTags = this.user.tags.join();
+                }
+                this.getItems();
+            });
+        });
+    }
+
+    getUsers() {
+    this.usersService.getUsers().subscribe(users => {
+        console.log(users)
+        this.Users = users;
     });
-  }
+    }
 
-  getItems() {
-    this.itemsService.getUserItems(this.user.uid).subscribe(data => {
-      this.items = data.map(e => {
-        return {
-          id: e.payload.doc.id,
-          ...e.payload.doc.data()
-        };
-      });
-      console.log(this.items);
-      this.isLoading = false;
-    });
-  }
+    getItems() {
+        this.itemsService.getUserItems(this.user.uid).subscribe(data => {
+            this.items = data.map(e => {
+                return {
+                    id: e.payload.doc.id,
+                    ...e.payload.doc.data()
+                };
+            });
+            console.log(this.items);
+            this.isLoading = false;
+        });
+    }
 
-  saveUserData() {
-    return this.authService.updateUser(this.user);
-  }
+    saveUserData() {
+        return this.authService.updateUser(this.user);
+    }
 
-  addVacancy() {
-    this.vacancyToAdd.type = ItemType.Vacancy;
-    this.vacancyToAdd.user = this.authService.currentUser;
-    this.vacancyToAdd.tags = this.vacancyToAddTags.split(',');
-    this.vacancyToAdd.createDate = Date.now();
-    this.itemsService.createItem(this.vacancyToAdd);
-  }
+    addVacancy() {
+        this.vacancyToAdd.type = ItemType.Vacancy;
+        this.vacancyToAdd.user = this.authService.currentUser;
+        this.vacancyToAdd.tags = this.vacancyToAddTags.split(',');
+        this.vacancyToAdd.createDate = Date.now();
+        this.itemsService.createItem(this.vacancyToAdd);
+    }
 
-  addFacility() {
-    this.facilityToAdd.type = ItemType.Facility;
-    this.facilityToAdd.user = this.authService.currentUser;
-    this.facilityToAdd.tags = this.facilityToAddTags.split(',');
-    this.facilityToAdd.createDate = Date.now();
-    this.itemsService.createItem(this.facilityToAdd);
-  }
+    addFacility() {
+        this.facilityToAdd.type = ItemType.Facility;
+        this.facilityToAdd.user = this.authService.currentUser;
+        this.facilityToAdd.tags = this.facilityToAddTags.split(',');
+        this.facilityToAdd.createDate = Date.now();
+        this.itemsService.createItem(this.facilityToAdd);
+    }
 
-  changeCover() {
-    this.statService.missingFeature('user-changeCover');
-  }
+    changeCover() {
+        this.statService.missingFeature('user-changeCover');
+    }
 
-  updateSkills() {
-    this.user.tags = this.userTags.split(',');
-    this.saveUserData();
-  }
+    updateSkills() {
+        this.user.tags = this.userTags.split(',');
+        this.saveUserData();
+    }
 
-  addPost() {
-    this.postToAdd.type = ItemType.Post;
-    this.postToAdd.user = this.authService.currentUser;
-    this.postToAdd.createDate = Date.now();
-    this.itemsService.createItem(this.postToAdd);
-  }
+    addPost() {
+        this.postToAdd.type = ItemType.Post;
+        this.postToAdd.user = this.authService.currentUser;
+        this.postToAdd.createDate = Date.now();
+        this.itemsService.createItem(this.postToAdd);
+    }
 
-  updateKnowledge() {
-    this.user.knowledge = this.userKnowledge.split(',');
-    this.saveUserData();
-  }
+    updateKnowledge() {
+        this.user.knowledge = this.userKnowledge.split(',');
+        this.saveUserData();
+    }
 
-  updateInterests() {
-    this.user.interests = this.userInterests.split(',');
-    this.saveUserData();
-  }
+    updateInterests() {
+        this.user.interests = this.userInterests.split(',');
+        this.saveUserData();
+    }
 
-  addExperience() {
-    this.user.experience.push(this.experienceToAdd);
-    this.saveUserData().then(res => {
-      this.experienceToAdd = new UserExperiance();
-    });
-  }
+    addExperience() {
+        this.user.experience.push(this.experienceToAdd);
+        this.saveUserData().then(res => {
+            this.experienceToAdd = new UserExperiance();
+        });
+    }
 
-  removeExperience(item: UserExperiance) {
-    this.user.experience.splice(this.user.experience.indexOf(item), 1);
-    this.saveUserData();
-  }
+    removeExperience(item: UserExperiance) {
+        this.user.experience.splice(this.user.experience.indexOf(item), 1);
+        this.saveUserData();
+    }
 
-  addAccomplishment() {
-    this.user.accomplishment.push(this.accomplishmentToAdd);
-    this.saveUserData().then(res => {
-      this.accomplishmentToAdd = new UserExperiance();
-    });
-  }
+    addAccomplishment() {
+        this.user.accomplishment.push(this.accomplishmentToAdd);
+        this.saveUserData().then(res => {
+            this.accomplishmentToAdd = new UserExperiance();
+        });
+    }
 
-  removeAccomplishment(item: UserExperiance) {
-    this.user.accomplishment.splice(this.user.accomplishment.indexOf(item), 1);
-    this.saveUserData();
-  }
+    removeAccomplishment(item: UserExperiance) {
+        this.user.accomplishment.splice(this.user.accomplishment.indexOf(item), 1);
+        this.saveUserData();
+    }
 }
