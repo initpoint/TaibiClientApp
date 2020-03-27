@@ -3,42 +3,24 @@
     <div class="main-section cat-navbar">
       <div class="container">
         <div class="main-section-data">
-          <div class="row ml-5 mb-4">
-            <div class="col-11">
-              <div class="row">
-                <div class="col">
-                  <button class="btn btn-light cat-btn" (click)="changeCurrentType(0)">All</button>
-                </div>
-                <div class="col">
-                  <button class="btn btn-light cat-btn" (click)="changeCurrentType(1)">Vacancies</button>
-                </div>
-                <div class="col">
-                  <button class="btn btn-light cat-btn" (click)="changeCurrentType(2);notAvailable('grants')">Grants
-                  </button>
-                </div>
-                <div class="col">
-                  <button class="btn btn-light cat-btn" (click)="changeCurrentType(3);notAvailable('events')">Events & Conferences
-                  </button>
-                </div>
-                <div class="col">
-                  <button class="btn btn-light cat-btn" (click)="changeCurrentType(4)">Facilities</button>
-                </div>
-                <div class="col">
-                  <button class="btn btn-light cat-btn" (click)="changeCurrentType(5);notAvailable('programs')">Programs
-                  </button>
-                </div>
-                <div class="col">
-                  <button class="btn btn-light cat-btn" (click)="changeCurrentType(6)">Posts
-                  </button>
-                </div>
-                <div class="col university-border">
-                  <button class="btn btn-light cat-btn" (click)="notAvailable('universities')">Universities</button>
-                </div>
-                <div class="col">
-                  <button class="btn btn-light cat-btn" (click)="notAvailable('people')">Directory</button>
-                </div>
-              </div>
-            </div>
+          <div class="row mb-4">
+            <button class="col mr-2 btn btn-light cat-btn" (click)="changeCurrentType(0)">All</button>
+            <button class="col mr-2 btn btn-light cat-btn" (click)="changeCurrentType(1)">Vacancies</button>
+            <button class="col mr-2 btn btn-light cat-btn" (click)="changeCurrentType(2);notAvailable('grants')">Grants
+            </button>
+            <button class="col mr-2 btn btn-light cat-btn" (click)="changeCurrentType(3);notAvailable('events')">
+              Events & Conferences
+            </button>
+            <button class="col mr-2 btn btn-light cat-btn" (click)="changeCurrentType(4)">Facilities</button>
+            <button class="col mr-2 btn btn-light cat-btn" (click)="changeCurrentType(5);notAvailable('programs')">
+              Programs
+            </button>
+            <button class="col mr-2 btn btn-light cat-btn" (click)="changeCurrentType(6)">Posts</button>
+            <div class="university-border mr-2"></div>
+            <button class="col mr-2 btn btn-light cat-btn" (click)="notAvailable('universities')">
+              Universities
+            </button>
+            <button class="col btn btn-light cat-btn" (click)="notAvailable('people')">Directory</button>
           </div>
           <app-items-components></app-items-components>
         </div>

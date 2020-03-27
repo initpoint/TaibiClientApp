@@ -6,11 +6,11 @@ import {LoginVM} from '../models/login.model';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {AppUser} from '../models/user.model';
 import {RegisterVM} from '../models/register.model';
-import {ItemsService} from './Items.service';
 import {Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {map} from 'rxjs/operators';
+import * as firebase from 'firebase';
 
 @Injectable({
   providedIn: 'root'
@@ -57,26 +57,18 @@ export class AuthService {
   updateUser(user: AppUser) {
     Object.keys(user).forEach(key => user[key] === undefined ? delete user[key] : {});
     if (user.experience) {
-      user.experience.map(item => {
-        Object.keys(item).forEach(key => item[key] === undefined ? delete item[key] : {});
-      });
+      user.experience.map(item => Object.keys(item).forEach(key => item[key] === undefined ? delete item[key] : {}));
     }
     if (user.accomplishment) {
-      user.accomplishment.map(item => {
-        Object.keys(item).forEach(key => item[key] === undefined ? delete item[key] : {});
-      });
+      user.accomplishment.map(item => Object.keys(item).forEach(key => item[key] === undefined ? delete item[key] : {}));
     }
 
     const o = {experience: [], accomplishment: []};
     Object.keys(user).map(key => {
       if (key === 'experience') {
-        o['experience'] = user.experience.map(item => {
-          return {...item};
-        });
+        o['experience'] = user.experience.map(item => ({...item}));
       } else if (key === 'accomplishment') {
-        o['accomplishment'] = user.accomplishment.map(item => {
-          return {...item};
-        });
+        o['accomplishment'] = user.accomplishment.map(item => ({...item}));
       } else {
         o[key] = user[key];
       }
@@ -106,7 +98,6 @@ export class AuthService {
     return from(userAuthProimse);
   }
 
-
   createUser(user: AppUser) {
     Object.keys(user).forEach(key => user[key] === undefined && delete user[key]);
     const o = {};
@@ -115,7 +106,6 @@ export class AuthService {
       this.toastrService.success('User Created.');
     });
   }
-
 
   getUsers() {
     return this.db.collection<AppUser>('users').snapshotChanges().pipe(
@@ -126,5 +116,28 @@ export class AuthService {
         };
       }))
     );
+  }
+
+  followUser(uid: string) {
+    if (!this.currentUser.followingIds) {
+      this.currentUser.followingIds = [];
+    }
+    this.currentUser.followingIds.push(uid);
+    this.updateUser(this.currentUser).then(() => {
+      this.db.doc(`users/${uid}`).set({followersIds: firebase.firestore.FieldValue.arrayUnion(this.currentUserId)}, {merge: true})
+        .then(() => {
+          this.toastrService.success('Following User.');
+        });
+    });
+  }
+
+  unfollowUser(uid: string) {
+    this.currentUser.followingIds.splice(this.currentUser.followingIds.indexOf(uid), 1);
+    this.updateUser(this.currentUser).then(() => {
+      this.db.doc(`users/${uid}`).set({followersIds: firebase.firestore.FieldValue.arrayRemove(this.currentUserId)}, {merge: true})
+        .then(() => {
+          this.toastrService.success('Unfollowing User.');
+        });
+    });
   }
 }

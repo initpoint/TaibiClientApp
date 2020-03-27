@@ -36,6 +36,7 @@ export class ProfileComponent implements OnInit {
   canEditInfo = false;
   isStudent = false;
   isProfessor = false;
+  isFollowing = false;
 
   Users = [];
   canViewUsers = false;
@@ -57,6 +58,7 @@ export class ProfileComponent implements OnInit {
         this.canEditInfo = this.user.uid === this.authService.currentUserId;
         this.canViewUsers = this.user.uid === this.authService.currentUserId && this.user.type === UserType.Admin;
         this.canFollow = this.user.uid !== this.authService.currentUserId;
+        this.isFollowing = this.user.followersIds.includes(this.authService.currentUserId);
         this.isStudent = this.user.type == UserType.Student;
         this.isProfessor = this.user.type == UserType.Professor;
         if (this.user.tags) {
@@ -157,7 +159,11 @@ export class ProfileComponent implements OnInit {
   }
 
   follow() {
-    this.statService.missingFeature('user-follow');
+    if (!this.isFollowing) {
+      this.authService.followUser(this.user.uid);
+    }else{
+      this.authService.unfollowUser(this.user.uid);
+    }
   }
 
   changeUserState(user: AppUser) {
