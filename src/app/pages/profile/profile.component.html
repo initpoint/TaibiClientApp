@@ -21,8 +21,8 @@
                     <ul class="flw-hr">
                     </ul>
                     <ul class="flw-status">
-                      <li><span>Following</span><b>{{user?.numberOfFollowing}}</b></li>
-                      <li><span>Followers</span><b>{{user?.numberOfFollowers}}</b></li>
+                      <li><span>Following</span><b>{{user.followingIds?.length || 0}}</b></li>
+                      <li><span>Followers</span><b>{{user.followersIds?.length || 0}}</b></li>
                     </ul>
                   </div>
                   <!--user_pro_status end-->
@@ -120,8 +120,16 @@
                           [ngClass]="{'active': currentTab == 7}"
                           (click)="currentTab = 7;getFollowers();">
                         <a title="">
-                          <img src="assets/images/ic6.png" alt="">
+                          <img src="assets/images/ic4.png" alt="">
                           <span>Followers</span>
+                        </a>
+                      </li>
+                      <li data-tab="payment-dd"
+                          [ngClass]="{'active': currentTab == 8}"
+                          (click)="currentTab = 8;getFollowings();">
+                        <a title="">
+                          <img src="assets/images/ic4.png" alt="">
+                          <span>Followings</span>
                         </a>
                       </li>
                     </ul>
@@ -913,6 +921,29 @@
                     <div class="requests-list">
 
                       <div *ngFor="let userData of followers">
+                        <div class="request-details">
+                          <div class="noty-user-img">
+                            <img src="{{userData.coverPhotoUrl}}" alt="">
+                          </div>
+                          <a [routerLink]="['/profile/'+userData.uid]">
+                            <div class="request-info">
+                              <h3>{{userData.name}}</h3>
+                              <span>{{userData.jobTitle}}</span>
+                            </div>
+                          </a>
+
+                        </div>
+                      </div><!--request-detailse end-->
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="product-feed-tab" [ngClass]="{'current': currentTab == 8}">
+                  <div class="acc-setting">
+                    <div class="requests-list">
+
+                      <div *ngFor="let userData of followings">
                         <div class="request-details">
                           <div class="noty-user-img">
                             <img src="{{userData.coverPhotoUrl}}" alt="">

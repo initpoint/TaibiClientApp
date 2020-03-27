@@ -40,6 +40,7 @@ export class ProfileComponent implements OnInit {
 
   allUsers: AppUser[] = [];
   followers: AppUser[] = [];
+  followings: AppUser[] = [];
   canViewUsers = false;
   canFollow = false;
 
@@ -69,6 +70,7 @@ export class ProfileComponent implements OnInit {
           this.userTags = this.user.tags.join();
         }
         this.followers = [];
+        this.followings = [];
         this.currentTab = 1;
         this.getItems();
       });
@@ -84,6 +86,12 @@ export class ProfileComponent implements OnInit {
   getFollowers() {
     this.authService.getFollowers(this.user.uid).subscribe(users => {
       this.followers = users;
+    });
+  }
+
+  getFollowings() {
+    this.authService.getFollowings(this.user.uid).subscribe(users => {
+      this.followings = users;
     });
   }
 

@@ -130,6 +130,18 @@ export class AuthService {
     );
   }
 
+  getFollowings(uid: string) {
+    return this.db.collection<AppUser>('users',
+      ref => ref.where('followersIds', 'array-contains', uid)).snapshotChanges().pipe(
+      map(x => x.map(y => {
+        return {
+          uid: y.payload.doc.id,
+          ...y.payload.doc.data()
+        };
+      }))
+    );
+  }
+
   followUser(uid: string) {
     if (!this.currentUser.followingIds) {
       this.currentUser.followingIds = [];
